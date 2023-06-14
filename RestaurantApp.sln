@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantApp", "Restaurant
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantWebApi", "RestaurantWebApi\RestaurantWebApi.csproj", "{46F823FA-31A3-4684-8571-9BBAE0B78967}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dataRepository", "dataRepository\dataRepository.csproj", "{492CFCEA-33B2-4E94-B9C7-FF29562DDF01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{46F823FA-31A3-4684-8571-9BBAE0B78967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46F823FA-31A3-4684-8571-9BBAE0B78967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46F823FA-31A3-4684-8571-9BBAE0B78967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{492CFCEA-33B2-4E94-B9C7-FF29562DDF01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{492CFCEA-33B2-4E94-B9C7-FF29562DDF01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{492CFCEA-33B2-4E94-B9C7-FF29562DDF01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{492CFCEA-33B2-4E94-B9C7-FF29562DDF01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
