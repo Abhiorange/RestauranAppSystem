@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿// krunal comment
+
+
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -19,6 +22,7 @@ namespace RestaurantApp.Areas.admin.Controllers
         private readonly IConfiguration _configuration;
         Uri baseAddress = new Uri("https://localhost:7189/api");
         //gtgfityiytgi sjfvbsfvbisfhvbfbvohb
+        
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
