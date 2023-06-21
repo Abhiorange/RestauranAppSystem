@@ -8,10 +8,9 @@ namespace RestaurantWebApi.Areas.admin.Controllers
     public class AdminController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Login(CompanyLoginVm model)
-        {
-            return Ok(); 
+        public IActionResult Login(CompanyLoginVm model)        {
+            return Ok();
         }
-       
+
     }
 }
