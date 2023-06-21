@@ -18,7 +18,7 @@ namespace RestaurantApp.Areas.admin.Controllers
         private readonly HttpClient _client;
         private readonly IConfiguration _configuration;
         Uri baseAddress = new Uri("https://localhost:7189/api");
-        //gtgfityiytgi
+        //gtgfityiytgi sjfvbsfvbisfhvbfbvohb
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
