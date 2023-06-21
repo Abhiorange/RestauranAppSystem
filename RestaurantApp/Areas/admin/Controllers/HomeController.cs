@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Security.Claims;
 using ViewModels.Models;
 using System.Text;
+using System.Net;
 
 namespace RestaurantApp.Areas.admin.Controllers
 {
@@ -17,7 +18,7 @@ namespace RestaurantApp.Areas.admin.Controllers
         private readonly HttpClient _client;
         private readonly IConfiguration _configuration;
         Uri baseAddress = new Uri("https://localhost:7189/api");
-
+        //gtgfityiytgi
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
@@ -39,11 +40,10 @@ namespace RestaurantApp.Areas.admin.Controllers
                 {
                     string serializedData = JsonConvert.SerializeObject(model);
                     StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                 
                     HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/Login", stringContent).Result;
                     if (response.IsSuccessStatusCode)
                     {
-                  
+
                         var content = response.Content.ReadAsStringAsync().Result;
 
                         if (content == "false")
@@ -53,11 +53,9 @@ namespace RestaurantApp.Areas.admin.Controllers
                         }
                         else
                         {
-                         
-                          
-                                TempData["success"] = "Logged in done succesfully";
-                                return Redirect("Register");
-                            
+                            TempData["success"] = "Logged in done succesfully";
+                            return Redirect("Register");
+
                         }
                     }
                 }
@@ -97,3 +95,51 @@ namespace RestaurantApp.Areas.admin.Controllers
         }
     }
 }
+
+/*try
+{
+    string serializedData = JsonConvert.SerializeObject(model);
+
+    using (WebClient client = new WebClient())
+    {
+        client.Headers[HttpRequestHeader.ContentType] = "application/json";
+        string response = client.UploadString(_client.BaseAddress + "/Admin/Login", serializedData);
+
+        if (response == "false")
+        {
+            TempData["error"] = "Invalid Credential";
+            return View("Index");
+        }
+        else
+        {
+            TempData["success"] = "Logged in successfully";
+            return Redirect("Register");
+        }
+    }
+}*/
+
+/*try
+{
+    string serializedData = JsonConvert.SerializeObject(model);
+    StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+
+    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _client.BaseAddress + "/Admin/Login");
+    request.Content = stringContent;
+
+    HttpResponseMessage response = _client.SendAsync(request).Result;
+    if (response.IsSuccessStatusCode)
+    {
+        var content = response.Content.ReadAsStringAsync().Result;
+
+        if (content == "false")
+        {
+            TempData["error"] = "Invalid Credential";
+            return View("Index");
+        }
+        else
+        {
+            TempData["success"] = "Logged in successfully";
+            return Redirect("Register");
+        }
+    }
+}*/
