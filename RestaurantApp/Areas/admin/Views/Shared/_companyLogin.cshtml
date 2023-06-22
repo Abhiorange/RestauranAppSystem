@@ -1,4 +1,5 @@
-﻿<div class="col-7 px-0" style="background-color: #f7f7f7; height: auto; box-shadow: 4px 5px 5px #6c757d;">
+﻿@model ViewModels.Models.CompanyLoginVm
+<div class="col-7 px-0" style="background-color: #f7f7f7; height: auto; box-shadow: 4px 5px 5px #6c757d;">
     <div class="page-top" style="">
         <div class="lockIcon mt-4">
             <img id="mainicon" src="~/images/fries.png" style="height: 60px;" alt="">
@@ -7,13 +8,22 @@
         <p class="mt-2">Company Login Page</p>
     </div>
     <div class="container mb-4" style="display:flex;justify-content:center">
-        <form class="mt-5 formm" id="formm">
+        <form class="mt-5 formm" id="formm" asp-action="Login" asp-controller="home">
+            @if (TempData["ErrorMessage"] != null)
+                {
+                    <span class="text-danger">@TempData["ErrorMessage"]</span>
+                }
+                 @if (TempData["success"] != null)
+                {
+                <script>toastr.success('Registered Succesfull');</script>
+                }
             <div class="mb-3">
                 <label for="companyName" class="form-label">
                     <p class="formInput">Company Name <span style="color: red;">*</span></p>
                 </label>
-                <input type="name" class="form-control data" name="name" id="companyName"
-                       aria-describedby="" placeholder="company name">
+                <input type="name" class="form-control data"  id="companyName"
+                       aria-describedby="" placeholder="company name" asp-for="name">
+                <span asp-validation-for="name" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
@@ -21,11 +31,12 @@
                     <p class="formInput">Password <span style="color: red;">*</span></p>
                 </label>
                 <input type="password" class="form-control data" id="exampleInputPassword1"
-                       placeholder="**********">
+                       placeholder="**********" asp-for="password">
+                <span asp-validation-for="password" class="text-danger"></span>
             </div>
 
             <div style="display: flex;justify-content: center;">
-                <button type="button" value="submit" class="btn submit"
+                <button type="submit" class="btn submit"
                         style="background-color: red;color: white;border-radius: 7px;">
                     Log In
                 </button>

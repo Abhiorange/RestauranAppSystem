@@ -63,7 +63,7 @@ namespace dataRepository.Repository
         {
             using (SqlConnection con = new SqlConnection(connections))
             {
-                SqlCommand cmd = new SqlCommand("spInsertCompany", con);
+                SqlCommand cmd = new SqlCommand("spInsertComapny", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@name", model.companyName);
                 cmd.Parameters.AddWithValue("@companyCode", model.companyCode);
@@ -108,7 +108,7 @@ namespace dataRepository.Repository
                 {
                     Userinfo user = new Userinfo
                     {  
-                        UserId= Convert.ToInt32(rdr["id"]),
+                        UserId= Convert.ToInt32(rdr["UserId"]),
                         name = rdr["UserName"].ToString(),
                         email = rdr["UserEmail"].ToString(),
                         contact = Convert.ToInt64(rdr["UserContact"]),
@@ -161,6 +161,21 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@email", model.email);
                 cmd.Parameters.AddWithValue("@companyId", model.companyId);
                 cmd.Parameters.AddWithValue("@password", model.password);
+                con.Open();
+
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
+        public int addcategory(CategoryVm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("spInsertCategory", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@categoryname", model.name);
+               
                 con.Open();
 
                 int i = cmd.ExecuteNonQuery();

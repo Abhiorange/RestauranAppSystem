@@ -1,11 +1,11 @@
 ﻿
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>*@
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="~/css/respos.css">
-@*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>*@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 
 
@@ -43,7 +43,14 @@
         <button type="button" onclick="companyRegister()" class="pages">
             <div style="">Company Register</div>
         </button>
-
+        <hr>
+         <button class="pages" onclick="AllUsers()" class="pages">
+          <div style="">All Users</div>
+        </button>
+        <hr>
+        <button class="pages" onclick="categories()">
+          <div style="">All Users</div>
+        </button>
     </div>
 
 
@@ -99,7 +106,9 @@
         <button type="button" onclick="companyRegister()" class="pages">
             <div style="">Company Register</div>
         </button>
-
+        <button class="pages" onclick="AllUsers()">
+          <div style="">All Users</div>
+        </button>
     </div>
 
 
@@ -167,11 +176,15 @@
         <div id="PartialView" style="display: flex;justify-content: center;">
             @if (ViewBag.FormName == "company")
             {
-                <partial name="_CompanyLoginForm" />
+                <partial name="_companyLogin" />
             }
             else if (ViewBag.FormName == "user")
             {
                 <partial name="_UserLogin" />
+            }
+            else if(ViewBag.FormName == "board")
+            {
+                <partial name="_dashboard" />
             }
             else if (ViewBag.FormName == null)
             {
@@ -278,7 +291,35 @@
     function userLogin() {
         $.ajax({
             method: 'GET',
-            url: "/Home/userLogin",
+            url: "/admin/Home/userLogin",
+            success: function (res) {
+                $("#PartialView").html(res)
+            },
+            error: function () {
+                alert("error");
+            },
+
+        })
+    }
+    function categories()
+    {
+         $.ajax({
+            method: 'GET',
+            url: "/admin/Home/categories",
+            success: function (res) {
+                $("#PartialView").html(res)
+            },
+            error: function () {
+                alert("error");
+            },
+
+        })
+    }
+    function AllUsers()
+    {alert('All users');
+       $.ajax({
+            method: 'GET',
+            url: "/admin/Home/AllUsers",
             success: function (res) {
                 $("#PartialView").html(res)
             },
@@ -304,12 +345,19 @@
     }
 
       function companyLogin() {
+          alert('hii login');
         $.ajax({
             method: 'GET',
-            url: "/Home/companyLogin",
+            url: "/admin/Home/companyLogin",
+
+            data:{
+            formName:"company",
+        },
             success: function (res) {
+             
                 $("#PartialView").html(res)
             },
+            
             error: function () {
                 alert("error");
             },
@@ -318,9 +366,10 @@
     }
 
     function companyRegister() {
+        alert('hii regist')
         $.ajax({
             method: 'GET',
-            url: "/Home/companyRegister",
+            url: "/admin/Home/companyRegister",
             success: function (res) {
                 $("#PartialView").html(res)
             },
@@ -331,6 +380,6 @@
         })
     }
     </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 

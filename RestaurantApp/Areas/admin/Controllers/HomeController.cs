@@ -31,31 +31,88 @@ namespace RestaurantApp.Areas.admin.Controllers
         {
             return View();
         }
-        public IActionResult userLogin(string formName = null, string errorm = null)
+        public IActionResult userLogin(string formName = null, string errorm = null,string flag=null)
         {
-            ViewBag.FormName = formName;
-            TempData["error"] = errorm;
-            return View("Index");
+            if(flag==null)
+            {
+                return PartialView("_userLogin");
+            }
+            else
+            {
+                ViewBag.FormName = formName;
+                TempData["error"] = errorm;
+                return View("Index");
+            }
+          
         }
 
         [HttpGet]
         public IActionResult userRegister1()
         {
-            return PartialView("_userRegister");
-        }
+            UserRegisterVm model = new UserRegisterVm();
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/UserRegister").Result;
 
-        public IActionResult companyLogin()
+            if (response.IsSuccessStatusCode)
+            {
+                var companiesJson = response.Content.ReadAsStringAsync().Result;
+                model.Companies = JsonConvert.DeserializeObject<List<SelectListItem>>(companiesJson);
+            }
+            return PartialView("_userRegister",model);
+        }
+        [HttpGet]
+        public IActionResult Dashboard(string formName = null)
         {
+            ViewBag.FormName = formName;
+            return View("Index");
+        }
+        public IActionResult companyLogin(string formName = null, string errorm = null,string successm=null)
+        {
+            ViewBag.FormName = formName;
+            TempData["error"] = errorm;
+            TempData["sucess"] = successm;
             return PartialView("_companyLogin");
         }
-        public IActionResult companyRegister()
+        public IActionResult companyRegister(string formName=null,string flag=null)
         {
-            return PartialView("_companyRegister");
+            if(flag==null)
+            {
+                return PartialView("_companyRegister");
+            }
+            else
+            {
+                ViewBag.FormName = formName;
+                return View("Index");
+            }
+           
         }
-        public IActionResult dashborad()
+        [HttpGet]
+        public IActionResult categories()
         {
-            return View();
+            return PartialView("_categoryForm");
         }
+        [HttpPost]
+        public IActionResult AddCategories(CategoryVm model)
+        {
+            try
+            {
+                string serializedData = JsonConvert.SerializeObject(model);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/AddCategory", stringContent).Result;
+
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("Dashboard", new { formName = "board" });
+        }
+
         [HttpPost]
         public IActionResult Login(CompanyLoginVm model)//for company login
         {
@@ -80,7 +137,7 @@ namespace RestaurantApp.Areas.admin.Controllers
                         else
                         {
                                 TempData["success"] = "Logged in done succesfully";
-                                return Redirect("dashborad");          
+                            return RedirectToAction("Dashboard", new { formName = "board" });
                         }
                     }
                 }
@@ -97,11 +154,7 @@ namespace RestaurantApp.Areas.admin.Controllers
             }
             return View("Index");
         }
-       
-       /* public IActionResult UserLogin() //For User Login
-        {
-            return View();
-        }*/
+    
         [HttpPost]
         public IActionResult UserLogin(UserLoginVm model) //For User Login
         {
@@ -125,7 +178,7 @@ namespace RestaurantApp.Areas.admin.Controllers
                         else
                         {
                             TempData["success"] = "Logged in done succesfully";
-                            return Redirect("dashborad");
+                            return RedirectToAction("Dashboard", new {formName="board"});
                         }
                     }
                 }
@@ -169,21 +222,9 @@ namespace RestaurantApp.Areas.admin.Controllers
                     return View("Index");
                 }
             }
-            return View("Index");
+            return RedirectToAction("companyRegister", new { formName = "company",flag="set" });
         }
-        [HttpGet]
-        public IActionResult UserRegister() //for taking All companies
-        {
-            UserRegisterVm model = new UserRegisterVm();
-            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/UserRegister").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                var companiesJson = response.Content.ReadAsStringAsync().Result;
-                model.Companies = JsonConvert.DeserializeObject<List<SelectListItem>>(companiesJson);
-            }
-            return View(model);
-        }
+        
         [HttpGet]
         public IActionResult AllUsers() //rendering the list of users in UI
         {
@@ -197,8 +238,9 @@ namespace RestaurantApp.Areas.admin.Controllers
             return View(model);
 
         }
+
         [HttpPost]
-        public IActionResult UserRegister(UserRegisterVm model)
+        public IActionResult UserAdd(UserRegisterVm model)//Adding users
         {
             PostUserRegisterVm user = new PostUserRegisterVm
             {
@@ -226,8 +268,8 @@ namespace RestaurantApp.Areas.admin.Controllers
                     ViewData["ErrorMessage"] = "Error: " + ex.Message;
                     return View("Index");
                 }
-            
-            return RedirectToAction("Index");
+
+            return RedirectToAction("userLogin", new { formName = "user", flag = "set" });
         }
         [HttpGet]
         public IActionResult GetUserById(int id)
