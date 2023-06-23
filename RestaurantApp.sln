@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantWebApi", "Restaur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dataRepository", "dataRepository\dataRepository.csproj", "{492CFCEA-33B2-4E94-B9C7-FF29562DDF01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{DD076F51-53F7-4D76-AC1D-9492E41ED8DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\ViewModels.csproj", "{DD076F51-53F7-4D76-AC1D-9492E41ED8DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

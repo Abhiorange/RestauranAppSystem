@@ -140,7 +140,9 @@ namespace dataRepository.Repository
                         contact = rdr["contact"].ToString(),
                         password = rdr["password"].ToString(),
                         email = rdr["email"].ToString(),
-                        companyId = Convert.ToInt32(rdr["companyId"])
+                        companyId = Convert.ToInt32(rdr["companyId"]),
+                        isactive = Convert.ToInt32(rdr["isActive"])
+                        
                     };
                  
                 }
@@ -168,21 +170,7 @@ namespace dataRepository.Repository
                 return i;
             }
         }
-        public int addcategory(CategoryVm model)
-        {
-            using (SqlConnection con = new SqlConnection(connections))
-            {
-                SqlCommand cmd = new SqlCommand("spInsertCategory", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@categoryname", model.name);
-               
-                con.Open();
-
-                int i = cmd.ExecuteNonQuery();
-
-                return i;
-            }
-        }
+       
         public int EditUser(PostUserEditVm model)
         {
             using (SqlConnection con = new SqlConnection(connections))
@@ -195,11 +183,12 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@email", model.email);
                 cmd.Parameters.AddWithValue("@companyId", model.companyId);
                 cmd.Parameters.AddWithValue("@password", model.password);
+                cmd.Parameters.AddWithValue("@isactive", model.isactive);
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
                 return i;
             }
-        }
+        }     
         public int deleteUserById(int id)
         {
             using (SqlConnection con = new SqlConnection(connections))

@@ -33,7 +33,7 @@ namespace RestaurantApp.Areas.admin.Controllers
         }
         public IActionResult userLogin(string formName = null, string errorm = null,string flag=null)
         {
-            if(flag==null)
+            if (flag == null)
             {
                 return PartialView("_userLogin");
             }
@@ -43,11 +43,12 @@ namespace RestaurantApp.Areas.admin.Controllers
                 TempData["error"] = errorm;
                 return View("Index");
             }
-          
+
+
         }
 
         [HttpGet]
-        public IActionResult userRegister1()
+        public IActionResult userRegister1()//for user register
         {
             UserRegisterVm model = new UserRegisterVm();
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/UserRegister").Result;
@@ -85,33 +86,8 @@ namespace RestaurantApp.Areas.admin.Controllers
             }
            
         }
-        [HttpGet]
-        public IActionResult categories()
-        {
-            return PartialView("_categoryForm");
-        }
-        [HttpPost]
-        public IActionResult AddCategories(CategoryVm model)
-        {
-            try
-            {
-                string serializedData = JsonConvert.SerializeObject(model);
-                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/AddCategory", stringContent).Result;
-
-            }
-            catch (HttpRequestException ex)
-            {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
-            }
-            catch (Exception ex)
-            {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
-            }
-            return RedirectToAction("Dashboard", new { formName = "board" });
-        }
+       
+        
 
         [HttpPost]
         public IActionResult Login(CompanyLoginVm model)//for company login
@@ -240,7 +216,7 @@ namespace RestaurantApp.Areas.admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserAdd(UserRegisterVm model)//Adding users
+        public IActionResult UserAdd(UserRegisterVm model)//Adding users post method for UserRegister
         {
             PostUserRegisterVm user = new PostUserRegisterVm
             {
@@ -283,35 +259,18 @@ namespace RestaurantApp.Areas.admin.Controllers
             }
             return View("UserEditPage", model);
         }
-        public IActionResult DeleteUserById(int id)
-        {
-            try
-            {
-                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/DeleteUserById/"+id).Result;
-            }
-            catch (HttpRequestException ex)
-            {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
-            }
-            catch (Exception ex)
-            {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
-            }
-            return RedirectToAction("AllUsers");
-        }
         [HttpPost]
         public IActionResult GetUserById(UserEditVm model)
         {
             PostUserEditVm user = new PostUserEditVm
             {
-                UserId=model.UserId,
-                name=model.name,
-                password=model.password,
-                companyId=model.companyId,
-                email=model.email,
-                contact=model.contact
+                UserId = model.UserId,
+                name = model.name,
+                password = model.password,
+                companyId = model.companyId,
+                email = model.email,
+                contact = model.contact,
+                isactive=model.isactive
             };
             try
             {
@@ -332,6 +291,25 @@ namespace RestaurantApp.Areas.admin.Controllers
             }
             return RedirectToAction("AllUsers");
         }
+        public IActionResult DeleteUserById(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/DeleteUserById/"+id).Result;
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("AllUsers");
+        }
+        
         public IActionResult Privacy()
         {
             return View();

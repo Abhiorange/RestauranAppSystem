@@ -1,16 +1,16 @@
-﻿
-
-@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+﻿@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">*@
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>*@
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+@*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+*@
 <link rel="stylesheet" href="~/css/respos.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-
+@*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+*@
 
 
 <!-- toggle starts -->
+
 
 <div id="mySidebar" class="sidebar">
     <div class="toggle-nav" style="">
@@ -44,12 +44,24 @@
             <div style="">Company Register</div>
         </button>
         <hr>
-         <button class="pages" onclick="AllUsers()" class="pages">
-          <div style="">All Users</div>
+        <button class="pages" onclick="AllUsers()" class="pages">
+            <div style="">All Users</div>
         </button>
         <hr>
         <button class="pages" onclick="categories()">
-          <div style="">All Users</div>
+            <div style="">Categories Form</div>
+        </button>
+        <hr>
+        <button class="pages" onclick="AllCategories()" class="pages">
+            <div style="">All Categories</div>
+        </button>
+        <hr>
+        <button class="pages" onclick="ProductForm()" class="pages">
+            <div style="">Product Form</div>
+        </button>
+        <hr>
+        <button class="pages" onclick="AllProducts()" class="pages">
+            <div style="">All Products</div>
         </button>
     </div>
 
@@ -107,7 +119,7 @@
             <div style="">Company Register</div>
         </button>
         <button class="pages" onclick="AllUsers()">
-          <div style="">All Users</div>
+            <div style="">All Users</div>
         </button>
     </div>
 
@@ -168,7 +180,6 @@
         </div>
     </div>
 </div>
-
 <div class="container-fluid" style=" height: 700px;">
 
     <div class="row page" style="">
@@ -301,11 +312,25 @@
 
         })
     }
+    function ProductForm()
+    {
+        $.ajax({
+            method: 'GET',
+            url: "/product/Product/ProductAddForm",
+            success: function (res) {
+                $("#PartialView").html(res)
+            },
+            error: function () {
+                alert("error");
+            },
+
+        })
+    }
     function categories()
     {
          $.ajax({
             method: 'GET',
-            url: "/admin/Home/categories",
+            url: "/category/Category/categories",
             success: function (res) {
                 $("#PartialView").html(res)
             },
@@ -321,6 +346,22 @@
             method: 'GET',
             url: "/admin/Home/AllUsers",
             success: function (res) {
+                console.log("result",res);
+                $("#PartialView").html(res)
+            },
+            error: function () {
+                alert("error");
+            },
+
+        })
+    }
+    function AllProducts()
+    {
+     $.ajax({
+            method: 'GET',
+            url: "/product/Product/AllProducts",
+            success: function (res) {
+                console.log("result",res);
                 $("#PartialView").html(res)
             },
             error: function () {
@@ -364,6 +405,19 @@
 
         })
     }
+    function AllCategories(){
+          $.ajax({
+            method: 'GET',
+            url: "/category/Category/AllCategories",
+            success: function (res) {
+                $("#PartialView").html(res)
+            },
+            error: function () {
+                alert("error");
+            },
+
+        })
+    }
 
     function companyRegister() {
         alert('hii regist')
@@ -381,5 +435,5 @@
     }
     </script>
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>*@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>*@
 

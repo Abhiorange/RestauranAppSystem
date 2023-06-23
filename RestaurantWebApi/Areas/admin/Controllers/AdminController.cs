@@ -103,19 +103,7 @@ namespace RestaurantWebApi.Areas.admin.Controllers
                 return Content("false");
             }
         }
-        [HttpPost]
-        public IActionResult AddCategory(CategoryVm model)
-        {
-            var i = _companyrepo.addcategory(model);
-            if (i > 0)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest("Not Updated");
-            }
-        }
+       
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
@@ -131,6 +119,7 @@ namespace RestaurantWebApi.Areas.admin.Controllers
                 user.password = model.password;
                 user.Companies = companies;
                 user.UserId = id;
+                user.isactive = model.isactive;
                 return Ok(user);
             }
             catch (Exception ex)

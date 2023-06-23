@@ -29,6 +29,12 @@
     <Folder Include="Areas\admin\Data\" />
     <Folder Include="Areas\admin\Models\" />
     <Folder Include="Areas\admin\Views\" />
+    <Folder Include="Areas\category\Data\" />
+    <Folder Include="Areas\category\Models\" />
+    <Folder Include="Areas\category\Views\" />
+    <Folder Include="Areas\product\Data\" />
+    <Folder Include="Areas\product\Models\" />
+    <Folder Include="Areas\product\Views\" />
   </ItemGroup>
 
 </Project>

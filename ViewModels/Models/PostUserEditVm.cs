@@ -14,6 +14,7 @@ namespace ViewModels.Models
         public int UserId { get; set; }
         public string password { get; set; }
         public int companyId { get; set; }
+        public int isactive { get; set; }
 
     }
 }
