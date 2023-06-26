@@ -26,8 +26,53 @@ namespace RestaurantApp.Areas.admin.Controllers
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
         }
-     
-      
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Index(UserLoginVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string serializedData = JsonConvert.SerializeObject(model);
+                    StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/UserLogin", stringContent).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        var content = response.Content.ReadAsStringAsync().Result;
+
+                        if (content == "false")
+                        {
+                            TempData["error"] = "Invalid Credential";
+                            return View("Index");
+                        }
+                        else
+                        {
+                            TempData["success"] = "Logged in done succesfully";
+                            return View("UserLogin");
+                        }
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                    return View("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                    return View("Index");
+                }
+            }
+            return RedirectToAction("AllUsers");
+        }
         [HttpGet]
         public IActionResult UserLogin() //User Login GET
         {

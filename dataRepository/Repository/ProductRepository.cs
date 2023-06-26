@@ -71,6 +71,7 @@ namespace dataRepository.Repository
                        categoryname= rdr["CategoryName"].ToString(),
                        unit= Convert.ToInt32(rdr["Units"]),
                        unitprice = Convert.ToInt64(rdr["UnitPrice"]),
+                        isactive = Convert.ToInt32(rdr["isactive"])
 
                     };
 
