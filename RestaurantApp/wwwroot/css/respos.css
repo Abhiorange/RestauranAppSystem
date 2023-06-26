@@ -90,7 +90,7 @@ ul {
 }
 
 .page {
-    margin-top: 60px;
+
     display: flex;
     justify-content: center;
     height: 620px;
@@ -105,10 +105,34 @@ ul {
     align-items: center;
 }
 
+.resTitle {
+    position: absolute;
+    background-color: #ffe599;
+    width: 302px;
+    top: 13px;
+    display: flex;
+    justify-content: center;
+    border-radius: 11px;
+    border: solid grey 1px;
+    box-shadow: 4px 5px 5px #6c757d;
+    align-items: center
+}
+
+.resp {
+    font-size: xx-large;
+    font-weight: 700;
+    margin: 0px
+}
+
+.burgerImg {
+    height: 50px;
+}
 
 
-
-
+.profileImg {
+    width: 40px;
+    height: 40px;
+}
 
 
 
@@ -178,9 +202,9 @@ ul {
 
     /* The sidebar links */
     .sidebar a {
-        padding: 8px 8px 8px 32px;
+        padding: 1px 1px 1px 3px;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 13px;
         color: #818181;
         display: block;
         transition: 0.2s;
@@ -207,7 +231,7 @@ ul {
     /* 0 width - change this with JavaScript */
     position: fixed;
     /* Stay in place */
-    z-index: 1;
+    z-index: 10;
     /* Stay on top */
     top: 0;
     left: 0;
@@ -323,5 +347,27 @@ ul {
 
     .openbtn2 {
         display: none;
+    }
+}
+@media screen and (max-width: 700px) {
+    .resTitle {
+        width: 201px;
+    }
+
+    .resp {
+        font-size: larger;
+    }
+
+    .profileSpan {
+        display: none
+    }
+
+    .profileImg {
+        height: 29px !important;
+        width: 29px !important;
+    }
+
+    .burgerImg {
+        height: 36px;
     }
 }

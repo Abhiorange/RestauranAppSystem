@@ -6,6 +6,7 @@ using ViewModels.Models;
 
 namespace RestaurantApp.Areas.category.Controllers
 {
+   
     public class CategoryController : Controller
     {
         private readonly ILogger<CategoryController> _logger;
@@ -23,7 +24,7 @@ namespace RestaurantApp.Areas.category.Controllers
         [HttpGet]
         public IActionResult categories()
         {
-            return PartialView("_categoryForms");
+            return View("CategoryForm");
         }
         [HttpPost]
         public IActionResult AddCategories(CategoryVm model)
@@ -45,6 +46,7 @@ namespace RestaurantApp.Areas.category.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
+            TempData["success"] = "Category in added succesfully";
             return RedirectToAction("AllCategories");
         }
 

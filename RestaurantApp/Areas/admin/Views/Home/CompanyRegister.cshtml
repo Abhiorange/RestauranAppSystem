@@ -1,6 +1,6 @@
 ﻿@model ViewModels.Models.CompanyRegisterVm
 
-<div class="col-7 px-0" style="background-color: white;  height: auto;box-shadow: 4px 5px 5px #6c757d;position:relative">
+<div class="col-7 px-0" style="background-color: white;  height: fit-content;box-shadow: 4px 5px 5px #6c757d;position:relative;margin-top:50px">
     <div class="page-top" style="position:relative">
         
         <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
@@ -13,6 +13,8 @@
     </div>
     <div class="container mb-4" style="display:flex;justify-content:center">
         <form class="mt-5 formm" id="formm" asp-action="Register" asp-controller="home">
+            <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+
             <div class="mb-3">
                 <label for="companyName" class="form-label">
                     <p class="formInput">Company Name <span style="color: red;">*</span></p>
@@ -65,8 +67,10 @@
         Log In
     </button>
     </div>
-    <div id="popcorn" style="position:absolute;bottom:0px">
-        <img src="~/images/popcornGif.gif" style="width:100px" />
-    </div>
+     <div style="height:90px ; position:relative">
+            <div id="popcorn" style="position:absolute;bottom:0px">
+                <img src="~/images/popcornGif.gif" style="width:100px" />
+            </div>
+        </div>
 </div>
 

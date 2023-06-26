@@ -15,6 +15,7 @@ namespace dataRepository.Repository
     {
         public string connections = "Server=PCA59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
 
+
         public List<SelectListItem> GetProductList()
         {
             List<SelectListItem> categories = new List<SelectListItem>();
@@ -98,7 +99,7 @@ namespace dataRepository.Repository
                         unitprice= Convert.ToInt64(rdr["unitPrice"]),
                         categoryid= Convert.ToInt32(rdr["categoryId"]),
                         isactive = Convert.ToInt32(rdr["isActive"]),
-
+                        productid = Convert.ToInt32(rdr["id"]),
                     };
 
                 }
@@ -119,6 +120,18 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@unitprice", model.unitprice);
                 cmd.Parameters.AddWithValue("@categoryid", model.categoryid);
                 cmd.Parameters.AddWithValue("@isactive", model.isactive);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+                return i;
+            }
+        }
+        public int deleteProductById(int id)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("DeleteProductById", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", id);
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
                 return i;

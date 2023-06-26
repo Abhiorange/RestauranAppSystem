@@ -21,7 +21,7 @@ namespace RestaurantApp.Areas.product.Controllers
             _client.BaseAddress = baseAddress;
         }
         [HttpGet]
-        public IActionResult ProductAddForm()//for product add
+        public IActionResult ProductForm()//for product add
         {
             ProductAddVm model = new ProductAddVm();
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Product/ProductAdd").Result;
@@ -31,7 +31,7 @@ namespace RestaurantApp.Areas.product.Controllers
                 var categoryJson = response.Content.ReadAsStringAsync().Result;
                 model.Categories = JsonConvert.DeserializeObject<List<SelectListItem>>(categoryJson);
             }
-            return PartialView("_productForm", model);
+            return View(model);
         }
         [HttpGet]
         public IActionResult AllProducts() //rendering the list of users in UI
@@ -73,7 +73,7 @@ namespace RestaurantApp.Areas.product.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-
+            TempData["success"] = "Product Added Scuccesfully";
             return RedirectToAction("AllProducts");
         }
         [HttpGet]
@@ -117,7 +117,26 @@ namespace RestaurantApp.Areas.product.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-            return RedirectToAction("AllUsers");
+            return RedirectToAction("AllProducts");
+        }
+
+        public IActionResult DeleteProductById(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Product/DeleteProductById/" + id).Result;
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("AllProducts");
         }
 
     }

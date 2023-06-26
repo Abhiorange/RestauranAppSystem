@@ -1,6 +1,19 @@
-﻿@model List<ViewModels.Models.CategoryInfo>
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+@model List<ViewModels.Models.CategoryInfo>
 
 <body>
+    <div>
+        @if (TempData["success"] != null)
+        {
+              <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.success('@TempData["success"]');
+            </script>
+        }
+    </div>
 <table class=" table my-2 table-bordered" id="categorytable">
 
                     <thead class="table-dark">
@@ -17,39 +30,39 @@
 
             @foreach (var u in Model)
             {
-                                <tr>
-                                    <td>@u.categoryname</td>
+                                    <tr>
+                                        <td>@u.categoryname</td>
                     @{
-                        if(u.isactive==1)
+                        if (u.isactive == 1)
                         {
-                            <td>Active</td>
+                                        <td>Active</td>
                         }
                         else
                         {
-                            <td>InActive</td>
+                                        <td>InActive</td>
                         }
                     }
-                      <td>@u.stocks</td>
-                                    
-                                   
+                          <td>@u.stocks</td>
 
-                                    <td class="d-flex">
-                                        <button class="btn border-0">
-                            <a asp-action="GetCategoryById" asp-controller="Category" type="button" class="text-warning" onclick="Editform(@u.CategoryId)" asp-route-id="@u.CategoryId">
-                                            <i class="bi bi-pencil-square icon"></i>
-                                            </a> </button>
+
+
+                                        <td class="d-flex">
                                             <button class="btn border-0">
-                                         <a asp-action="DeleteCategoryById" asp-controller="Category" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.CategoryId"><i class="bi bi-trash3"></i></a>
-                                            </button>
-                                    </td>
-                                </tr>
+                                <a asp-action="GetCategoryById" asp-controller="Category" type="button" class="text-warning"  asp-route-id="@u.CategoryId">
+                                                <i class="bi bi-pencil-square icon"></i>
+                                                </a> </button>
+                                                <button class="btn border-0">
+                                             <a asp-action="DeleteCategoryById" asp-controller="Category" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.CategoryId"><i class="bi bi-trash3"></i></a>
+                                                </button>
+                                        </td>
+                                    </tr>
             }
 
 
                     </tbody>
                 </table>
                 <script src="~/lib/jquery/dist/jquery.min.js"></script>
- 
+
        <script>
 $(document).ready(function () {
             $('#categorytable').DataTable({

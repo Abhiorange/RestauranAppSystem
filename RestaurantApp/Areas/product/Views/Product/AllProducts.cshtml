@@ -1,6 +1,19 @@
-﻿@model List<ViewModels.Models.ProductInfo>
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+@model List<ViewModels.Models.ProductInfo>
 
 <body>
+    <div>
+        @if (TempData["success"] != null)
+        {
+              <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.success('@TempData["success"]');
+            </script>
+        }
+    </div>
     <table class=" table my-2 table-bordered" id="producttable">
 
         <thead class="table-dark">
@@ -34,7 +47,7 @@
                             </a>
                         </button>
                         <button class="btn border-0">
-                            <a asp-action="DeleteCategoryById" asp-controller="Product" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.productID"><i class="bi bi-trash3"></i></a>
+                            <a asp-action="DeleteProductById" asp-controller="Product" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.productID"><i class="bi bi-trash3"></i></a>
                         </button>
                     </td>
                 </tr>

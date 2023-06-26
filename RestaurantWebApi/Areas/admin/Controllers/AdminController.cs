@@ -90,6 +90,12 @@ namespace RestaurantWebApi.Areas.admin.Controllers
             var users = _companyrepo.GetUsersList();
             return Ok(users);
         }
+        [HttpGet]
+        public IActionResult AllCompanyInfo()
+        {
+            var companies = _companyrepo.GetCompaniesList();
+            return Ok(companies);
+        }
         [HttpPost]
         public IActionResult UserLogin(UserLoginVm model) //User is Logged in
         {

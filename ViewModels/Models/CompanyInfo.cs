@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace ViewModels.Models
 {
-    public class Userinfo
-    {   
-        public int UserId { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public long contact { get; set; }
+    public class CompanyInfo
+    {
+        public int companyid { get; set; }
         public string companyname { get; set; }
         public int isactive { get; set; }
     }

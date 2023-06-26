@@ -12,18 +12,18 @@ namespace ViewModels.Models
     {
         [Required(ErrorMessage = "Name is required")]
         public string name { get; set; }
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "userCode is required")]
         public string userCode { get; set; }
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "Email is required")]
 
         public string email { get; set; }
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "CompanyId is required")]
         public int companyId { get; set; }
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "Contact is required")]
         public long contact { get; set; }
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "Password is required")]
         public string password { get; set; }
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "Company is required")]
         public List<SelectListItem> Companies { get; set; }
     }
 }

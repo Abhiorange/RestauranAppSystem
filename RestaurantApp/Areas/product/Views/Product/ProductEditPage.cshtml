@@ -1,4 +1,7 @@
-﻿@model ViewModels.Models.ProductEditVm
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+@model ViewModels.Models.ProductEditVm
 
 <body>
     <div class="container mt-2 overflow-tableEntry">
@@ -7,6 +10,8 @@
         </div>
         <div class="border">
             <form method="post" asp-action="GetProductById" asp-controller="Product" class="mx-2">
+                <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+
                 <div class="col-12 d-flex flex-column my-2">
                     <label for="title">ProductName</label>
                     <input type="text" id="title" class="form-control" asp-for="productname">

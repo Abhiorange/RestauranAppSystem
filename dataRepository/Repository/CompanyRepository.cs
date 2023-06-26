@@ -10,7 +10,7 @@ namespace dataRepository.Repository
     {
         public string connections = "Server=PCA59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
 
-         public int loginrepo(CompanyLoginVm model)
+        public int loginrepo(CompanyLoginVm model)
          {
             int userId = 0;
           
@@ -112,7 +112,8 @@ namespace dataRepository.Repository
                         name = rdr["UserName"].ToString(),
                         email = rdr["UserEmail"].ToString(),
                         contact = Convert.ToInt64(rdr["UserContact"]),
-                        companyname = rdr["UserCompany"].ToString()
+                        companyname = rdr["UserCompany"].ToString(),
+                        isactive= Convert.ToInt32(rdr["isactive"])
 
                     };
 
@@ -121,7 +122,31 @@ namespace dataRepository.Repository
                 con.Close();
             }
             return model;
-        } 
+        }
+        public List<CompanyInfo> GetCompaniesList()
+        {
+            List<CompanyInfo> model = new List<CompanyInfo>();
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("GetAllCompanyInformation", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    CompanyInfo company = new CompanyInfo
+                    {
+                       companyid= Convert.ToInt32(rdr["id"]),
+                        companyname = rdr["name"].ToString(),
+                        isactive= Convert.ToInt32(rdr["isActive"]),
+                    };
+
+                    model.Add(company);
+                }
+                con.Close();
+            }
+            return model;
+        }
         public UserEditVm GetUserById(int id)
         {
             UserEditVm model = null;

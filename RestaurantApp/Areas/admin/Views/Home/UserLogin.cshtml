@@ -1,24 +1,28 @@
-﻿@{
+﻿@model ViewModels.Models.UserLoginVm
+@{
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@model ViewModels.Models.UserLoginVm
+@*<link href="~/css/respos.css" />*@
 
-<div class="col-7 px-0" style="background-color: #f7f7f7;  height: auto;box-shadow: 4px 5px 5px #6c757d;">
-    <div class="page-top" style="">
-       
+<div class="col-7 px-0" style="background-color: white;  height: fit-content;box-shadow: 4px 5px 5px #6c757d;position:relative;margin-top:50px">
+    <div class="page-top" style="position:relative">
+        
+        <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
         <div class="lockIcon mt-4">
-            <img id="mainicon" src="~/images/fries.png" style="height: 60px;" alt="">
+            <img id="mainicon" src="~/images/fries.png" style="height: 60px;z-index: 1;" alt="">
         </div>
 
-        <p class="mt-2"> User Login Page</p>
+        <p class="mt-2" style="z-index:1"> User Login Page</p>
     </div>
     <div class="container mb-4" style="display:flex;justify-content:center">
-         @if (TempData["error"] != null)
-                {
-                    <span class="text-danger">@TempData["error"]</span>
-                }
-        <form class="mt-5 formm" id="formm" asp-action="UserLogin" asp-controller="Home">
+        @if (TempData["error"] != null)
+        {
+            <span class="text-danger">@TempData["error"]</span>
+        }
+
+       <form class="mt-5 formm" id="formm" asp-action="UserLogin" asp-controller="Home">
+             <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">
                     <p class="formInput">Email <span style="color: red;">*</span></p>
@@ -36,10 +40,12 @@
             </div>
 
             <div style="display: flex;justify-content: center;">
-                <button type="submit" value="submit" class="btn submit"
+                <img src="~/images/finger-fotor-bg-remover-20230623144328.png" class="finger" style="height: 38px;transform: scaleX(-1);display:none" />
+                <button type="submit" id="submitbtn" value="submit" class="btn submit"
                         style="background-color: red;color: white;border-radius: 7px;">
                     Log In
                 </button>
+                <img src="~/images/peek3-fotor-bg-remover-20230623155433.png" class="finger" style="height: 38px; ;transform: scaleX(-1)" />
             </div>
 
             <hr>
@@ -51,44 +57,20 @@
 
 
         </form>
-        
+
     </div>
-    <div style="display:flex; justify-content:center">
-    <button class="btn" onclick="userRegister()"
-            style="background-color: #d6d6d6; color: grey;border-radius: 7px;">
-        Create An
-        Account
-    </button>
+    <div style="display:flex; justify-content:center ;z-index:2">
+
+        <button class="btn" onclick="userRegister()"
+                style="background-color: #d6d6d6; color: grey;border-radius: 7px;z-index:2">
+            Create An
+            Account
+        </button>
+    </div>
+    <div style="height:90px ; position:relative">
+        <div id="popcorn" style="position:absolute;bottom:0px">
+            <img src="~/images/popcornGif.gif" style="width:100px" />
+        </div>
     </div>
 </div>
 
-<script>
-    function userRegister() {
-        $.ajax({
-            method: 'GET',
-            url: "/admin/Home/userRegister1",
-            success: function (res) {
-                $("#PartialView").html(res)
-            },
-            error: function () {
-                alert("error");
-            },
-
-        })
-    }
-</script>
-<script>
-    $(document).ready(function(){
-
-        
-        $("#mainicon").mouseenter(function () {
-            $("#mainicon").attr('src', '/images/pizza.png');
-
-        })
-        $("#mainicon").mouseleave(function () {
-            $("#mainicon").attr('src', '/images/fries.png');
-
-        })
-
-    })
-</script>

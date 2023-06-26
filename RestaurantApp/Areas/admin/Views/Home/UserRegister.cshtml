@@ -1,69 +1,112 @@
-﻿@model ViewModels.Models.UserRegisterVm
-<body>
-    <div class="container mt-5">
-        <div class="row" style="background-color: cornsilk;">
-        <div class="col d-flex p-3 justify-content-center">
-            <div class="d-flex flex-column">
-                <span class="rounded-circle bg-danger mx-auto p-3 text-white" style="width:57px"><i class="bi bi-lock ms-1"></i></span>
-                <span>Create your Useraccount</span>
-            </div>
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+@model ViewModels.Models.UserRegisterVm
+
+<div class="col-7 px-0" style="background-color: white;box-shadow: 4px 5px 5px #6c757d; height:fit-content; position:relative;margin-top:50px">
+    <div class="page-top" style="position:relative">
+
+        <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
+        <div class="lockIcon mt-4">
+            <img id="mainicon" src="~/images/fries.png" style="height: 60px;z-index: 1;" alt="">
         </div>
+
+        <p class="mt-2" style="z-index:1"> User Registration Page</p>
     </div>
-    <div class="row" style="background-color: whitesmoke;">
-    <div class="col-md-6 ps-md-5 ms-md-2">
-            @if (ViewData["ErrorMessage"] != null)
-            {
-                <span class="text-danger">@ViewData["ErrorMessage"]</span>
-            }
-        <form method="post" asp-action="UserRegister" asp-controller="home">
-            <div class="d-flex flex-column my-2">
-                <label >Name<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" asp-for="name">
-                <span asp-validation-for="name" class="text-danger"></span>
+    <div class="container mb-4" style="display:flex;justify-content:center">
+
+        <form method="post" class="mt-5" asp-action="UserAdd" asp-controller="home">
+            <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">
+                    <p class="formInput">Email <span style="color: red;">*</span></p>
+                </label>
+                <input type="email" class="form-control data" id="exampleInputEmail1"
+                       aria-describedby="emailHelp" placeholder="evan.donohue@gmail.com" asp-for="email">
+                <span class="text-danger" asp-validation-for="email"></span>
             </div>
-            <div class="d-flex flex-column my-2">
-                <label>UserCode<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" asp-for="userCode">
-                <span asp-validation-for="userCode" class="text-danger"></span>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">
+                    <p class="formInput">Name <span style="color: red;">*</span></p>
+                </label>
+                <input type="text" class="form-control data" id="name"
+                       aria-describedby="" placeholder="evan dono hue" asp-for="name">
+                <span class="text-danger" asp-validation-for="name"></span>
             </div>
-            <div class="d-flex flex-column my-2">
-                <label>Password<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" asp-for="password">
-                <span asp-validation-for="password" class="text-danger"></span>
+
+            <div class="mb-3">
+                <label for="userCode" class="form-label">
+                    <p class="formInput">User Code <span style="color: red;">*</span></p>
+                </label>
+                <input type="text" class="form-control data" id="userCode"
+                       aria-describedby="" placeholder="Enter User Code" asp-for="userCode">
+                <span class="text-danger" asp-validation-for="userCode"></span>
             </div>
-             <div class="d-flex flex-column my-2">
-                <select id="SelectedCompanyId" class="form-select form-control"  asp-for="companyId" asp-items="@Model.Companies">
-                 <option>Select Companies<</option>
-                 </select>
-                <span asp-validation-for="companyId" class="text-danger"></span> 
+
+            <div class="mb-3">
+                <label for="contact" class="form-label">
+                    <p class="formInput">Contact <span style="color: red;">*</span></p>
+                </label>
+                <input type="text" class="form-control data" id="contact"
+                       aria-describedby="" placeholder="Enter Your Contact Number" asp-for="contact">
+                <span class="text-danger" asp-validation-for="contact"></span>
             </div>
-             <div class="d-flex flex-column my-2">
-                <label>Email<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" asp-for="email">
-                <span asp-validation-for="email" class="text-danger"></span>
+
+            <div class="mb-3">
+                <label for="contact" class="form-label">
+                    <p class="formInput">Select Company<span style="color: red;">*</span></p>
+                </label>
+                <select id="SelectedCompanyId" class="form-select form-control" asp-for="companyId" asp-items="@Model.Companies">
+                    <option>Select Companies</option>
+                </select>
+                <span asp-validation-for="companyId" class="text-danger"></span>
             </div>
-              <div class="d-flex flex-column my-2">
-                <label>contact<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" asp-for="contact">
-                <span asp-validation-for="contact" class="text-danger"></span>
+
+            <div class="mb-3">
+                <label for="contact" class="form-label">
+                    <p class="formInput">Password<span style="color: red;">*</span></p>
+                </label>
+                <input type="text" class="form-control data" id="contact"
+                       aria-describedby="" placeholder="Enter Your Contact Number" asp-for="password">
+                <span class="text-danger" asp-validation-for="password"></span>
             </div>
-            <div>
-                <button type="submit" class="btn btn-danger my-3 loginstyle" style="width:203px;">Register</button>
-            </div>
-            <div>
-                <span>New To Aramex?</span>
-            </div>
-            <div>
-                <button type="button" class="btn btn-danger my-3 loginstyle" style="width:203px;">login</button>
-            </div>
+
+
+
+
+            <button type="submit" class="btn"
+                    style="background-color: #dc291e;color: white;border-radius: 7px;">
+                Register
+            </button>
+
+
+            <hr>
+
+
+
+
+
+
         </form>
     </div>
 
-</div>
+
+
+    <div style="display:flex; justify-content:center ; margin-bottom:10px">
+        <button class="btn" onclick="userLogin()"
+                style="background-color: #d6d6d6; color: grey;border-radius: 7px;">
+            Log In
+        </button>
+        
     </div>
-    @section Scripts{
-        @{
-            <partial name="_ValidationScriptsPartial" />
-        }
-    }
-</body>
+    <div style="height:90px ; position:relative">
+            <div id="popcorn" style="position:absolute;bottom:0px">
+                <img src="~/images/popcornGif.gif" style="width:100px" />
+            </div>
+        </div>
+</div>
+
+
+
+

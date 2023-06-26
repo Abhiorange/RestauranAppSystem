@@ -102,7 +102,7 @@ namespace dataRepository.Repository
             {
                 SqlCommand cmd = new SqlCommand("DeleteCategoryById", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id ", id);
+                cmd.Parameters.AddWithValue("@id", id);
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
                 return i;

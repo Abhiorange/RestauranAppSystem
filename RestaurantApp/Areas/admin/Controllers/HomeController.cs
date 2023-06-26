@@ -26,115 +26,17 @@ namespace RestaurantApp.Areas.admin.Controllers
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
         }
+     
+      
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult UserLogin() //User Login GET
         {
             return View();
         }
-        public IActionResult userLogin(string formName = null, string errorm = null,string flag=null)
-        {
-            if (flag == null)
-            {
-                return PartialView("_userLogin");
-            }
-            else
-            {
-                ViewBag.FormName = formName;
-                TempData["error"] = errorm;
-                return View("Index");
-            }
-
-
-        }
-
-        [HttpGet]
-        public IActionResult userRegister1()//for user register
-        {
-            UserRegisterVm model = new UserRegisterVm();
-            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/UserRegister").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                var companiesJson = response.Content.ReadAsStringAsync().Result;
-                model.Companies = JsonConvert.DeserializeObject<List<SelectListItem>>(companiesJson);
-            }
-            return PartialView("_userRegister",model);
-        }
-        [HttpGet]
-        public IActionResult Dashboard(string formName = null)
-        {
-            ViewBag.FormName = formName;
-            return View("Index");
-        }
-        public IActionResult companyLogin(string formName = null, string errorm = null,string successm=null)
-        {
-            ViewBag.FormName = formName;
-            TempData["error"] = errorm;
-            TempData["sucess"] = successm;
-            return PartialView("_companyLogin");
-        }
-        public IActionResult companyRegister(string formName=null,string flag=null)
-        {
-            if(flag==null)
-            {
-                return PartialView("_companyRegister");
-            }
-            else
-            {
-                ViewBag.FormName = formName;
-                return View("Index");
-            }
-           
-        }
-       
-        
-
-        [HttpPost]
-        public IActionResult Login(CompanyLoginVm model)//for company login
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    string serializedData = JsonConvert.SerializeObject(model);
-                    StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                 
-                    HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/Login", stringContent).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                  
-                        var content = response.Content.ReadAsStringAsync().Result;
-
-                        if (content == "false")
-                        {
-                            TempData["error"] = "Invalid Credential";
-                            return PartialView("_companyLogin");
-                        }
-                        else
-                        {
-                                TempData["success"] = "Logged in done succesfully";
-                            return RedirectToAction("Dashboard", new { formName = "board" });
-                        }
-                    }
-                }
-                catch (HttpRequestException ex)
-                {
-                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                    return View("Index");
-                }
-                catch (Exception ex)
-                {
-                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                    return View("Index");
-                }
-            }
-            return View("Index");
-        }
-    
         [HttpPost]
         public IActionResult UserLogin(UserLoginVm model) //For User Login
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -149,12 +51,142 @@ namespace RestaurantApp.Areas.admin.Controllers
 
                         if (content == "false")
                         {
-                            return RedirectToAction("userLogin", new { errorm = "Invalid Credential", formName = "user" });
+                            TempData["error"]="Invalid Credential";
+                            return View("UserLogin");
                         }
                         else
                         {
                             TempData["success"] = "Logged in done succesfully";
-                            return RedirectToAction("Dashboard", new {formName="board"});
+                            return RedirectToAction("AllUsers");
+                        }
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                    return View("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                    return View("Index");
+                }
+            }
+            return RedirectToAction("AllUsers");
+        }
+        //All Users List
+        #region
+        [HttpGet]
+        public IActionResult AllUsers() //rendering the list of users in UI
+        {
+            List<Userinfo> model = new List<Userinfo>();
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/AllUsersInfo").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var userJson = response.Content.ReadAsStringAsync().Result;
+                model = JsonConvert.DeserializeObject<List<Userinfo>>(userJson);
+            }
+            return View(model);
+
+        }
+        #endregion
+        //for user register
+        #region
+        [HttpGet]
+        public IActionResult UserRegister() //For user register get
+        {
+            UserRegisterVm model = new UserRegisterVm();
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/UserRegister").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var companiesJson = response.Content.ReadAsStringAsync().Result;
+                model.Companies = JsonConvert.DeserializeObject<List<SelectListItem>>(companiesJson);
+            }
+            return View(model);
+        }
+        #endregion
+        //Adding users post method for UserRegister
+        #region
+        [HttpPost]
+        public IActionResult UserAdd(UserRegisterVm model)
+        {
+            PostUserRegisterVm user = new PostUserRegisterVm
+            {
+                name = model.name,
+                companyId = model.companyId,
+                email = model.email,
+                contact = model.contact,
+                userCode = model.userCode,
+                password = model.password
+            };
+            try
+            {
+                string serializedData = JsonConvert.SerializeObject(user);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/AddUser", stringContent).Result;
+
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+
+            return RedirectToAction("UserLogin");
+        }
+        #endregion
+
+        [HttpGet]
+        public IActionResult AllCompanies() //rendering the list of users in UI
+        {
+            List<CompanyInfo> model = new List<CompanyInfo>();
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/AllCompanyInfo").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var userJson = response.Content.ReadAsStringAsync().Result;
+                model = JsonConvert.DeserializeObject<List<CompanyInfo>>(userJson);
+            }
+            return View(model);
+
+        }
+        //For company login GET
+        public IActionResult CompanyLogin()
+        {
+           
+            return View("CompanyLogin");
+        }
+        #region
+        [HttpPost]
+        public IActionResult Login(CompanyLoginVm model)//for company login
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string serializedData = JsonConvert.SerializeObject(model);
+                    StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/Login", stringContent).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        var content = response.Content.ReadAsStringAsync().Result;
+
+                        if (content == "false")
+                        {
+                            TempData["error"] = "Invalid Credential";
+                            return View("CompanyLogin");
+                        }
+                        else
+                        {
+                            TempData["success"] = "Logged in done succesfully";
+                            return RedirectToAction("AllCompanies");
                         }
                     }
                 }
@@ -171,15 +203,18 @@ namespace RestaurantApp.Areas.admin.Controllers
             }
             return View("Index");
         }
+        #endregion//for company login
         [HttpGet]
-        public IActionResult Register() //For Company Register
+        public IActionResult CompanyRegister()
         {
             return View();
+           
         }
+
         [HttpPost]
         public IActionResult Register(CompanyRegisterVm model) //For Company Register
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -198,55 +233,24 @@ namespace RestaurantApp.Areas.admin.Controllers
                     return View("Index");
                 }
             }
-            return RedirectToAction("companyRegister", new { formName = "company",flag="set" });
+            TempData["success"] = "You are registered successfully";
+            return RedirectToAction("CompanyLogin");
         }
-        
+
+
+
+
+
         [HttpGet]
-        public IActionResult AllUsers() //rendering the list of users in UI
+        public IActionResult Register() //For Company Register
         {
-            List<Userinfo> model = new List<Userinfo>();
-            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/AllUsersInfo").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var userJson = response.Content.ReadAsStringAsync().Result;
-                model= JsonConvert.DeserializeObject<List<Userinfo>>(userJson);
-            }
-            return View(model);
-
+            return View();
         }
+       
+        
+       
 
-        [HttpPost]
-        public IActionResult UserAdd(UserRegisterVm model)//Adding users post method for UserRegister
-        {
-            PostUserRegisterVm user = new PostUserRegisterVm
-            {
-                name=model.name,
-                companyId=model.companyId,
-                email=model.email,
-                contact=model.contact,
-                userCode=model.userCode,
-                password=model.password
-            };
-                try
-                {
-                    string serializedData = JsonConvert.SerializeObject(user);
-                    StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/AddUser", stringContent).Result;
-
-                }
-                catch (HttpRequestException ex)
-                {
-                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                    return View("Index");
-                }
-                catch (Exception ex)
-                {
-                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                    return View("Index");
-                }
-
-            return RedirectToAction("userLogin", new { formName = "user", flag = "set" });
-        }
+       
         [HttpGet]
         public IActionResult GetUserById(int id)
         {

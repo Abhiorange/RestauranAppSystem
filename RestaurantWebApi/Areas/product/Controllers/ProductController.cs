@@ -57,7 +57,7 @@ namespace RestaurantWebApi.Areas.product.Controllers
                 product.isactive=model.isactive;
                 product.categoryid=model.categoryid;
                 product.Categories = categories;
-            
+                product.productid = id;
                 return Ok(product);
             }
             catch (Exception ex)
@@ -69,6 +69,19 @@ namespace RestaurantWebApi.Areas.product.Controllers
         public IActionResult EditProduct(PostProductEditVm model)
         {
             var i = _productrepo.EditProduct(model);
+            if (i > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Not Updated");
+            }
+        }
+        [HttpGet("{id}")]
+        public IActionResult DeleteProductById(int id)
+        {
+            var i = _productrepo.deleteProductById(id);
             if (i > 0)
             {
                 return Ok();

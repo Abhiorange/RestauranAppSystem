@@ -4,8 +4,27 @@
 }
 
 @*<link href="~/css/respos.css" />*@
-
-<div class="col-7 px-0" style="background-color: white;  height: auto;box-shadow: 4px 5px 5px #6c757d;position:relative">
+<div>
+    @if (TempData["success"] != null)
+    {
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script type="text/javascript">
+            toastr.success('@TempData["success"]');
+        </script>
+    }
+</div>
+<div>
+    @if (TempData["error"] != null)
+    {
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script type="text/javascript">
+            toastr.success('@TempData["error"]');
+        </script>
+    }
+</div>
+<div class="col-7 px-0" style="background-color: white;  height: fit-content;box-shadow: 4px 5px 5px #6c757d;position:relative;margin-top:50px">
     <div class="page-top" style="position:relative">
         
         <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
@@ -75,8 +94,10 @@
             Account
         </button>
     </div>
-    <div id="popcorn" style="position:absolute;bottom:0px">
-        <img src="~/images/popcornGif.gif" style="width:100px" />
+    <div style="height:90px ; position:relative">
+        <div id="popcorn" style="position:absolute;bottom:0px">
+            <img src="~/images/popcornGif.gif" style="width:100px" />
+        </div>
     </div>
 </div>
 

@@ -15,5 +15,6 @@ namespace dataRepository.Interface
         public List<ProductInfo> GetProductsList();
         public ProductEditVm GetProductById(int id);
         public int EditProduct(PostProductEditVm model);
+        public int deleteProductById(int id);
     }
 }

@@ -65,11 +65,11 @@
                         <div style="">AllUsers</div>
                     </a>
                     <hr>
-                     <a type="button" asp-area="category" asp-action="AllCategories" asp-controller="Category" type="button" class="pages">
+                    <a type="button" asp-area="category" asp-action="AllCategories" asp-controller="Category" type="button" class="pages">
                         <div style="">AllCategories</div>
                     </a>
                     <hr>
-                     <a type="button" asp-area="product" asp-action="AllProducts" asp-controller="Product" type="button" class="pages">
+                    <a type="button" asp-area="product" asp-action="AllProducts" asp-controller="Product" type="button" class="pages">
                         <div style="">AllProduts</div>
                     </a>
                     <hr>
@@ -86,7 +86,8 @@
 
             <div id="main" style="z-index: 1;">
                 <button class="openbtn position-absolute" onclick="openNav()">
-                    <img src="~/images/burger.png" alt="" class="burgerImg">
+                    <img src="~/images/burger.png" alt=""
+                         style="height: 50px;">
                 </button>
             </div>
 
@@ -161,9 +162,8 @@
 
             <div id="main2" style="z-index: 1;">
                 <button class="openbtn2 position-absolute" onclick="openNav2()">
-                    <img class="burgerImg"
-                        src="~/images/burger.png" alt=""
-                        >
+                    <img src="~/images/burger.png" alt=""
+                         style="height: 50px;">
                 </button>
             </div>
             <!-- toggle 2 ends -->
@@ -176,8 +176,8 @@
                  style="display: flex;height: 80px;justify-content: center;margin: 0px;object-fit: contain;  border-bottom: solid 2px;border-bottom-color: black; ">
                 <img src="~/images/restaurant2.jpg"
                      style="height: 80px; width: 100%;object-fit: cover;opacity: 0.2;position: relative;" alt="">
-                <div class="resTitle" >
-                    <img style="height:35px;width:35px" src="~/images/icon.png" /><p class="resp"> Restaurant POS</p>
+                <div style="position: absolute;background-color: #ffe599;width: 302px;top: 13px;display: flex;justify-content: center;border-radius: 11px;border: solid grey 1px;box-shadow: 4px 5px 5px #6c757d;align-items:center">
+                    <img style="height:35px;width:35px" src="~/images/icon.png" /><p style="font-size: xx-large;font-weight: 700;margin:0px"> Restaurant POS</p>
                 </div>
                 <div class="dropdown text-end" style="position: absolute;right: 10px;top: 15px;background-color: #ffe599;border: solid grey 1px;border-radius: 11px;box-shadow: 4px 5px 5px #6c757d;">
                     <!-- <div class="dropdown">
@@ -194,10 +194,8 @@
                     <div class="profile mt-1" style="display: flex;">
                         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <img src="~/images/pizza.png" alt="mdo"  class="rounded-circle profileImg"><span class="profileSpan">
-                                Evan
-                                Donohue
-                            </span>
+                            <img src="~/images/pizza.png" alt="mdo" width="40" height="40" class="rounded-circle"> Evan
+                            Donohue
                         </a>
                         <ul class="dropdown-menu text-small" style="background-color: #ffe599">
 
@@ -236,9 +234,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+      <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-      
+       
             <script src="~/js/layout.js"></script>
                 <script src="~/js/animation.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
