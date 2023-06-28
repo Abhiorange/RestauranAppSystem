@@ -17,7 +17,7 @@ namespace RestaurantApp.Areas.admin.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly HttpClient _client;
         private readonly IConfiguration _configuration;
-        Uri baseAddress = new Uri("https://localhost:7189/api");
+        Uri baseAddress = new Uri("http://localhost:7189/api");
 
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
@@ -25,8 +25,15 @@ namespace RestaurantApp.Areas.admin.Controllers
             _configuration = configuration;
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
+
         }
 
+        [HttpGet]
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+       
         [HttpGet]
         public IActionResult Index()
         {
@@ -56,7 +63,7 @@ namespace RestaurantApp.Areas.admin.Controllers
                         else
                         {
                             TempData["success"] = "Logged in done succesfully";
-                            return View("UserLogin");
+                            return View("Dashboard");
                         }
                     }
                 }
@@ -102,7 +109,7 @@ namespace RestaurantApp.Areas.admin.Controllers
                         else
                         {
                             TempData["success"] = "Logged in done succesfully";
-                            return RedirectToAction("AllUsers");
+                            return RedirectToAction("Dashboard");
                         }
                     }
                 }
@@ -182,7 +189,7 @@ namespace RestaurantApp.Areas.admin.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-
+            TempData["success"] = "Logged in done succesfully";
             return RedirectToAction("UserLogin");
         }
         #endregion

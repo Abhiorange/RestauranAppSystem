@@ -4,7 +4,78 @@
 @model ViewModels.Models.ProductEditVm
 
 <body>
-    <div class="container mt-2 overflow-tableEntry">
+    <div class="col-7 px-0" style="background-color: white;  height: auto;box-shadow: 4px 5px 5px #6c757d;margin-top:50px">
+        <div class="page-top" style="background-color: whitesmoke;box-shadow: 4px 5px 5px #6c757d;">
+
+            <div class="lockIcon mt-4">
+                <img id="mainicon" src="~/images/fries.png" style="height: 60px;" alt="">
+            </div>
+
+            <p class="mt-2"> Products Page</p>
+        </div>
+        <div class="container mb-4" style="display:flex;justify-content:center">
+            @if (TempData["error"] != null)
+            {
+                <span class="text-danger">@TempData["error"]</span>
+            }
+            <form method="post" asp-action="GetProductById" asp-controller="Product" class="mx-2">
+                <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+
+                <div class="mb-3">
+                    <label for="categoryName" class="form-label">
+                        <p class="formInput">Product Name <span style="color: red;">*</span></p>
+                    </label>
+                    <input type="text" class="form-control data" id="" aria-describedby="" placeholder="Enter Product Name" asp-for="productname">
+                    <span asp-validation-for="productname" class="text-danger"></span>
+                </div>
+
+
+                <input asp-for="productid" type="text" hidden />
+                 <div class="mb-3">
+                    <label for="categoryName" class="form-label">
+                        <p class="formInput">Unit <span style="color: red;">*</span></p>
+                    </label>
+                    <input type="text" class="form-control data" id="" aria-describedby="" placeholder="Enter Product Name" asp-for="unit">
+                    <span asp-validation-for="unit" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoryName" class="form-label">
+                        <p class="formInput">UnitPrice <span style="color: red;">*</span></p>
+                    </label>
+                    <input type="text" class="form-control data" id="" aria-describedby="" placeholder="Enter Product Name" asp-for="unitprice">
+                    <span asp-validation-for="unitprice" class="text-danger"></span>
+                </div>
+
+                 <div class="mb-3">
+                    <label for="status">IsActive</label>
+                    <select class="form-select dropdown-toggle" id="status" asp-for="isactive">
+                        <option value="1" selected="@Model.isactive.Equals(1)">Active</option>
+                        <option value="0" selected="@Model.isactive.Equals(0)">Inactive</option>
+                    </select>
+                </div>  
+
+                <div class="mb-3">
+                    <label for="status">Select Category</label>
+                    <select id="SelectedCompanyId" class="form-select form-control" asp-for="categoryid" asp-items="@Model.Categories">
+                        <option>Select Category</option>
+                    </select>
+                    <span asp-validation-for="categoryid" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex mt-3 justify-content-end">
+                    <button type="button" class="btn btn-secondary rounded-pill mx-3"> <a class="text-white text-decoration-none rounded-pill me-1">Cancel</a></button>
+                    <button type="submit" class="btn btn-outline-warning rounded-pill">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div style="height:90px ; position:relative">
+            <div id="popcorn" style="position:absolute;bottom:0px">
+                <img src="~/images/popcornGif.gif" style="width:100px" />
+            </div>
+        </div>
+    </div>
+    @*<div class="container mt-2 overflow-tableEntry">
         <div class="col-12 bg-light border p-2">
             Edit
         </div>
@@ -12,7 +83,7 @@
             <form method="post" asp-action="GetProductById" asp-controller="Product" class="mx-2">
                 <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
 
-                <div class="col-12 d-flex flex-column my-2">
+                <div class="col-4 d-flex flex-column my-2">
                     <label for="title">ProductName</label>
                     <input type="text" id="title" class="form-control" asp-for="productname">
                     <span class="text-danger" asp-validation-for="productname"></span>
@@ -49,7 +120,22 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>*@
 
 
 </body>
+<script>
+    $(document).ready(function () {
+
+
+        $("#mainicon").mouseenter(function () {
+            $("#mainicon").attr('src', '/images/pizza.png');
+
+        })
+        $("#mainicon").mouseleave(function () {
+            $("#mainicon").attr('src', '/images/fries.png');
+
+        })
+
+    })
+</script>

@@ -1,6 +1,20 @@
 ﻿body {
     overflow-x: hidden;
-    background-color: #eef1f5;
+    background-color:white;
+}
+.drpdes {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    background: transparent;
+    color: rgb(255, 0, 0);
+    border: 0px;
+    font-weight: 500;
+    background-color: #ffe599;
+    height: 30px;
+    border: solid 1px red;
+    border-left: 0px;
+    border-right: 0px;
 }
 
 
@@ -204,8 +218,8 @@ ul {
     .sidebar a {
         padding: 1px 1px 1px 3px;
         text-decoration: none;
-        font-size: 13px;
-        color: #818181;
+        font-size: 17px;
+        color: red;
         display: block;
         transition: 0.2s;
     }

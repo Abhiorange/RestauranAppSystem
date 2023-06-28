@@ -1,0 +1,250 @@
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@model Tuple<List<ViewModels.Models.CategoryDetail>,List<ViewModels.Models.ProductDetail>>
+<head>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="~/css/services.css" />
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .sidebar a {
+            font-size: 17px;
+            color: red;
+        }
+        .drpdes {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    background: transparent;
+    color: rgb(255, 0, 0);
+    border: 0px;
+    font-weight: 500;
+    background-color: #ffe599;
+    height: 30px;
+    border: solid 1px red;
+    border-left: 0px;
+    border-right: 0px;
+}
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row">
+           
+            <div class="col-md-8">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active text-secondary" id="nav-home-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                                aria-selected="true" style="font-size: 14px;
+                height: 40px;">
+                            <i class="bi bi-bookmark-x-fill"></i> Billing
+                        </button>
+
+                        <button class="nav-link text-secondary" id="nav-profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                                aria-selected="false" style="font-size: 14px;
+                    height: 40px;">
+                            <i class="bi bi-aspect-ratio-fill me-2"></i>Rates
+                        </button>
+                        <button class="nav-link text-secondary" id="nav-profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                                aria-selected="false" style="font-size: 14px;
+                    height: 40px;">
+                            <i class="bi bi-aspect-ratio-fill me-2"></i>Rates
+                        </button>
+                        <button class="nav-link text-secondary" id="nav-profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                                aria-selected="false" style="font-size: 14px;
+                    height: 40px;">
+                            <i class="bi bi-aspect-ratio-fill me-2"></i>Rates
+                        </button>
+                        <!-- <button class="nav-link text-secondary " id="nav-contact-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
+                                aria-selected="false">
+                            Comment
+                        </button> -->
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                            <div class="container mt-3" style="margin-left: 36px;">
+                                <div class="row responsive">
+                                    @foreach (var u in Model.Item1)
+                                    {
+                                        <div class="col-lg-4" style="width:30% !important;" onclick="productnames(@u.id)">
+                                            <div class="card" style="background-color: #ffe599;">
+                                                <img class="card-img-top" src="~/images/fries.png" alt="Card image" style="width:100%">
+                                                <span class="text-center fw-bold">@u.categoryname</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="container  mt-3 details">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                          @foreach (var m in Model.Item2)
+                        {
+                            <div class="col widcard" style="width:25%;" onclick="productitem(@m.id)">
+                                <div class="card">
+                                    <img src="~/images/pizza.png" class="card-img-top mx-auto" alt="..." style="width:60%">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">@m.productname</h5>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        } 
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style="background: whitesmoke; border-radius: 4%;">
+                <Span class="fs-4 fw-bolder">Current Order</Span>
+                <div class="overflow_class mt-4 d-none">
+                    <div class="card mb-3 border-0" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/images/f1.jpg" class="img-fluid rounded-start w-100 h-100" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">This is gujarati Thal</h5>
+                                    <div class="align-center">
+                                        <div class="d-flex justify-content-center position-relative">
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="incrementitems"><span class=" plus_class">+</span></button>
+                                            <span id="" class="ms-1 me-1 align-self-center textShow">0</span>
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="Decressitems"> <span class="minus_class">-</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3 border-0" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/images/f2.jpg" class="img-fluid rounded-start w-100 h-100" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">This is gujarati Thal</h5>
+                                    <div class="align-center">
+                                        <div class="d-flex justify-content-center position-relative">
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="incrementitems"><span class=" plus_class">+</span></button>
+                                            <span class="ms-1 me-1 align-self-center textShow">0</span>
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="Decressitems"> <span class="minus_class">-</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card mb-3 border-0" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/images/f3.jpg" class="img-fluid rounded-start w-100 h-100" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">This is gujarati Thal</h5>
+                                    <div class="align-center">
+                                        <div class="d-flex justify-content-center position-relative">
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="incrementitems"><span class=" plus_class">+</span></button>
+                                            <span class="ms-1 me-1 align-self-center textShow">0</span>
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="Decressitems"> <span class="minus_class">-</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card mb-3 border-0" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/images/f4.jpg" class="img-fluid rounded-start w-100 h-100" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">This is gujarati Thal</h5>
+                                    <div class="align-center">
+                                        <div class="d-flex justify-content-center position-relative">
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="incrementitems"><span class=" plus_class">+</span></button>
+                                            <span class="ms-1 me-1 align-self-center textShow">0</span>
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="Decressitems"> <span class="minus_class">-</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3 border-0" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/images/f5.jpg" class="img-fluid rounded-start w-100 h-100" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">This is gujarati Thal</h5>
+                                    <div class="align-center">
+                                        <div class="d-flex justify-content-center position-relative">
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="incrementitems"><span class=" plus_class">+</span></button>
+                                            <span class="ms-1 me-1 align-self-center textShow">0</span>
+                                            <button type="button" class="btn btn-warning btnHeight position-relative" id="Decressitems"> <span class="minus_class">-</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" d-flex mt-5 mb-5">
+                    <button type="button" class="btn btn-warning me-3">Warning</button>
+                </div>
+                <div class=" d-flex mt-5 mb-5">
+                    <button type="button" class="btn btn-success" onclick="showBill()">Show Bill</button>
+                </div>
+               
+                <div class="tableClass mt-5 d-none" id="tableId">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">prices</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>200</td>
+                                <td>500</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js" integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/js/services.js"></script>
+</body>

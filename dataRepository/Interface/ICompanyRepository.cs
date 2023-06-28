@@ -15,7 +15,9 @@ namespace dataRepository.Interface
         public int registerrepo(CompanyRegisterVm model);
         public List<Userinfo> GetUsersList();
         public int adduser(PostUserRegisterVm model);
+        public List<ProductDetail> GetProductsById(int id);
         public List<CompanyInfo> GetCompaniesList();
+        public List<CategoryDetail> GetCategoryNames();
         public List<SelectListItem> GetCompanyList();
         public UserEditVm GetUserById(int id);
         public int EditUser(PostUserEditVm model);

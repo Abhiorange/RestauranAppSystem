@@ -147,6 +147,54 @@ namespace dataRepository.Repository
             }
             return model;
         }
+        public List<CategoryDetail> GetCategoryNames()
+        {
+            List<CategoryDetail> model = new List<CategoryDetail>();
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("categorynames", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    CategoryDetail name = new CategoryDetail
+                    {
+                        categoryname = rdr["categoryName"].ToString(),
+                        id= Convert.ToInt32(rdr["id"]),
+                    };
+
+                    model.Add(name);
+                }
+                con.Close();
+            }
+            return model;
+        }
+
+        public List<ProductDetail> GetProductsById(int id)
+        {
+            List<ProductDetail> model = new List<ProductDetail>();
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("productnames", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", id);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ProductDetail name = new ProductDetail
+                    {
+                        productname = rdr["name"].ToString(),
+                        id = Convert.ToInt32(rdr["id"]),
+                    };
+
+                    model.Add(name);
+                }
+                con.Close();
+            }
+            return model;
+        }
         public UserEditVm GetUserById(int id)
         {
             UserEditVm model = null;

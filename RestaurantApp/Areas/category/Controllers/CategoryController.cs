@@ -12,7 +12,7 @@ namespace RestaurantApp.Areas.category.Controllers
         private readonly ILogger<CategoryController> _logger;
         private readonly HttpClient _client;
         private readonly IConfiguration _configuration;
-        Uri baseAddress = new Uri("https://localhost:7189/api");
+        Uri baseAddress = new Uri("http://localhost:7189/api");
 
         public CategoryController(ILogger<CategoryController> logger, IConfiguration configuration)
         {
@@ -27,7 +27,7 @@ namespace RestaurantApp.Areas.category.Controllers
             return View("CategoryForm");
         }
         [HttpPost]
-        public IActionResult AddCategories(CategoryVm model)
+        public IActionResult AddCategories([Bind(Prefix = "Item2")]  CategoryVm model)
         {
             try
             {
@@ -54,13 +54,16 @@ namespace RestaurantApp.Areas.category.Controllers
         public IActionResult AllCategories() //rendering the list of users in UI
         {
             List<CategoryInfo> model = new List<CategoryInfo>();
+            CategoryVm addVm =new CategoryVm();
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Category/AllCategoryInfo").Result;
             if (response.IsSuccessStatusCode)
             {
                 var userJson = response.Content.ReadAsStringAsync().Result;
                 model = JsonConvert.DeserializeObject<List<CategoryInfo>>(userJson);
             }
-            return View(model);
+            var tuple = new Tuple<List<CategoryInfo>, CategoryVm>(model, addVm);
+            return View(tuple);
+         
 
         }
         [HttpGet]
@@ -96,6 +99,7 @@ namespace RestaurantApp.Areas.category.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
+            TempData["success"] = "Category in Edited succesfully";
             return RedirectToAction("AllCategories");
         }
         public IActionResult DeleteCategoryById(int id)
@@ -114,6 +118,7 @@ namespace RestaurantApp.Areas.category.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
+            TempData["success"] = "Category in Deleted succesfully";
             return RedirectToAction("AllCategories");
         }
     }

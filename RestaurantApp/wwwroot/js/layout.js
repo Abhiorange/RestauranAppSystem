@@ -21,7 +21,7 @@
 
 
         $(".drp").click(function () {
-            alert('hi drp1');
+          
             // $(".boom").removeAttr("style");
             var drpclass = $(".drpclass")
             if (drpclass.hasClass("d-none")) {
@@ -35,20 +35,20 @@
         });
 
 
-        $(".drp1").click(function () {
-            alert('hi drp1');
-            // $(".boom").removeAttr("style");
-            var drpclass1 = $(".drpclass1")
-            if (drpclass1.hasClass("d-none")) {
-                alert('d-none');
-                drpclass1.removeClass("d-none");
-                //$(".arrow").removeClass("bi-chevron-down").addClass("bi-chevron-up")
-            }
-            else {
-                drpclass1.addClass("d-none");
-                //$(".arrow").removeClass("bi-chevron-up").addClass("bi-chevron-down")
-            }
-        });
+        //$(".drp1").click(function () {
+        //    alert('hi drp1');
+        //    // $(".boom").removeAttr("style");
+        //    var drpclass1 = $(".drpclass1")
+        //    if (drpclass1.hasClass("d-none")) {
+        //        alert('d-none');
+        //        drpclass1.removeClass("d-none");
+        //        //$(".arrow").removeClass("bi-chevron-down").addClass("bi-chevron-up")
+        //    }
+        //    else {
+        //        drpclass1.addClass("d-none");
+        //        //$(".arrow").removeClass("bi-chevron-up").addClass("bi-chevron-down")
+        //    }
+        //});
 
 
 

@@ -134,6 +134,19 @@ namespace RestaurantWebApi.Areas.admin.Controllers
             }
         }
         [HttpGet("{id}")]
+        public IActionResult GetProductsById(int id)
+        {
+            try
+            {
+                var names = _companyrepo.GetProductsById(id);
+                return Ok(names);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+        [HttpGet("{id}")]
         public IActionResult DeleteUserById(int id)
         {
             var i = _companyrepo.deleteUserById(id);
@@ -146,6 +159,8 @@ namespace RestaurantWebApi.Areas.admin.Controllers
                 return BadRequest("Not Updated");
             }
         }
+
+      
 
 
     }
