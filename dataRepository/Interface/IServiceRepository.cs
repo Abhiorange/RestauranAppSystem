@@ -11,5 +11,9 @@ namespace dataRepository.Interface
     {
         public List<ProductDetail> GetProductsById(int id);
         public List<CategoryDetail> GetCategoryNames();
+        public int AddCustomer(CustomerDetailVm model);
+        public int AddOrder(ItemsDetailVm model);
+        public int AddItem(PostItemsVm model);
+        public List<ItemsInfo> GetItems(int id);
     }
 }
