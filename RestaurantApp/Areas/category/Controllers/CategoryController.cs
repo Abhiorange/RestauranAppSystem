@@ -29,8 +29,23 @@ namespace RestaurantApp.Areas.category.Controllers
         [HttpPost]
         public IActionResult AddCategories([Bind(Prefix = "Item2")]  CategoryVm model)
         {
+
+
             try
             {
+
+                var FileName = "";
+                using (var ms = new MemoryStream())
+                {
+                    model.image.CopyToAsync(ms);
+                    var imageBytes = ms.ToArray();
+                    var base64String = Convert.ToBase64String(imageBytes);
+                    FileName = "data:image/png;base64," + base64String;
+
+
+                }
+                model.imagesrc = FileName;
+
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Category/AddCategory", stringContent).Result;
@@ -79,11 +94,24 @@ namespace RestaurantApp.Areas.category.Controllers
             return View("CategoryEditPage", model);
         }
         [HttpPost]
-        public IActionResult GetCategoryById(CategoryEditVm model)
+        public IActionResult EditCategory(CategoryEditVm model)
         {
            
             try
             {
+
+                var FileName = "";
+                using (var ms = new MemoryStream())
+                {
+                    model.image.CopyToAsync(ms);
+                    var imageBytes = ms.ToArray();
+                    var base64String = Convert.ToBase64String(imageBytes);
+                    FileName = "data:image/png;base64," + base64String;
+
+
+                }
+                model.imagesrc = FileName;
+
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Category/EditCategory", stringContent).Result;

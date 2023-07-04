@@ -12,5 +12,6 @@ namespace ViewModels.Models
         public string units { get; set; }
         public int unitprice { get; set; }
         public int categoryId { get; set; }
+        public string imageSrc { get; set; }
     }
 }

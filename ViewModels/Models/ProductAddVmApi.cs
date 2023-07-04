@@ -9,22 +9,21 @@ using System.Threading.Tasks;
 
 namespace ViewModels.Models
 {
-    public class ProductAddVm
+    public class ProductAddVmApi
     {
 
         [Required(ErrorMessage = "ProductName is required")]
         public string Productname { get; set; }
-       
+
         [Required(ErrorMessage = "Units is required")]
         public string units { get; set; }
         [Required(ErrorMessage = "UnitPrice is required")]
         public int unitprice { get; set; }
-      
+
         public int categoryId { get; set; }
         [Required(ErrorMessage = "Name is required")]
         public List<SelectListItem> Categories { get; set; }
 
         public string imagesrc { get; set; }
-        public IFormFile image { get; set; }
     }
 }

@@ -14,5 +14,7 @@ namespace ViewModels.Models
         public long unitprice { get; set; }
         public int categoryid { get; set; }
         public int isactive { get; set; }
+        public string imageSrc { get; set; }
+
     }
 }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ViewModels.Models
 {
-    public class CategoryVm
+    public class CategoryVmApi
     {
         public string name { get; set; }
         public string imagesrc { get; set; }
-        public IFormFile image { get; set; }
+
     }
 }

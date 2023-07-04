@@ -11,10 +11,10 @@ namespace RestaurantWebApi.Areas.admin.Controllers
     [Route("api/[controller]/[action]")]
     public class AdminController : ControllerBase
     {
-        // "Server=PCA59\\SQL2019;Database=itmes;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False"   
+        // "Server=server=192.168.2.59\\SQL2019;Database=itmes;User Id=sa;Password=Tatva@123;Encrypt=False"   
         private readonly ICompanyRepository _companyrepo;
         private readonly IConfiguration _configuration;
-        public string connectionstring = "Server=PCA59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
+        public string connectionstring = "Server=server=192.168.2.59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Encrypt=False";
         public AdminController(ICompanyRepository companyrepo, IConfiguration configuration)
         {
             _companyrepo = companyrepo;

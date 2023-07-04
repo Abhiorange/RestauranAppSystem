@@ -62,15 +62,26 @@ namespace RestaurantApp.Areas.product.Controllers
         [HttpPost]
         public IActionResult ProductAdd([Bind(Prefix = "Item1")] ProductAddVm model)//Adding users post method for UserRegister
         {
+            var FileName = "";
+            using (var ms = new MemoryStream())
+            {
+                model.image.CopyToAsync(ms);
+                var imageBytes = ms.ToArray();
+                var base64String = Convert.ToBase64String(imageBytes);
+                FileName = "data:image/png;base64," + base64String;
+            }
             PostProductAddVm user = new PostProductAddVm
             {
               Productname= model.Productname,
               categoryId=model.categoryId,
               unitprice=model.unitprice,
               units=model.units,
+              imageSrc=FileName,
             };
             try
             {
+
+
                 string serializedData = JsonConvert.SerializeObject(user);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Product/AddProduct", stringContent).Result;
@@ -104,6 +115,14 @@ namespace RestaurantApp.Areas.product.Controllers
         [HttpPost]
         public IActionResult GetProductById(ProductEditVm model)
         {
+            var FileName = "";
+            using (var ms = new MemoryStream())
+            {
+                model.image.CopyToAsync(ms);
+                var imageBytes = ms.ToArray();
+                var base64String = Convert.ToBase64String(imageBytes);
+                FileName = "data:image/png;base64," + base64String;
+            }
             PostProductEditVm product = new PostProductEditVm
             {
                 productid = model.productid,
@@ -111,7 +130,8 @@ namespace RestaurantApp.Areas.product.Controllers
                 unit = model.unit,
                 unitprice = model.unitprice,
                 categoryid = model.categoryid,
-                isactive = model.isactive
+                isactive = model.isactive,
+                imageSrc = FileName,
             };
             try
             {

@@ -10,7 +10,7 @@ namespace RestaurantWebApi.Areas.product.Controllers
     {
         private readonly IProductRepository _productrepo;
         private readonly IConfiguration _configuration;
-        public string connectionstring = "Server=PCA59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
+        public string connectionstring = "Server=server=192.168.2.59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Encrypt=False";
         public ProductController(IProductRepository productrepo, IConfiguration configuration)
         {
             _productrepo = productrepo;
@@ -69,7 +69,7 @@ namespace RestaurantWebApi.Areas.product.Controllers
         public IActionResult EditProduct(PostProductEditVm model)
         {
             var i = _productrepo.EditProduct(model);
-            if (i > 0)
+            if (i >= -1)
             {
                 return Ok();
             }
