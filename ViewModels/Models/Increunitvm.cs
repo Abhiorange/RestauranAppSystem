@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ViewModels.Models
 {
-    public class ProductDetail
+    public  class Increunitvm
     {
-        public string productname { get; set; }
-        public int id { get;set; }
-        public long unitprice { get; set; }
+        public int orderid { get; set; }
+        public int productid { get; set; }  
+        public int itemunit { get; set; }
     }
 }

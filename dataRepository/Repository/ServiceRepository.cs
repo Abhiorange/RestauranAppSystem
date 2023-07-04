@@ -55,6 +55,7 @@ namespace dataRepository.Repository
                     {
                         productname = rdr["name"].ToString(),
                         id = Convert.ToInt32(rdr["id"]),
+                        unitprice = Convert.ToInt64(rdr["unitPrice"]),
                     };
 
                     model.Add(name);
@@ -120,7 +121,94 @@ namespace dataRepository.Repository
                 return i;
             }
         }
+        public int IncreItems(Increunitvm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("IncrementItems", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                cmd.Parameters.AddWithValue("@productid", model.productid);
+                cmd.Parameters.AddWithValue("@finalvalue", model.itemunit);
 
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
+        public int DecreItems(Increunitvm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("DecrementItems", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                cmd.Parameters.AddWithValue("@productid", model.productid);
+                cmd.Parameters.AddWithValue("@finalvalue", model.itemunit);
+
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
+        public int DeleteItems(DeleteItemVm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("DeleteItems", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                cmd.Parameters.AddWithValue("@productid", model.productid);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
+        public int BillItems(TablenoVm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("PutTableno", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                cmd.Parameters.AddWithValue("@tableno", model.tableno);
+
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
+        public List<AllItemsInfo> GetAllProductsNames(int orderid)
+        {
+            List<AllItemsInfo> model = new List<AllItemsInfo>();
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("AllItemsDetail", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", orderid);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    AllItemsInfo name = new AllItemsInfo
+                    {
+                        itemname = rdr["productname"].ToString(),
+                        units= Convert.ToInt32(rdr["Qty"]),
+                        totalprice= Convert.ToInt64(rdr["TotalPrice"]),
+                        MainPrice= Convert.ToInt64(rdr["MainFinalPrice"]),
+                        tablenumber = Convert.ToInt32(rdr["Tablenumber"])
+                    };
+
+                    model.Add(name);
+                }
+                con.Close();
+            }
+            return model;
+        }
         public List<ItemsInfo> GetItems(int id)
         {
             List<ItemsInfo> model = new List<ItemsInfo>();
@@ -140,6 +228,7 @@ namespace dataRepository.Repository
                         units= Convert.ToInt32(rdr["Units"]),
                         productid = Convert.ToInt32(rdr["ProductId"]),
                         totalprice= Convert.ToInt64(rdr["TotalPrice"]),
+                        orderid= Convert.ToInt32(rdr["OrderID"]),
                     };
 
                     model.Add(name);

@@ -43,6 +43,38 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;*/
 }
+.tablewarn {
+    color: red;
+    font-weight: bold;
+    background-color: white;
+    animation: blink 1s infinite;
+    font-size: 21px;
+    display: inline-block;
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+.item-row {
+    background-image: linear-gradient(to right, transparent 80%, #ddd 80%);
+    background-position: 0 100%;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+}
+
+.total-row td {
+    border-top: 2px solid #000;
+}
+
 
 .text-secondary {
     color: black !important;

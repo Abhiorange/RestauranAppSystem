@@ -37,41 +37,135 @@
     ]
 });
 function showBill() {
-    var $tableClass = $('.tableClass');
-    $tableClass.hasClass('tableClass') ? $tableClass.removeClass('d-none') : $tableClass.addClass('d-none');
+    var tableNo = $('#tableno').val().trim();
+    if (tableNo === '') {
+        $('.tablewarn').removeClass('d-none');
+    } else {
+        var tableNo = parseInt(tableNo);
+        var data = {
+            tableno: tableNo
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/services/Service/BillItems',
+            traditional: true,
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (result) {
+                $('.overflow_class').html($(result).find('.overflow_class').html());
+                $('.tableClass').html($(result).find('.tableClass').html());
+                $('.overflow_class').removeClass('d-none');
+                $('.Bill').addClass('d-none');
+                $('.bill_btn').removeClass('d-none');
+                $('.tableClass').removeClass('d-none');
+                $('.tablewarn').addClass('d-none');
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('error', errorThrown);
+            }
+        })
+    }
+
+   
+
 }
 
 // Get references to the buttons and the span element
 
-
+/*
 const incrementButton = document.getElementById('incrementitems');
 const decrementButton = document.getElementById('Decressitems');
-const spanElement = document.querySelector('.textShow');
+const spanElement = document.querySelector('.textShow');*/
+function delteitem(orderId, productId) {
+    alert('enter into delete btn');
+    var data = {
+        orderid: orderId,
+        productid: productId
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/services/Service/DeleteItems',
+        data: JSON.stringify(data),
+        traditional: true,
+        contentType: 'application/json',
+        success: function (result) {
+            $('.overflow_class').html($(result).find('.overflow_class').html());
+            $('.overflow_class').removeClass('d-none');
+            $('.Bill').addClass('d-none');
+            $('.bill_btn').removeClass('d-none');
+            $('.tableClass').addClass('d-none');
 
-// Add click event listener to increment button
-incrementButton.addEventListener('click', function () {
-    let value = parseInt(spanElement.textContent);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('error', errorThrown);
+        }
+    })
+}
+function incre(orderId, productId) {
+    var value = parseInt($('#unitvalue-' + productId).text());
     value++;
-    spanElement.textContent = value;
-});
+    var finalval = value;
+    var data = {
+        orderid: orderId,
+        productid: productId,
+        itemunit: finalval
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/services/Service/IncreItems',
+        data: JSON.stringify(data),
+        traditional: true,
+        contentType: 'application/json',
+        success: function (result) {
+            $('.overflow_class').html($(result).find('.overflow_class').html());
+            $('.overflow_class').removeClass('d-none');
+            $('.Bill').addClass('d-none');
+            $('.bill_btn').removeClass('d-none');
+            $('.tableClass').html($(result).find('.tableClass').html());
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('error', errorThrown);
+        }
+    })
+}
 
-// Add click event listener to decrement button
-decrementButton.addEventListener('click', function () {
-    let value = parseInt(spanElement.textContent);
+function decre(orderId,productId) {
+    var value = parseInt($('#unitvalue-' + productId).text());
     if (value > 0) {
         value--;
-        spanElement.textContent = value;
     }
-});
+    var finalval = value;
+    var data = {
+        orderid: orderId,
+        productid: productId,
+        itemunit: finalval
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/services/Service/DecreItems',
+        data: JSON.stringify(data),
+        traditional: true,
+        contentType: 'application/json',
+        success: function (result) {
+            $('.overflow_class').html($(result).find('.overflow_class').html());
+            $('.overflow_class').removeClass('d-none');
+            $('.Bill').addClass('d-none');
+            $('.bill_btn').removeClass('d-none');
+            $('.tableClass').html($(result).find('.tableClass').html());
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('error', errorThrown);
+        }
+    })
+}
+
 
 function productnames(categoryid, card) {
-    debugger;
     var cards = document.getElementsByClassName('catcard');
     for (var i = 0; i < cards.length; i++) {
         cards[i].classList.remove('cardactive');
     }
-
-    // Add the "active" class to the clicked card
     card.getElementsByClassName('catcard')[0].classList.add('cardactive');
 
     $.ajax({
@@ -134,10 +228,7 @@ $('#formm').submit(function (event) {
 });
 
 function productitem(productId) {
-    alert('for prod called');
-   
-    var value = parseInt($('#unitvalue').text()) || 1;
-    console.log("value", value);
+    var value = 1;
     var data = {
         productid: productId,
         itemunit: value
@@ -152,6 +243,7 @@ function productitem(productId) {
             $('.overflow_class').html($(result).find('.overflow_class').html());
             $('.overflow_class').removeClass('d-none');
             $('.Bill').addClass('d-none');
+            $('.bill_btn').removeClass('d-none');
         },
         error: function (xhr, textStatus, errorThrown) {
             alert('error', errorThrown);

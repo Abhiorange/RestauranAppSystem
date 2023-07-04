@@ -26,6 +26,7 @@ namespace RestaurantApp.Areas.services.Controllers
             List<CategoryDetail> model = new List<CategoryDetail>();
             List<ProductDetail> model1 = new List<ProductDetail>();
             List<ItemsInfo> item = new List<ItemsInfo>();
+            List<AllItemsInfo> products = new List<AllItemsInfo>();
             CustomerDetailVm model2 = new CustomerDetailVm();
             int orderid = 0;
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Service/GetCategoryNames").Result;
@@ -51,7 +52,13 @@ namespace RestaurantApp.Areas.services.Controllers
                 var prod = response2.Content.ReadAsStringAsync().Result;
                 item = JsonConvert.DeserializeObject<List<ItemsInfo>>(prod);
             }
-            var tuple = new Tuple<List<CategoryDetail>, List<ProductDetail>,List<ItemsInfo>>(model, model1,item);
+            HttpResponseMessage response3 = _client.GetAsync(_client.BaseAddress + "/Service/GetAllProductsNames/" + orderid).Result;
+            if (response3.IsSuccessStatusCode)
+            {
+                var prod1 = response3.Content.ReadAsStringAsync().Result;
+                products = JsonConvert.DeserializeObject<List<AllItemsInfo>>(prod1);
+            }
+            var tuple = new Tuple<List<CategoryDetail>,List<ProductDetail>,List<ItemsInfo>,List<AllItemsInfo>,CustomerDetailVm>(model,model1,item,products,model2);
             return View(tuple);
 
         }
@@ -117,6 +124,89 @@ namespace RestaurantApp.Areas.services.Controllers
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response1 = _client.PostAsync(_client.BaseAddress + "/Service/AddItems", stringContent).Result;
                 if (response1.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ServicesPage");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("ServicesPage");
+        }
+
+        public IActionResult IncreItems([FromBody] Increunitvm model)
+        {
+            try
+            {
+                string serializedData = JsonConvert.SerializeObject(model);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/IncreItems", stringContent).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ServicesPage");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("ServicesPage");
+        }
+        public IActionResult DecreItems([FromBody] Increunitvm model)
+        {
+            try
+            {
+                string serializedData = JsonConvert.SerializeObject(model);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/DecreItems", stringContent).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ServicesPage");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("ServicesPage");
+        }
+        [HttpPost]
+        public IActionResult DeleteItems([FromBody] DeleteItemVm model)
+        {
+            try
+            {
+                string serializedData = JsonConvert.SerializeObject(model);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/DeleteItems", stringContent).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ServicesPage");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("ServicesPage");
+        }
+
+
+        [HttpPost]
+        public IActionResult BillItems([FromBody] TablenoVm model)
+        {
+            try
+            {
+                int orderId = (int)HttpContext.Session.GetInt32("ordersid");
+                model.orderid = orderId;
+                string serializedData = JsonConvert.SerializeObject(model);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/BillItems", stringContent).Result;
+                if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("ServicesPage");
                 }

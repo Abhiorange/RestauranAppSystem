@@ -15,5 +15,11 @@ namespace dataRepository.Interface
         public int AddOrder(ItemsDetailVm model);
         public int AddItem(PostItemsVm model);
         public List<ItemsInfo> GetItems(int id);
+        public int IncreItems(Increunitvm model);
+        public int DecreItems(Increunitvm model);
+        public int BillItems(TablenoVm model);
+        public List<AllItemsInfo> GetAllProductsNames(int orderid);
+        public int DeleteItems(DeleteItemVm model);
+
     }
 }

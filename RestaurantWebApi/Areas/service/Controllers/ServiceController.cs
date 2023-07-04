@@ -49,7 +49,19 @@ namespace RestaurantWebApi.Areas.service.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-
+        [HttpGet("{id}")]
+        public IActionResult GetAllProductsNames(int id)
+        {
+            try
+            {
+                var names = _servicerepo.GetAllProductsNames(id);
+                return Ok(names);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
         [HttpPost]
         public IActionResult AddCustomer(CustomerDetailVm model) //Add Users in database
         {
@@ -75,6 +87,58 @@ namespace RestaurantWebApi.Areas.service.Controllers
         public IActionResult AddItems(PostItemsVm model)
         {
             var i = _servicerepo.AddItem(model);
+            if (i > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Wrong credential");
+            }
+        }
+        [HttpPost]
+        public IActionResult DeleteItems(DeleteItemVm model)
+        {
+            var i = _servicerepo.DeleteItems(model);
+            if (i > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Wrong credential");
+            }
+        }
+        [HttpPost]
+        public IActionResult IncreItems(Increunitvm model)
+        {
+            var i = _servicerepo.IncreItems(model);
+            if(i>0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Wrong credential");
+            }
+        }
+        [HttpPost]
+        public IActionResult DecreItems(Increunitvm model)
+        {
+            var i = _servicerepo.DecreItems(model);
+            if (i > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Wrong credential");
+            }
+        }
+        [HttpPost]
+        public IActionResult BillItems(TablenoVm model)
+        {
+            var i = _servicerepo.BillItems(model);
             if (i > 0)
             {
                 return Ok();
