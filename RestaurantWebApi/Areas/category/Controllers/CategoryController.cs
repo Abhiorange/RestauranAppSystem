@@ -10,7 +10,7 @@ namespace RestaurantWebApi.Areas.category.Controllers
     {
         private readonly ICategoryRepository _categoryrepo;
         private readonly IConfiguration _configuration;
-        public string connectionstring = "Server=PCA59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
+        public string connectionstring = "Server=server=192.168.2.59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Encrypt=False";
         public CategoryController(ICategoryRepository categoryrepo, IConfiguration configuration)
         {
             _categoryrepo = categoryrepo;
@@ -18,10 +18,10 @@ namespace RestaurantWebApi.Areas.category.Controllers
 
         }
         [HttpPost]
-        public IActionResult AddCategory(CategoryVm model)
+        public IActionResult AddCategory(CategoryVmApi model)
         {
             var i = _categoryrepo.addcategory(model);
-            if (i > 0)
+            if (i >= -1)
             {
                 return Ok();
             }
@@ -51,10 +51,10 @@ namespace RestaurantWebApi.Areas.category.Controllers
             }
         }
         [HttpPost]
-        public IActionResult EditCategory(CategoryEditVm model)
+        public IActionResult EditCategory(CategoryEditVmApi model)
         {
             var i = _categoryrepo.EditCategory(model);
-            if (i > 0)
+            if (i >= -1)
             {
                 return Ok();
             }

@@ -10,9 +10,9 @@ using ViewModels.Models;
 
 namespace dataRepository.Repository
 {
-    public class CategoryRepository:ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
-        public string connections = "Server=PCA59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
+        public string connections = "server=192.168.2.59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Encrypt=False";
 
         public int addcategory(CategoryVm model)
         {
@@ -21,6 +21,8 @@ namespace dataRepository.Repository
                 SqlCommand cmd = new SqlCommand("spInsertCategory", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@categoryname", model.name);
+                cmd.Parameters.AddWithValue("@imageSrc", model.imagesrc);
+
 
                 con.Open();
 
@@ -81,7 +83,7 @@ namespace dataRepository.Repository
             }
             return model;
         }
-        public int EditCategory(CategoryEditVm model)
+        public int EditCategory(CategoryEditVmApi model)
         {
             using (SqlConnection con = new SqlConnection(connections))
             {
@@ -91,6 +93,8 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@categoryname", model.categoryname);
                 cmd.Parameters.AddWithValue("@isActive", model.isActive);
                 cmd.Parameters.AddWithValue("@stocks", model.stocks);
+                cmd.Parameters.AddWithValue("@imageSrc", model.imagesrc);
+
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
                 return i;
@@ -107,6 +111,28 @@ namespace dataRepository.Repository
                 int i = cmd.ExecuteNonQuery();
                 return i;
             }
+        }
+
+        public int addcategory(CategoryVmApi model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("spInsertCategory", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@categoryname", model.name);
+                cmd.Parameters.AddWithValue("@imageSrc", model.imagesrc);
+
+                con.Open();
+
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
+
+        public int EditCategory(CategoryEditVm model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace dataRepository.Repository
 {
     public class ProductRepository:IProductRepository
     {
-        public string connections = "Server=PCA59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
+        public string connections = "server=192.168.2.59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Encrypt=False";
 
 
         public List<SelectListItem> GetProductList()
@@ -45,7 +45,9 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@unit", model.units);
                 cmd.Parameters.AddWithValue("@unitPrice", model.unitprice);
                 cmd.Parameters.AddWithValue("@categoryId", model.categoryId);
-             
+                cmd.Parameters.AddWithValue("@imageSrc", model.imageSrc);
+
+
                 con.Open();
 
                 int i = cmd.ExecuteNonQuery();
@@ -121,6 +123,8 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@unitprice", model.unitprice);
                 cmd.Parameters.AddWithValue("@categoryid", model.categoryid);
                 cmd.Parameters.AddWithValue("@isactive", model.isactive);
+                cmd.Parameters.AddWithValue("@imageSrc", model.imageSrc);
+
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
                 return i;

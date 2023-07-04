@@ -31,7 +31,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="mt-5 formm" id="formm" asp-action="ProductAdd" asp-controller="Product">
+                    <form class="mt-5 formm" id="formm" asp-action="ProductAdd" asp-controller="Product" enctype="multipart/form-data">
                         <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
 
                         <div class="mb-3">
@@ -65,9 +65,14 @@
                             <input type="text" class="form-control data" id="" aria-describedby="" placeholder="Enter Unit Price" asp-for="@Model.Item1.unitprice">
                             <span asp-validation-for="@Model.Item1.unitprice" class="text-danger"></span>
                         </div>
+                        <div class="mb-3">
+                            <label>Image</label>
+                            <div style="border:solid grey 1px;"> <input type="file" style="width:716px;opacity: 0" id="ImageBanner" class="file-input data" accept="image/jpeg, image/PNG, image/jpg" asp-for="@Model.Item1.image"></div>
+                        </div>
 
                         <div class="mb-3" style="display:flex;justify-content:center">
-                            <button type="submit" value="submit" class="btn submit" style="background-color: red;color: white;border-radius: 7px;">
+                            <button type="submit" value="submit" class="btn submit"
+                                    style="background-color: red;color: white;border-radius: 7px;">
                                 Add
                             </button>
                         </div>

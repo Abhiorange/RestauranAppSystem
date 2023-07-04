@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,9 @@ namespace ViewModels.Models
         public int isactive { get; set; }
         public int categoryid { get; set; }
         public List<SelectListItem> Categories { get; set; }
+        public string imageSrc { get; set; }
+        public IFormFile image { get; set; }
+
+
     }
 }

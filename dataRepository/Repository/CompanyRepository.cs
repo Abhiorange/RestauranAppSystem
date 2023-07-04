@@ -8,7 +8,7 @@ namespace dataRepository.Repository
 {
     public class CompanyRepository : ICompanyRepository
     {
-        public string connections = "Server=PCA59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
+        public string connections = "server=192.168.2.59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Encrypt=False";
 
         public int loginrepo(CompanyLoginVm model)
          {

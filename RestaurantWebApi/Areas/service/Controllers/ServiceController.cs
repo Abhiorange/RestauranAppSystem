@@ -10,7 +10,7 @@ namespace RestaurantWebApi.Areas.service.Controllers
     {
         private readonly IServiceRepository _servicerepo;
         private readonly IConfiguration _configuration;
-        public string connectionstring = "Server=PCA59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Trusted_Connection=True;Encrypt=False";
+        public string connectionstring = "Server=server=192.168.2.59\\SQL2019;Database=RestaurantPOS;User Id=sa;Password=Tatva@123;Encrypt=False";
         public ServiceController(IServiceRepository servicerepo, IConfiguration configuration)
         {
             _servicerepo = servicerepo;
