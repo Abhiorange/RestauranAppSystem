@@ -15,11 +15,7 @@
             </script>
         }
     </div>
-    <div class="d-flex mt-5 mb-3 justify-content-end">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add Categories
-        </button>
-    </div>
+  
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -29,7 +25,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="mt-5 formm" id="formm" asp-action="AddCategories" asp-controller="category" enctype="multipart/form-data">
+                    <form class=" formm" id="formm" asp-action="AddCategories" asp-controller="category" enctype="multipart/form-data">
                         <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
 
                         @if (TempData["ErrorMessage"] != null)
@@ -45,22 +41,21 @@
                         </div>
                         <div class="mb-3">
                             <label>Image</label>
-                            <div style="border:solid grey 1px;"> <input type="file" style="width:716px;opacity: 0" id="ImageBanner" class="file-input data" accept="image/jpeg, image/PNG, image/jpg" asp-for="@Model.Item2.image"></div>
+                            <div class="data" style="border:solid grey 1px;"> <input type="file" style="opacity: 0" id="ImageBanner" class="file-input data" accept="image/jpeg, image/PNG, image/jpg" asp-for="@Model.Item2.image"></div>
                         </div>
                         @*<div style="display: flex;justify-content: center;">
 
                         </div>*@
+                        <div class="d-flex justify-content-center">
                         <button type="submit" class="btn submit"
                                 style="background-color: red;color: white;border-radius: 7px;">
                             Add
                         </button>
+                        </div>
 
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -69,7 +64,14 @@
             <a class="text-decoration-none text-white" asp-action="categories" asp-controller="Category">Add Category</a>
         </button>
     </div>*@
-<table class=" table my-2 table-bordered" id="categorytable">
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="d-flex mt-5 mb-3 justify-content-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add Categories
+                </button>
+            </div>
+            <table class=" table my-2 table-bordered table-striped table-warning table-responsive" id="producttable" style="box-shadow: 4px 5px 5px #6c757d;">
 
                     <thead class="table-dark">
                         <tr>
@@ -116,6 +118,8 @@
 
                     </tbody>
                 </table>
+        </div>
+    </div>
                 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
        <script>

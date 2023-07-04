@@ -4,6 +4,13 @@
 @*@model List<ViewModels.Models.ProductInfo*@
 @*@model ViewModels.Models.ProductInfoEditVm*@
 @model Tuple<ViewModels.Models.ProductAddVm,ViewModels.Models.ProductInfoEditVm>
+
+<style>
+    #producttable_filter {
+        margin-bottom: 15px;
+    }
+</style>
+
 <body>
     <div>
         @if (TempData["success"] != null)
@@ -16,11 +23,7 @@
         }
     </div>
     <!-- Button trigger modal -->
-    <div class="d-flex mt-5 mb-3 justify-content-end">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add Product
-    </button>
-    </div>
+   
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -31,14 +34,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="mt-5 formm" id="formm" asp-action="ProductAdd" asp-controller="Product" enctype="multipart/form-data">
+                    <form class=" formm" id="formm" asp-action="ProductAdd" asp-controller="Product" enctype="multipart/form-data">
                         <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
 
                         <div class="mb-3">
                             <label for="contact" class="form-label">
                                 <p class="formInput">Select Categories<span style="color: red;">*</span></p>
                             </label>
-                            <select id="SelectedCompanyId" class="form-select form-control" asp-for="@Model.Item1.categoryId" asp-items="@Model.Item2.productadd.Categories">
+                            <select id="SelectedCompanyId" class="form-select form-control data" asp-for="@Model.Item1.categoryId" asp-items="@Model.Item2.productadd.Categories">
                                 <option>Select Category</option>
                             </select>
                             <span asp-validation-for="@Model.Item1.categoryId" class="text-danger"></span>
@@ -67,7 +70,7 @@
                         </div>
                         <div class="mb-3">
                             <label>Image</label>
-                            <div style="border:solid grey 1px;"> <input type="file" style="width:716px;opacity: 0" id="ImageBanner" class="file-input data" accept="image/jpeg, image/PNG, image/jpg" asp-for="@Model.Item1.image"></div>
+                            <div class="data" style="border:solid grey 1px;"> <input type="file" style="width:716px;opacity: 0" id="ImageBanner" class="file-input data" accept="image/jpeg, image/PNG, image/jpg" asp-for="@Model.Item1.image"></div>
                         </div>
 
                         <div class="mb-3" style="display:flex;justify-content:center">
@@ -76,16 +79,13 @@
                                 Add
                             </button>
                         </div>
-                        <hr>
+                        
 
                         <div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -94,7 +94,14 @@
         <a class="text-decoration-none text-white" asp-action="ProductForm" asp-controller="Product">Add Product</a>
     </button>
     </div>*@
-    <table class=" table my-2 table-bordered" id="producttable">
+    <div class="row d-flex justify-content-center">
+    <div class="col-10">
+            <div class="d-flex mt-5 mb-3 justify-content-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add Product
+                </button>
+            </div>
+            <table class=" table my-2 table-bordered table-striped table-warning table-responsive" id="producttable" style="box-shadow: 4px 5px 5px #6c757d;">
 
         <thead class="table-dark">
             <tr>
@@ -146,6 +153,8 @@
 
         </tbody>
     </table>
+    </div>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <script>
