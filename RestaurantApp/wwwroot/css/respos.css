@@ -223,7 +223,14 @@ ul {
         display: block;
         transition: 0.2s;
     }
-
+    .sidebar2 a {
+        padding: 1px 1px 1px 3px;
+        text-decoration: none;
+        font-size: 17px;
+        color: red;
+        display: block;
+        transition: 0.2s;
+    }
     /* When you mouse over the navigation links, change their color */
 
 

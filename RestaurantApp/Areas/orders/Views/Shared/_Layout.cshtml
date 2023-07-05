@@ -6,20 +6,19 @@
     <title>@ViewData["Title"] - RestaurantApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/DatatableCss/jquery.dataTables.css" rel="stylesheet" />
-    <link href="~/css/DatatableCss/jquery.dataTables.min.css" rel="stylesheet/>
+    <link href="~/css/DatatableCss/jquery.dataTables.min.css" rel="stylesheet />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <link rel="stylesheet" href="~/RestaurantApp.styles.css" asp-append-version="true" />
-   @* <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />*@
-      <link href="~/css/respos.css" rel="stylesheet" />
+    @* <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />*@
+    <link href="~/css/respos.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    
-    
+
 
 </head>
 <body>
-     <div class="container-fluid">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
 
             <div id="mySidebar" class="sidebar">
@@ -32,13 +31,13 @@
                 </div>
 
 
+
                 <p id="drp" class="drpdes">
                     <a asp-action="ServicesPage" asp-area="services" asp-controller="Service">ServicesPage</a>
                 </p>
                 <p id="drp" class="drp">
                     Forms <span style="margin-left: 150px;"><i class="bi bi-chevron-down arrow"></i></span>
                 </p>
-
 
                 <div class="drpclass d-none" style=" background-color: #ffe599;">
 
@@ -64,46 +63,70 @@
                     <p id="drp2" class="drp2 d-flex justify-content-between">
                         <span>Product Master</span> <span style=""><i class="bi bi-chevron-down arrow" style="right:0px"></i></span>
                     </p>
-                     <div class="drpclass2 d-none" style=" background-color: #ffe599;">
+                    <div class="drpclass2 d-none" style=" background-color: #ffe599;">
                         <a type="button" asp-area="product" asp-action="AllProducts" asp-controller="Product" type="button" class="pages">
-                        <div style="">All Products</div>
-                    </a>
-                         </div>
+                            <div style="">All Products</div>
+                        </a>
+                    </div>
+
+
+
                     <hr>
+
+
                     <p id="drp3" class="drp3 d-flex justify-content-between">
                         <span>Category Master</span> <span style=""><i class="bi bi-chevron-down arrow" style="right:0px"></i></span>
                     </p>
                     <div class="drpclass3 d-none" style=" background-color: #ffe599;">
                         <a type="button" asp-area="category" asp-action="AllCategories" asp-controller="Category" type="button" class="pages">
-                        <div style="">All Caegories</div>
-                    </a>
-                        </div>
+                            <div style="">All Caegories</div>
+                        </a>
+                    </div>
+
+
+
+
                     <hr>
+
+
+
+
                     <p id="drp4" class="drp4 d-flex justify-content-between">
                         <span>Company Master</span> <span style=""><i class="bi bi-chevron-down arrow" style="right:0px"></i></span>
                     </p>
                     <div class="drpclass4 d-none" style=" background-color: #ffe599;">
                         <a type="button" asp-area="admin" asp-action="CompanyLogin" asp-controller="home" type="button" class="pages">
-                        <div style="">Company Login</div>
-                    </a>
-                    <hr>
-                    <a type="button" asp-area="admin" asp-action="CompanyRegister" asp-controller="home" type="button" class="pages">
-                        <div style="">Company Register</div>
-                    </a>
-                        </div>
+                            <div style="">Company Login</div>
+                        </a>
+                        <hr>
+                        <a type="button" asp-area="admin" asp-action="CompanyRegister" asp-controller="home" type="button" class="pages">
+                            <div style="">Company Register</div>
+                        </a>
+                    </div>
+
+
+
+
+
                 </div>
 
-                <p id="drp" class="drpdes" >
-                    <a style="text-decoration:none;color:red" asp-action="OrderDetails" asp-area="orders" asp-controller="Orders">Order Details</a>
-                </p>
+
 
             </div>
+
+
+
             <!-- toggle ends -->
+
+
             <div id="main" style="z-index: 1;">
                 <button class="openbtn position-absolute" onclick="openNav()">
                     <img src="~/images/burger.png" alt="" class="burgerImg">
                 </button>
             </div>
+
+
+
             <!-- toggle 2  -->
 
             <div id="mySidebar2" class="sidebar2">
@@ -118,9 +141,6 @@
                 </div>
 
 
-                <p id="drp" class="drpdes">
-                    <a asp-action="ServicesPage" asp-area="services" asp-controller="Service">ServicesPage</a>
-                </p>
 
                 <p id="drp" class="drp">
                     Forms <span style="margin-left: 150px;"><i class="bi bi-chevron-down arrow"></i></span>
@@ -192,9 +212,7 @@
 
                 </div>
 
-                <p id="drp" class="drpdes">
-                    <a style="text-decoration:none;color:red" asp-action="OrderDetails" asp-area="orders" asp-controller="Orders">Order Details</a>
-                </p>
+
 
 
             </div>
@@ -207,8 +225,7 @@
             <div id="main2" style="z-index: 1;">
                 <button class="openbtn2 position-absolute" onclick="openNav2()">
                     <img class="burgerImg"
-                        src="~/images/burger.png" alt=""
-                        >
+                         src="~/images/burger.png" alt="">
                 </button>
             </div>
             <!-- toggle 2 ends -->
@@ -221,7 +238,7 @@
                  style="display: flex;height: 80px;justify-content: center;margin: 0px;object-fit: contain;  border-bottom: solid 2px;border-bottom-color: black; ">
                 <img src="~/images/restaurant2.jpg"
                      style="height: 80px; width: 100%;object-fit: cover;opacity: 0.2;position: relative;" alt="">
-                <div class="resTitle" >
+                <div class="resTitle">
                     <img style="height:35px;width:35px" src="~/images/icon.png" /><p class="resp"> Restaurant POS</p>
                 </div>
                 <div class="dropdown text-end" style="position: absolute;right: 10px;top: 15px;background-color: #ffe599;border: solid grey 1px;border-radius: 11px;box-shadow: 4px 5px 5px #6c757d;">
@@ -239,7 +256,7 @@
                     <div class="profile mt-1" style="display: flex;">
                         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <img src="~/images/pizza.png" alt="mdo"  class="rounded-circle profileImg"><span class="profileSpan">
+                            <img src="~/images/pizza.png" alt="mdo" class="rounded-circle profileImg"><span class="profileSpan">
                                 Evan
                                 Donohue
                             </span>
@@ -258,8 +275,8 @@
 
             <div class="container-fluid" style=" height: 700px;">
 
-                <div class="row page" style="">
-            @RenderBody()
+                <div class="row justify-content-center" style="">
+                    @RenderBody()
                 </div>
 
 
@@ -267,14 +284,14 @@
             </div>
         </main>
     </div>
-  @*  <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    @*  <div class="container">
+    <main role="main" class="pb-3">
+    @RenderBody()
+    </main>
     </div>
-*@
-   
-<script>
+    *@
+
+    <script>
 
         $(".drp1").click(function () {
             // $(".boom").removeAttr("style");
@@ -289,8 +306,8 @@
             }
         });
 
-         $(".drp2").click(function () {
-          
+        $(".drp2").click(function () {
+
             // $(".boom").removeAttr("style");
             var drpclass2 = $(".drpclass2")
             if (drpclass2.hasClass("d-none")) {
@@ -303,7 +320,7 @@
             }
         });
 
-         $(".drp3").click(function () {
+        $(".drp3").click(function () {
             // $(".boom").removeAttr("style");
             var drpclass3 = $(".drpclass3")
             if (drpclass3.hasClass("d-none")) {
@@ -338,9 +355,9 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-      
-            <script src="~/js/layout.js"></script>
-                <script src="~/js/animation.js"></script>
+
+    <script src="~/js/layout.js"></script>
+    <script src="~/js/animation.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

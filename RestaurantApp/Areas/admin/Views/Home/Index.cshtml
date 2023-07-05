@@ -79,3 +79,36 @@
     </div>
 </div>
 
+<script>
+    //function userRegister() {
+   
+    //    $.ajax({
+    //        method: 'Post',
+    //        url: "/Admin/Home/UserRegister",
+    //        traditional:true,
+    //        success: function (res) {
+
+    //        },
+    //        error: function () {
+    //            alert("user erroe");
+    //        },
+
+    //    })
+    //}
+
+
+    function userRegister() {
+
+        $.ajax({
+            method: 'GET',
+            url: "/Admin/Home/UserRegister",
+            success: function (res) {
+                $("#PartialView").html(res)
+            },
+            error: function () {
+                alert("user erroe");
+            },
+
+        })
+    }
+</script>

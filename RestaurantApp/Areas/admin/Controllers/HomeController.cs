@@ -390,20 +390,7 @@ namespace RestaurantApp.Areas.admin.Controllers
             Random random = new Random();
             return random.Next(1000, 9999).ToString();
         }
-        //private void SendOTPByEmail(string email, string otp)
-        //{
-        //    MailMessage mailMessage = new MailMessage();
-        //    mailMessage.From = new MailAddress("pankru2002@gmail.com"); // Replace with your email address
-        //    mailMessage.To.Add(email);
-        //    mailMessage.Subject = "Reset Password OTP";
-        //    mailMessage.Body = $"Your OTP is: {otp}";
-
-        //    SmtpClient smtpClient = new SmtpClient("smtp.example.com"); // Replace with your SMTP server address
-        //    smtpClient.Port = 587;
-        //    smtpClient.Credentials = new System.Net.NetworkCredential("pankru2002@gmail.com", "your-password"); // Replace with your email credentials
-        //    smtpClient.EnableSsl = true;
-        //    smtpClient.Send(mailMessage);
-        //}
+     
 
         [HttpPost]
         public ActionResult ForgetPassword(string email)
