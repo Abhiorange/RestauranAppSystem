@@ -1,4 +1,4 @@
-﻿@model ViewModels.Models.UserLoginVm
+﻿@model ViewModels.Models.ForgetPasswordVm
 @{
     Layout = "../Shared/_Layout1.cshtml";
 }
@@ -18,11 +18,11 @@
             <img id="mainicon" src="~/images/fries.png" style="height: 60px;z-index: 1;" alt="">
         </div>
 
-        <p class="mt-2" style="z-index:1"> User Login Page</p>
+        <p class="mt-2" style="z-index:1"></p>
     </div>
     <div class="container mb-4" style="display:flex;justify-content:center">
        
-        <form class="mt-5 formm" id="formm" asp-action="Index" asp-controller="Home">
+        <form class="mt-5 formm" id="formm" asp-action="ForgetPassword" asp-controller="Home">
             @if (TempData["error"] != null)
             {
                 <span class="text-danger">@TempData["error"]</span>
@@ -32,23 +32,15 @@
                 <label for="exampleInputEmail1" class="form-label">
                     <p class="formInput">Email <span style="color: red;">*</span></p>
                 </label>
-                <input type="email" class="form-control data" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="evan.donohue@gmail.com" asp-for="email">
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">
-                    <p class="formInput">Password <span style="color: red;">*</span></p>
-                </label>
-                <input type="password" class="form-control data" id="exampleInputPassword1" placeholder="**********" asp-for="password">
-                <span asp-validation-for="password" class="text-danger"></span>
+                <input type="number" class="form-control data" id="" aria-describedby="emailHelp" placeholder="" asp-for="otp">
+                <span asp-validation-for="otp" class="text-danger"></span>
             </div>
 
             <div style="display: flex;justify-content: center;">
                 <img src="~/images/finger-fotor-bg-remover-20230623144328.png" class="finger" style="height: 38px;transform: scaleX(-1);display:none" />
                 <button type="submit" id="submitbtn" value="submit" class="btn submit"
                         style="background-color: red;color: white;border-radius: 7px;">
-                    Log In
+                    Send OTP
                 </button>
                 <img src="~/images/peek3-fotor-bg-remover-20230623155433.png" class="finger" style="height: 38px; ;transform: scaleX(-1)" />
             </div>
@@ -57,21 +49,14 @@
 
             <div>
             </div>
-            <div class="d-flex justify-content-center">
-             <a asp-action="ForgetPassword" asp-controller="Home" style="text-decoration:none ; color:grey">Forgot Password?</a>
-            </div>
+
+
+
 
         </form>
 
     </div>
-    <div style="display:flex; justify-content:center ;z-index:2">
-
-        <button class="btn" onclick="userRegister()"
-                style="background-color: #d6d6d6; color: grey;border-radius: 7px;z-index:2">
-            Create An
-            Account
-        </button>
-    </div>
+ 
     <div style="height:90px ; position:relative">
         <div id="popcorn" style="position:absolute;bottom:0px">
             <img src="~/images/popcornGif.gif" style="width:100px" />

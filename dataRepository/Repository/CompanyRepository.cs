@@ -9,7 +9,11 @@ namespace dataRepository.Repository
     public class CompanyRepository : ICompanyRepository
     {
         public string connections = "server=192.168.2.59\\SQL2019;Database=RestaurantSystem;User Id=sa;Password=Tatva@123;Encrypt=False";
-
+        private string GenerateOTP()
+        {
+            Random random = new Random();
+            return random.Next(1000, 9999).ToString();
+        }
         public int loginrepo(CompanyLoginVm model)
          {
             int userId = 0;
@@ -35,6 +39,66 @@ namespace dataRepository.Repository
                 }
             
          }
+
+        public int forgetrepo(ForgetPasswordVm model)
+        {
+         
+
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("UserForgetPassword", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@email", model.email);
+                cmd.Parameters.AddWithValue("@otp", model.otp);
+
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+
+        }
+
+        public int resetrepo(ResetPasswordVm model)
+        {
+
+
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("ResetPassword", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@email", model.email);
+                cmd.Parameters.AddWithValue("@newpassword", model.password);
+                cmd.Parameters.Add("@ispasswordreset", SqlDbType.Bit).Direction = ParameterDirection.Output;
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                int ispasswordreset = Convert.ToInt32(cmd.Parameters["@ispasswordreset"].Value);
+
+                return ispasswordreset;
+            }
+
+        }
+
+        public int otprepo(ForgetPasswordVm model)
+        {
+
+
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("OtpCompare", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@email", model.email);
+                cmd.Parameters.AddWithValue("@otp", model.otp);
+                cmd.Parameters.Add("@IsValid", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                con.Open();
+                cmd.ExecuteNonQuery();
+                int isValid = Convert.ToInt32(cmd.Parameters["@IsValid"].Value);
+
+                return isValid;
+            }
+
+        }
         public int userloginrepo(UserLoginVm model)//user is logged in
         {
             int userId = 0;
@@ -273,6 +337,16 @@ namespace dataRepository.Repository
                 int i = cmd.ExecuteNonQuery();
                 return i;
             }
+        }
+
+        //public int forgetrepo(ForgetPasswordVm model)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public int loginrepo(ForgetPasswordVm model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

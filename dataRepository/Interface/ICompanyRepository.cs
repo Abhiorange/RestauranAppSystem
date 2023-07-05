@@ -11,6 +11,10 @@ namespace dataRepository.Interface
     public interface ICompanyRepository
     {
         public int loginrepo(CompanyLoginVm model);
+        public int forgetrepo(ForgetPasswordVm model);
+        public int resetrepo(ResetPasswordVm model);
+
+        public int otprepo(ForgetPasswordVm model);
         public int userloginrepo(UserLoginVm model);
         public int registerrepo(CompanyRegisterVm model);
         public List<Userinfo> GetUsersList();
@@ -22,6 +26,6 @@ namespace dataRepository.Interface
         public UserEditVm GetUserById(int id);
         public int EditUser(PostUserEditVm model);
         public int deleteUserById(int id);
-
-     }
+        int loginrepo(ForgetPasswordVm model);
+    }
 }
