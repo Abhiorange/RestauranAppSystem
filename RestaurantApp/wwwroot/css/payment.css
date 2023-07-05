@@ -85,10 +85,17 @@
     font-size: 17px;
     background: #27ae60;
     color: #fff;
-    margin-top: 5px;
+    margin-top: 20px;
     cursor: pointer;
 }
 
     .containerform form .submit-btn:hover {
         background: #2ecc71;
     }
+.inputfde {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    font-size: 15px;
+    text-transform: none;
+}

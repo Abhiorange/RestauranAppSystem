@@ -116,11 +116,10 @@
                 </div>
             </div>
             <div class="col-md-4  rightdivitems">
-                <Span class="fs-4 fw-bolder">Current Order</Span>
-                <div class="Bill">
+                <span class="fs-2 fw-bolder">Current Order</span>
+                <div class="Bill" style="margin-top: 40%;">
                     <h2>No products Added For Bill Generation</h2>
                 </div>
-
                 <div class="overflow_class mt-4 d-none">
                     @if (Model.Item4.Any())
                     {
@@ -292,7 +291,9 @@
                         </tbody>
                     </table>
                     <div class="d-flex mt-2  justify-content-center">
-                        <button type="button" class="btn btn-warning mx-2">Payment with cash</button>
+                        <button type="button" class="btn btn-warning mx-2">
+                            <a asp-action="PayCash" asp-area="services" asp-controller="Service"> Payment with cash</a>
+                        </button>
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#payModal">
                             Pay Online
                         </button>
@@ -307,22 +308,24 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="containerform">
-                                        <form action="">
+                                        <form asp-action="CustomerAdd" asp-controller="Service" method="post">
                                             <div class="row">
                                                 <div class="col">
                                                     <h3 class="title">billing address</h3>
                                                     <div class="inputBox">
                                                         <span>full name :</span>
                                                         <input type="text" placeholder="john deo" asp-for="@Model.Item5.name">
-                                                        <span asp-validation-for="@Model.Item5.name"></span>
+                                                        <span asp-validation-for="@Model.Item5.name" class="text-danger"></span>
                                                     </div>
                                                     <div class="inputBox">
                                                         <span>email :</span>
-                                                        <input type="email" placeholder="example@example.com">
+                                                        <input type="email" placeholder="example@example.com" asp-for="@Model.Item5.email">
+                                                        <span asp-validation-for="@Model.Item5.email" class="text-danger"></span>
                                                     </div>
                                                     <div class="inputBox">
                                                         <span>Address :</span>
-                                                        <input type="text" placeholder="room - street - locality">
+                                                        <input type="text" placeholder="room - street - locality" asp-for="@Model.Item5.address">
+                                                        <span asp-validation-for="@Model.Item5.address" class="text-danger"></span>
                                                     </div>
                                                     <div class="inputBox">
                                                         <span>City :</span>
@@ -332,7 +335,8 @@
                                                     <div class="flex">
                                                         <div class="inputBox">
                                                             <span>PhoneNumber :</span>
-                                                            <input type="text" placeholder="india">
+                                                            <input placeholder="india" asp-for="@Model.Item5.phone">
+                                                            <span asp-validation-for="@Model.Item5.phone" class="text-danger"></span>
                                                         </div>
                                                         <div class="inputBox">
                                                             <span>zip code :</span>
@@ -370,12 +374,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <span>CVV :</span>
-                                                    <input type="text" placeholder="1234">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="d-flex flex-column">
+                                                        <div> <span>Price to Pay</span></div>
+                                                        <div><input type="text" placeholder="This is the price" class="inputfde" value="@Model.Item4.Sum(i => i.totalprice)"></div>
+                                                    </div>
                                                 </div>
-                                                <button type="submit" class="submit-btn">Proceed to checkout</button>
+                                                <div class="col">
+                                                    <button type="submit" class="submit-btn">proceed to checkout</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

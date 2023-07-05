@@ -20,6 +20,8 @@ namespace dataRepository.Interface
         public int BillItems(TablenoVm model);
         public List<AllItemsInfo> GetAllProductsNames(int orderid);
         public int DeleteItems(DeleteItemVm model);
+        public int Payment(PaymentVm model);
+        public int PayCash(PayCashVm model);
 
     }
 }

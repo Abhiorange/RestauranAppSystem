@@ -167,6 +167,32 @@ namespace dataRepository.Repository
                 return i;
             }
         }
+        public int Payment(PaymentVm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("spInsertPayment", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                cmd.Parameters.AddWithValue("@customerid", model.customerId);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
+        public int PayCash(PayCashVm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("spPaymentCash",con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+                return i;
+            }
+        }
         public int BillItems(TablenoVm model)
         {
             using (SqlConnection con = new SqlConnection(connections))

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 using System.Text;
 using ViewModels.Models;
 
@@ -12,6 +13,7 @@ namespace RestaurantApp.Areas.services.Controllers
         private readonly HttpClient _client;
         private readonly IConfiguration _configuration;
         Uri baseAddress = new Uri("http://localhost:7189/api");
+        private readonly Random random = new Random();
 
         public ServiceController(ILogger<ServiceController> logger, IConfiguration configuration)
         {
@@ -67,18 +69,33 @@ namespace RestaurantApp.Areas.services.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CustomerAdd([FromBody] CustomerDetailVm model)
+        public IActionResult CustomerAdd([Bind(Prefix = "Item5")] CustomerDetailVm model)
         {
+            PaymentVm payment = new PaymentVm();
+            int customerId = 0;
             try
             {
+                int randomNumber = random.Next();
+                model.customerCode = randomNumber;
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/AddCustomer", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var content = response.Content.ReadAsStringAsync().Result;
-                    int customerId = Convert.ToInt32(content);
-                    HttpContext.Session.SetInt32("customerId", customerId);
+                    customerId = Convert.ToInt32(content);
+                }
+
+
+                payment.customerId=customerId;
+                payment.orderid = (int)HttpContext.Session.GetInt32("ordersid");
+                string serializedData1 = JsonConvert.SerializeObject(payment);
+                StringContent stringContent1 = new StringContent(serializedData1, Encoding.UTF8, "application/json");
+                HttpResponseMessage response1 = _client.PostAsync(_client.BaseAddress + "/Service/Payment/" ,stringContent1).Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    HttpContext.Session.Remove("ordersid");
+                    return RedirectToAction("ServicesPage");
                 }
             }
             catch (Exception ex)
@@ -86,10 +103,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-            TempData["success"] = "Product Added Scuccesfully";
-           // return RedirectToAction("AllProducts");
             return RedirectToAction("ServicesPage");
-
         }
         [HttpPost]
         public IActionResult AddItems([FromBody] ItemsDetailVm model)
@@ -194,7 +208,30 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             return RedirectToAction("ServicesPage");
         }
-
+       
+        public IActionResult PayCash()
+        {
+            PayCashVm model = new PayCashVm();
+            try
+            {
+                int orderId = (int)HttpContext.Session.GetInt32("ordersid");
+                model.orderid = orderId;
+                string serializedData = JsonConvert.SerializeObject(model);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/PayCash", stringContent).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    HttpContext.Session.Remove("ordersid");
+                    return RedirectToAction("ServicesPage");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("ServicesPage");
+        }
 
         [HttpPost]
         public IActionResult BillItems([FromBody] TablenoVm model)

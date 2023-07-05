@@ -82,6 +82,33 @@ namespace RestaurantWebApi.Areas.service.Controllers
                 return BadRequest("Wrong credential");
             }
         }
+        [HttpPost]
+        public IActionResult Payment(PaymentVm model)
+        {
+            var i = _servicerepo.Payment(model);
+            if (i > 0)
+            {
+                return Ok(i);
+            }
+            else
+            {
+                return BadRequest("Wrong credential");
+            }
+        }
+        [HttpPost]
+        public IActionResult PayCash(PayCashVm model)
+        {
+            var i = _servicerepo.PayCash(model);
+            if (i > 0)
+            {
+                return Ok(i);
+            }
+            else
+            {
+                return BadRequest("Wrong credential");
+            }
+        }
+
 
         [HttpPost]
         public IActionResult AddItems(PostItemsVm model)

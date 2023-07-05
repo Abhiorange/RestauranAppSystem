@@ -29,11 +29,8 @@ namespace RestaurantApp.Areas.category.Controllers
         [HttpPost]
         public IActionResult AddCategories([Bind(Prefix = "Item2")]  CategoryVm model)
         {
-
-
             try
             {
-
                 var FileName = "";
                 using (var ms = new MemoryStream())
                 {

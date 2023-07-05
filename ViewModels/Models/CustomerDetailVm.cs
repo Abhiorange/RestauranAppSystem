@@ -18,6 +18,6 @@ namespace ViewModels.Models
         [Required(ErrorMessage = "Email is required")]
         public string email { get; set; }
         [Required(ErrorMessage = "Phone is required")]
-        public int phone { get; set; }
+        public long phone { get; set; }
     }
 }
