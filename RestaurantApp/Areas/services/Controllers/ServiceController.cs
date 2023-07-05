@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
@@ -138,7 +139,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response1 = _client.PostAsync(_client.BaseAddress + "/Service/AddItems", stringContent).Result;
                 if (response1.IsSuccessStatusCode)
-                {
+                {  
                     return RedirectToAction("ServicesPage");
                 }
             }

@@ -114,10 +114,9 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@orderid", model.ordersid);
                 cmd.Parameters.AddWithValue("@productid", model.productid);
                 cmd.Parameters.AddWithValue("@units", model.itemunit);
-
+              
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
-
                 return i;
             }
         }

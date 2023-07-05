@@ -116,7 +116,7 @@ namespace RestaurantWebApi.Areas.service.Controllers
             var i = _servicerepo.AddItem(model);
             if (i > 0)
             {
-                return Ok();
+                return Ok(i);
             }
             else
             {
