@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = "../Shared/_Layout1.cshtml";
+}
+
+@*<link href="~/css/respos.css" />*@
+<style>
+    body {
+        background-color: white;
+    }
+</style>
+
+<div class="col-12 px-0" style="background-color: white;  height: fit-content;box-shadow: 4px 5px 5px #6c757d;position:relative;margin-top:50px">
+    <div class="page-top" style="position:relative">
+
+        <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
+        <div class="lockIcon mt-4">
+            <img id="mainicon" src="~/images/fries.png" style="height: 60px;z-index: 1;" alt="">
+        </div>
+
+        <p class="mt-2" style="z-index:1"> User Login Page</p>
+    </div>
+    <div class="container mb-4" style="display:flex;justify-content:center">
+
+       
+
+    </div>
+    <div style="display:flex; justify-content:center ;z-index:2">
+
+        <button class="btn" onclick="userRegister()"
+                style="background-color: #d6d6d6; color: grey;border-radius: 7px;z-index:2">
+            Create An
+            Account
+        </button>
+    </div>
+    <div style="height:90px ; position:relative">
+        <div id="popcorn" style="position:absolute;bottom:0px">
+            <img src="~/images/popcornGif.gif" style="width:100px" />
+        </div>
+    </div>
+</div>
+
