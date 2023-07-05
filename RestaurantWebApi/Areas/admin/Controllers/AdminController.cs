@@ -39,6 +39,50 @@ namespace RestaurantWebApi.Areas.admin.Controllers
 
 
         [HttpPost]
+        public IActionResult ForgetPassword(ForgetPasswordVm model)//company login
+        {
+            var userId = _companyrepo.forgetrepo(model);
+            if (userId == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return Content("false");
+            }
+
+        }
+        [HttpPost]
+        public IActionResult OtpCompare(ForgetPasswordVm model)//company login
+        {
+            var userId = _companyrepo.otprepo(model);
+            if (userId == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return Content("false");
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordVm model)//company login
+        {
+            var userId = _companyrepo.resetrepo(model);
+            if (userId == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return Content("false");
+            }
+
+        }
+
+        [HttpPost]
         public IActionResult Register(CompanyRegisterVm model)//company register
         {
             var i = _companyrepo.registerrepo(model);
