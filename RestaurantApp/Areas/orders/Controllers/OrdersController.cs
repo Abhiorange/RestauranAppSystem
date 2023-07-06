@@ -31,11 +31,11 @@ namespace RestaurantApp.Areas.orders.Controllers
                 model = JsonConvert.DeserializeObject<List<OrdersVm>>(userJson);
             }
            
-            HttpResponseMessage response1 = _client.GetAsync(_client.BaseAddress + "/Orders/GetDataById" + orderid).Result;
+            HttpResponseMessage response1 = _client.GetAsync(_client.BaseAddress + "/Orders/GetDataById/" + orderid).Result;
             if (response1.IsSuccessStatusCode)
             {
-                var userJson = response.Content.ReadAsStringAsync().Result;
-                model1 = JsonConvert.DeserializeObject<List<ProductODVm>>(userJson);
+                var userJson1 = response1.Content.ReadAsStringAsync().Result;
+                model1 = JsonConvert.DeserializeObject<List<ProductODVm>>(userJson1);
             }
             var tuple = new Tuple<List<OrdersVm>, List<ProductODVm>>(model, model1);
             return View(tuple);
