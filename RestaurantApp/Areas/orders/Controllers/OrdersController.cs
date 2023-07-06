@@ -18,7 +18,7 @@ namespace RestaurantApp.Areas.orders.Controllers
             _configuration = configuration;
             _client = new HttpClient();
             _client.BaseAddress = baseAddress;
-        }
+        }        
         [HttpGet]
         public IActionResult OrdersDetails(int orderid=0)
         {
@@ -40,16 +40,5 @@ namespace RestaurantApp.Areas.orders.Controllers
             var tuple = new Tuple<List<OrdersVm>, List<ProductODVm>>(model, model1);
             return View(tuple);
         }
-       /* [HttpGet]
-        public IActionResult GetDataById(int orderId)
-        {
-            List<ProductODVm> model = List<ProductODVm>();
-           HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Orders/GetDataById"+orderId).Result;
-           if (response.IsSuccessStatusCode)
-           {
-                var userJson = response.Content.ReadAsStringAsync().Result;
-                model = JsonConvert.DeserializeObject<List<ProductODVm>>(userJson);
-            }
-        }*/
     }
 }

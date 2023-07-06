@@ -37,9 +37,7 @@ namespace RestaurantApp.Areas.category.Controllers
                     model.image.CopyToAsync(ms);
                     var imageBytes = ms.ToArray();
                     var base64String = Convert.ToBase64String(imageBytes);
-                    FileName = "data:image/png;base64," + base64String;
-
-
+                    FileName = base64String;
                 }
                 model.imagesrc = FileName;
 

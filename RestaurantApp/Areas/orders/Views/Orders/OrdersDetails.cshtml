@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "../Shared/_Layout.cshtml";
 }
-@*Ordersdetail for*@
+
 @model Tuple<List<ViewModels.Models.OrdersVm>,List<ViewModels.Models.ProductODVm>>
 <head>
     <style>
@@ -84,20 +84,18 @@
                                         @foreach (var data in Model.Item2)
                                         {
                                             <tr>
-                                              
-                                                    @if(data.image!=null)
-                                                    {
-                                                    <td>
-                                                        <img src="@data.image">
-                                                    </td>
+                                                @if(data.image!=null)
+                                                {
+                                                <td>
+                                                    <img src="@data.image" alt="imageof product">
+                                                </td>
                                                 }
                                                 else
-                                                {
-                                                   <td>
-                                                        <img src="~/images/f3.jpg">
-                                                    </td> 
+                                                {   
+                                                <td>
+                                                    <img src="~/images/f3.jpg">
+                                                </td> 
                                                 }
-
                                                 <td>@data.productname</td>
                                                 <td>@data.units</td>
                                                 <td>@data.unitprice</td>
