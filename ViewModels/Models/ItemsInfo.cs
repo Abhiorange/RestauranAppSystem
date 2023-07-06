@@ -14,5 +14,6 @@ namespace ViewModels.Models
         public long totalprice { get; set; }
         public int units { get; set; }
         public int productid { get; set; }
+        public string image { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace ViewModels.Models
         public string productname { get; set; }
         public int id { get;set; }
         public long unitprice { get; set; }
+        public string image { get; set; }
     }
 }

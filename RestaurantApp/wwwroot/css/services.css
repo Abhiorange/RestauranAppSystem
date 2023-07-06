@@ -221,38 +221,27 @@
 
 @media only screen and (max-width:1127px) {
     .widcard {
-        width: 31%;
+        width: 33%;
     }
 }
-
-@media only screen and (max-width:1127px) {
-    .widcard {
-        width: 35%;
-    }
-}
-
 @media only screen and (max-width:468px) {
     .widcard {
         width: 42%;
     }
 }
-
-
-
-
-    @media only screen and (max-width:1050px) {
+@media only screen and (max-width:1050px) {
         .card-title {
             font-size: 15px;
         }
-    }
+}
 
-    @media only screen and (max-width:890px) {
+/*@media only screen and (max-width:890px) {
       
         .card-img-top {
             width: 45%;
         }
-    }
-   
+}
+   */
 
 
 }
@@ -266,8 +255,8 @@
     .card-title {
         font-size: 12px;
     }
-    .card-img-top{
+ /*   .card-img-top{
         width:45%;
-    }
+    }*/
 }
 

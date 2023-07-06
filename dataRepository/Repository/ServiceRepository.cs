@@ -56,6 +56,7 @@ namespace dataRepository.Repository
                         productname = rdr["name"].ToString(),
                         id = Convert.ToInt32(rdr["id"]),
                         unitprice = Convert.ToInt64(rdr["unitPrice"]),
+                        image = rdr["image"].ToString()
                     };
 
                     model.Add(name);
@@ -254,6 +255,7 @@ namespace dataRepository.Repository
                         productid = Convert.ToInt32(rdr["ProductId"]),
                         totalprice= Convert.ToInt64(rdr["TotalPrice"]),
                         orderid= Convert.ToInt32(rdr["OrderID"]),
+                        image = rdr["image"].ToString(),
                     };
 
                     model.Add(name);
