@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Text;
+using System.Collections.Generic;
+using System.Net.Http;
 using ViewModels.Models;
 
 namespace RestaurantApp.Areas.orders.Controllers
@@ -20,10 +21,11 @@ namespace RestaurantApp.Areas.orders.Controllers
             _client.BaseAddress = baseAddress;
         }        
         [HttpGet]
-        public IActionResult OrdersDetails(int orderid=0)
+        public IActionResult OrdersDetails(int orderid = 0)
         {
             List<OrdersVm> model = new List<OrdersVm>();
-            List<ProductODVm> model1 =new List<ProductODVm>();
+            List<ProductODVm> model1 = new List<ProductODVm>();
+
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Orders/GetOrdersInfo").Result;
             if (response.IsSuccessStatusCode)
             {
@@ -37,6 +39,7 @@ namespace RestaurantApp.Areas.orders.Controllers
                 var userJson1 = response1.Content.ReadAsStringAsync().Result;
                 model1 = JsonConvert.DeserializeObject<List<ProductODVm>>(userJson1);
             }
+
             var tuple = new Tuple<List<OrdersVm>, List<ProductODVm>>(model, model1);
             return View(tuple);
         }
