@@ -87,13 +87,11 @@
                         </div>
                     </div>
                 </nav>
-
                 <div class="container  mt-3 details">
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         @if (Model.Item2.Count() == 0)
                         {
                             <div class="d-flex align-items-center justify-content-center  itemsbox"><h2 class="ms-4 d-flex justify-content-center">Please select Any Category for displaying items</h2></div>
-
                         }
                         else
                         {
@@ -101,7 +99,7 @@
                             {
                                 <div class="col widcard" onclick="productitem(@m.id)">
                                     <div class="card">
-                                        <img src="~/images/pizza.png" class="card-img-top mx-auto" alt="..." style="width:60%">
+                                        <img src="@m.image" class="card-img-top mx-auto" alt="..." style="height:162.8px;">
                                         <div class="card-body border-top textdes d-flex justify-content-between">
                                             <h5 class="card-title">@m.productname</h5>
                                             <span class="card-title"><span>&#8377;</span>@m.unitprice</span>
@@ -110,8 +108,6 @@
                                 </div>
                             }
                         }
-
-
                     </div>
                 </div>
             </div>
@@ -161,7 +157,7 @@
                                 </span>
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="~/images/f1.jpg" class="img-fluid rounded-start w-100 h-100" alt="...">
+                                        <img src="@v.image" class="img-fluid rounded-start w-100 h-100" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
