@@ -22,7 +22,7 @@ app.UseAuthorization();
 app.UseSession();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=orders}/{controller=Orders}/{action=OrdersDetails}/{id?}");
+    pattern: "{area=admin}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 //"{area=admin}/{controller=Home}/{action=Index}/{id?}"
