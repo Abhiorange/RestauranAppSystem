@@ -16,6 +16,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
+
 </head>
 <body>
     <div class="container-fluid">
@@ -30,13 +31,14 @@
                     <a href="javascript:void(0)" style="padding: 0px;" class="closebtn" onclick="closeNav()">&times;</a>
                 </div>
 
-                <p id="drp" class="drpdes">
-                    <a asp-action="ServicesPage" asp-area="services" asp-controller="Service">ServicesPage</a>
-                </p>
 
-                <p id="drp" class="drp">
-                    Forms <span style="margin-left: 150px;"><i class="bi bi-chevron-down arrow"></i></span>
+                <p id="drp" class="drpdes">
+                    <a style="    margin-left: 15px;font-size:medium" asp-action="ServicesPage" asp-area="services" asp-controller="Service">ServicesPage</a>
                 </p>
+                <div id="drp" class="drp">
+                    <p style=" margin-left: 15px;font-size:medium"> Forms <span style="margin-left: 150px;"><i class="bi bi-chevron-down arrow"></i></span></p>
+                </div>
+
 
                 <div class="drpclass d-none" style=" background-color: #ffe599;">
 
@@ -67,12 +69,7 @@
                             <div style="">All Products</div>
                         </a>
                     </div>
-
-
-
                     <hr>
-
-
                     <p id="drp3" class="drp3 d-flex justify-content-between">
                         <span>Category Master</span> <span style=""><i class="bi bi-chevron-down arrow" style="right:0px"></i></span>
                     </p>
@@ -81,15 +78,7 @@
                             <div style="">All Caegories</div>
                         </a>
                     </div>
-
-
-
-
                     <hr>
-
-
-
-
                     <p id="drp4" class="drp4 d-flex justify-content-between">
                         <span>Company Master</span> <span style=""><i class="bi bi-chevron-down arrow" style="right:0px"></i></span>
                     </p>
@@ -102,48 +91,38 @@
                             <div style="">Company Register</div>
                         </a>
                     </div>
-
-
-
-
-
                 </div>
 
-
+                <p id="drp" class="drpdes">
+                    <a style="text-decoration:none;color:red ; font-size:medium;margin-left:15px" asp-area="orders" asp-action="OrdersDetails" asp-controller="Orders">Order Details</a>
+                </p>
 
             </div>
-
-
-
             <!-- toggle ends -->
-
-
             <div id="main" style="z-index: 1;">
                 <button class="openbtn position-absolute" onclick="openNav()">
                     <img src="~/images/burger.png" alt="" class="burgerImg">
                 </button>
             </div>
-
-
-
             <!-- toggle 2  -->
 
             <div id="mySidebar2" class="sidebar2">
                 <div class="toggle-nav" style="">
-                    <img src="~/images/restaurant2.jpg" style="    opacity: 0.2;
-        width: 100%;
-        object-fit: cover;" alt="">
+                    <img src="~/images/restaurant2.jpg" style="opacity: 0.2;width: 100%;object-fit: cover;" alt="">
                     <p style="" class="m-0 aramex-title">
                         Food Zone
                     </p>
-                    <a href="javascript:void(0)" style="padding: 0px;" class="closebtn2" onclick="closeNav2()">&times;</a>
+                    <a href="javascript:void(0)" style="padding: 0px;" class="closebtn" onclick="closeNav()">&times;</a>
                 </div>
 
 
-
-                <p id="drp" class="drp">
-                    Forms <span style="margin-left: 150px;"><i class="bi bi-chevron-down arrow"></i></span>
+                <p id="drp" class="drpdes">
+                    <a style="    margin-left: 15px;font-size:medium" asp-action="ServicesPage" asp-area="services" asp-controller="Service">ServicesPage</a>
                 </p>
+                <div id="drp" class="drp">
+                    <p style=" margin-left: 15px;font-size:medium"> Forms <span style="margin-left: 150px;"><i class="bi bi-chevron-down arrow"></i></span></p>
+                </div>
+
 
                 <div class="drpclass d-none" style=" background-color: #ffe599;">
 
@@ -180,18 +159,10 @@
                     </p>
                     <div class="drpclass3 d-none" style=" background-color: #ffe599;">
                         <a type="button" asp-area="category" asp-action="AllCategories" asp-controller="Category" type="button" class="pages">
-                            <div style="">All Categories</div>
+                            <div style="">All Caegories</div>
                         </a>
                     </div>
-
-
-
-
                     <hr>
-
-
-
-
                     <p id="drp4" class="drp4 d-flex justify-content-between">
                         <span>Company Master</span> <span style=""><i class="bi bi-chevron-down arrow" style="right:0px"></i></span>
                     </p>
@@ -204,14 +175,11 @@
                             <div style="">Company Register</div>
                         </a>
                     </div>
-
-
-
-
-
                 </div>
 
-
+                <p id="drp" class="drpdes">
+                    <a style="text-decoration:none;color:red ; font-size:medium;margin-left:15px" asp-area="orders" asp-action="OrdersDetails" asp-controller="Orders">Order Details</a>
+                </p>
 
 
             </div>
@@ -274,7 +242,7 @@
 
             <div class="container-fluid" style=" height: 700px;">
 
-                <div class="row justify-content-center" style="">
+                <div class="row page" style="">
                     @RenderBody()
                 </div>
 

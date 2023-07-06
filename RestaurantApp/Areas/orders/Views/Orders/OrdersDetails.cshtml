@@ -25,6 +25,10 @@
             font-weight: 500;
         }
 
+        .mcenter{
+            vertical-align: middle;
+        }
+
     </style>
 </head>
 <body>
@@ -34,7 +38,7 @@
 
             <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
             <div class="lockIcon mt-4">
-                <img id="mainicon" src="~/images/fries.png" style="height: 60px;z-index: 1;" alt="">
+                <img id="mainicon" src="~/images/for order.gif" style="height: 60px;z-index: 1;" alt="">
             </div>
 
 
@@ -84,22 +88,22 @@
                                         @foreach (var data in Model.Item2)
                                         {
                                             <tr>
-                                                @if(data.image!=null)
+                                                    @if (!string.IsNullOrEmpty(data.image))
                                                 {
                                                 <td>
-                                                    <img src="@data.image" alt="imageof product">
+                                                    <img src="@data.image" alt="imageof product"style="width:80px;">
                                                 </td>
                                                 }
                                                 else
                                                 {   
                                                 <td>
-                                                    <img src="~/images/f3.jpg">
+                                                            <img src="~/images/puff.jpg" style="width:80px;">
                                                 </td> 
                                                 }
-                                                <td>@data.productname</td>
-                                                <td>@data.units</td>
-                                                <td>@data.unitprice</td>
-                                                <td>@data.totalprice</td>
+                                                <td class="mcenter">@data.productname</td>
+                                                    <td class="mcenter">@data.units</td>
+                                                    <td class="mcenter">@data.unitprice</td>
+                                                    <td class="mcenter">@data.totalprice</td>
                                             </tr>
                                         }
 
