@@ -71,7 +71,7 @@ namespace RestaurantApp.Areas.product.Controllers
                 FileName = base64String;
             }
             PostProductAddVm user = new PostProductAddVm
-            {
+            { 
               Productname= model.Productname,
               categoryId=model.categoryId,
               unitprice=model.unitprice,
@@ -80,12 +80,9 @@ namespace RestaurantApp.Areas.product.Controllers
             };
             try
             {
-
-
                 string serializedData = JsonConvert.SerializeObject(user);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Product/AddProduct", stringContent).Result;
-
             }
             catch (HttpRequestException ex)
             {
