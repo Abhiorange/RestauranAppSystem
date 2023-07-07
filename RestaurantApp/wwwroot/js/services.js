@@ -1,4 +1,39 @@
-﻿$('.responsive').slick({
+﻿$('.tabresponsive').slick({
+    dots: false,
+    infinite: true,
+    speed: 100,
+    slidesToShow: 7,
+    slidesToScroll: 7,
+    responsive: [
+        {
+            breakpoint: 1180,
+            settings: {
+                slidesToShow: 5,
+                slidesToScroll: 4,
+                infinite: true,
+
+            }
+        },
+        {
+            breakpoint: 1165,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 3,
+                infinite: true,
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 8,
+                slidesToScroll: 5,
+                infnite:true,
+            }
+        }
+
+    ]
+});
+$('.responsive').slick({
     
     speed: 100,
     slidesToShow: 6,
