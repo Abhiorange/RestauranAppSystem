@@ -66,11 +66,11 @@
     </div>
     <div style="display:flex; justify-content:center ;z-index:2">
 
-        <button class="btn" onclick="userRegister()"
+        <a class="btn" onclick="userRegister()" asp-action="UserRegister" asp-area="admin" asp-controller="Home"
                 style="background-color: #d6d6d6; color: grey;border-radius: 7px;z-index:2">
             Create An
             Account
-        </button>
+        </a>
     </div>
     <div style="height:90px ; position:relative">
         <div id="popcorn" style="position:absolute;bottom:0px">
@@ -97,18 +97,21 @@
     //}
 
 
-    function userRegister() {
+//  function userRegister() {
+//    $.ajax({
+//        method: 'GET',
+//        url: "/Admin/Home/UserRegister",
+//        dataType: "html",
+//        success: function (res) {
+//            // Replace the entire document HTML with the received HTML content
+//            document.open();
+//            document.write(res);
+//            document.close();
+//        },
+//        error: function () {
+//            alert("User error");
+//        }
+//    });
+//}
 
-        $.ajax({
-            method: 'GET',
-            url: "/Admin/Home/UserRegister",
-            success: function (res) {
-                $("#PartialView").html(res)
-            },
-            error: function () {
-                alert("user erroe");
-            },
-
-        })
-    }
 </script>

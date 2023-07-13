@@ -9,7 +9,7 @@ namespace RestaurantWebApi.Areas.admin.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class AdminController : ControllerBase
+    public class AdminController : Controller
     {
         // "Server=server=192.168.2.59\\SQL2019;Database=itmes;User Id=sa;Password=Tatva@123;Encrypt=False"   
         private readonly ICompanyRepository _companyrepo;
@@ -110,7 +110,8 @@ namespace RestaurantWebApi.Areas.admin.Controllers
                 return BadRequest("Not Updated");
             }
         }
-        [HttpPost]        public IActionResult EditUser(PostUserEditVm model)
+        [HttpPost]
+        public IActionResult EditUser(PostUserEditVm model)
         {
             var i = _companyrepo.EditUser(model);
             if (i > 0)
@@ -125,7 +126,7 @@ namespace RestaurantWebApi.Areas.admin.Controllers
         [HttpGet]
         public IActionResult UserRegister() //Get the company list
         {
-            var companies = _companyrepo.GetCompanyList();
+            var companies = _companyrepo.GetRoleList();
             return Ok(companies);
         }
         [HttpGet]
@@ -161,7 +162,7 @@ namespace RestaurantWebApi.Areas.admin.Controllers
             {
                 UserEditVm user = new UserEditVm();
                 var model = _companyrepo.GetUserById(id);
-                var companies = _companyrepo.GetCompanyList();
+                var companies = _companyrepo.GetRoleList();
                 user.name = model.name;
                 user.email = model.email;
                 user.companyId = model.companyId;
@@ -204,7 +205,8 @@ namespace RestaurantWebApi.Areas.admin.Controllers
             }
         }
 
-      
+
+       
 
 
     }

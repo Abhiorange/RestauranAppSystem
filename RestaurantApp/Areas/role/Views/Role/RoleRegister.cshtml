@@ -1,0 +1,64 @@
+﻿@model ViewModels.Models.RoleRegisterVm
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+
+<div class="col-7 px-0" style="background-color: white;box-shadow: 4px 5px 5px #6c757d; height:fit-content; position:relative;margin-top:50px">
+    <div class="page-top" style="position:relative">
+
+        <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
+        <div class="lockIcon mt-4">
+            <img id="mainicon" src="~/images/fries.png" style="height: 60px;z-index: 1;" alt="">
+        </div>
+
+        <p class="mt-2" style="z-index:1"> Role Registration Page</p>
+    </div>
+    <div class="container mb-4" style="display:flex;justify-content:center">
+
+        <form method="post" class="mt-5" asp-action="RoleRegister" asp-controller="Role">
+            <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">
+                    <p class="formInput">Name <span style="color: red;">*</span></p>
+                </label>
+                <input type="text" class="form-control data" id="q"
+                       aria-describedby="" placeholder="evan dono hue" asp-for="name" />
+
+                <span class="text-danger" asp-validation-for="name"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">
+                    <p class="formInput">Description <span style="color: red;">*</span></p>
+                </label>
+                <input type="text" class="form-control data" id="w"
+                       aria-describedby="" placeholder="Enter Description" asp-for="description" />
+                <span class="text-danger" asp-validation-for="description"></span>
+            </div>
+
+
+            <button type="submit" class="btn"
+                    style="background-color: #dc291e;color: white;border-radius: 7px;">
+                Register
+            </button>
+
+
+            <hr>
+
+
+        </form>
+
+    </div>
+
+    <div style="height:90px ; position:relative">
+        <div id="popcorn" style="position:absolute;bottom:0px">
+            <img src="~/images/popcornGif.gif" style="width:100px" />
+        </div>
+    </div>
+</div>
+
+
+
+

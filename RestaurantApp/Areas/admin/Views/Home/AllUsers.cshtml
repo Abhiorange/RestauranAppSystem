@@ -3,81 +3,91 @@
 }
 @model List<ViewModels.Models.Userinfo>
 
-   
+
 <body>
     <div>
         @if (TempData["success"] != null)
         {
-              <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-                <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
             <script type="text/javascript">
                 toastr.success('@TempData["success"]');
             </script>
         }
     </div>
-    <div class="d-flex mt-5 mb-3 justify-content-end">
-        <button type="button" class="btn btn-danger" style="height:50px;">
-            <a class="text-decoration-none text-white" asp-action="ProductForm" asp-controller="Product">Add Product</a>
-        </button>
-    </div>
-<table class=" table my-2 table-bordered" id="usertable">
-                  
-                    <thead class="table-dark">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+
+            <div class="d-flex mt-5 mb-3 justify-content-end">
+                <button type="button" class="btn btn-danger" style="height:50px;">
+                    <a class="text-decoration-none text-white" asp-action="ProductForm" asp-controller="Product">Add Product</a>
+                </button>
+            </div>
+
+
+            <table class=" table my-2 table-bordered" id="usertable">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">email</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">UserCompanyName</th>
+                        <th scope="col">isActive</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    @foreach (var u in Model)
+                    {
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">email</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">UserCompanyName</th>
-                <th scope="col">isActive</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-
-                    <tbody>
-
-                        @foreach (var u in Model)
-                        {
-                            <tr>
-                                <td>@u.name</td>
-                                <td>@u.email</td>
-                                <td>@u.contact</td>
-                                <td>@u.companyname</td>
-                    @{
-                        if(u.isactive==1)
-                        {
-                            <td>Active</td>
-                        }
-                        else
-                        {
-                            <td>In-Active</td>
-                        }
-                    }
-                                <td class="d-flex">
-                                    <button class="btn border-0">
-                                           <a asp-action="GetUserById" asp-controller="Home" type="button" class="text-warning" onclick="Editform(@u.UserId)" asp-route-id="@u.UserId">
+                            <td>@u.name</td>
+                            <td>@u.email</td>
+                            <td>@u.contact</td>
+                            <td>@u.companyname</td>
+                            @{
+                                if (u.isactive == 1)
+                                {
+                                    <td>Active</td>
+                                }
+                                else
+                                {
+                                    <td>In-Active</td>
+                                }
+                            }
+                            <td class="d-flex">
+                                <button class="btn border-0">
+                                    <a asp-action="GetUserById" asp-controller="Home" type="button" class="text-warning" onclick="Editform(@u.UserId)" asp-route-id="@u.UserId">
                                         <i class="bi bi-pencil-square icon"></i>
-                                        </a> </button>
-                                        <button class="btn border-0">
-                                     <a asp-action="DeleteUserById" asp-controller="Home" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.UserId"><i class="bi bi-trash3"></i></a>
-                                        </button>
-                                </td>
-                            </tr>
-                        }
+                                    </a>
+                                </button>
+                                <button class="btn border-0">
+                                    <a asp-action="DeleteUserById" asp-controller="Home" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.UserId"><i class="bi bi-trash3"></i></a>
+                                </button>
+                            </td>
+                        </tr>
+                    }
 
 
-                    </tbody>
-                </table>
-                <script src="~/lib/jquery/dist/jquery.min.js"></script>
-          
+                </tbody>
+            </table>
 
-   
-       <script>
-  $(document).ready(function()
-  {
-      $('#usertable').DataTable({
 
-      });
-  });
-</script>
-     </body>  
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#usertable').DataTable({
+
+            });
+        });
+    </script>
+</body>  

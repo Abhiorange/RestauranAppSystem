@@ -155,8 +155,8 @@ namespace RestaurantApp.Areas.admin.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                var companiesJson = response.Content.ReadAsStringAsync().Result;
-                model.Companies = JsonConvert.DeserializeObject<List<SelectListItem>>(companiesJson);
+                var rolesJson = response.Content.ReadAsStringAsync().Result;
+                model.roles = JsonConvert.DeserializeObject<List<SelectListItem>>(rolesJson);
             }
             return View(model);
         }
@@ -169,7 +169,8 @@ namespace RestaurantApp.Areas.admin.Controllers
             PostUserRegisterVm user = new PostUserRegisterVm
             {
                 name = model.name,
-                companyId = model.companyId,
+                //companyId = model.companyId,
+                roleId = model.roleId,
                 email = model.email,
                 contact = model.contact,
                 userCode = model.userCode,
