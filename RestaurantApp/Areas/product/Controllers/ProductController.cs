@@ -68,11 +68,7 @@ namespace RestaurantApp.Areas.product.Controllers
                 model.image.CopyToAsync(ms);
                 var imageBytes = ms.ToArray();
                 var base64String = Convert.ToBase64String(imageBytes);
-<<<<<<< HEAD
-                FileName = "data:image/png;base64,"+ base64String;
-=======
                 FileName = "data:image/png;base64," + base64String;
->>>>>>> 660b556f2791bd9183be04aa79a7417eea00f20d
             }
             PostProductAddVm user = new PostProductAddVm
             { 
