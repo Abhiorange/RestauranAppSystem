@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,14 +25,15 @@ namespace RestaurantApp.Areas.services.Controllers
             _client.BaseAddress = baseAddress;
         }
         [HttpGet]
-        public IActionResult ServicesPage(int id)
+        public IActionResult ServicesPage(int id,int orderid=0,int tableid=0)
         {
             List<CategoryDetail> model = new List<CategoryDetail>();
             List<ProductDetail> model1 = new List<ProductDetail>();
             List<ItemsInfo> item = new List<ItemsInfo>();
             List<AllItemsInfo> products = new List<AllItemsInfo>();
             CustomerDetailVm model2 = new CustomerDetailVm();
-            int orderid = 0;
+            List<TableDetailVm> table = new List<TableDetailVm>();
+          
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Service/GetCategoryNames").Result;
             if (response.IsSuccessStatusCode)
             {
@@ -39,15 +41,32 @@ namespace RestaurantApp.Areas.services.Controllers
                 model = JsonConvert.DeserializeObject<List<CategoryDetail>>(userJson);
             }
 
+            HttpResponseMessage response4 = _client.GetAsync(_client.BaseAddress + "/Service/GetTableInfo").Result;
+            if (response4.IsSuccessStatusCode)
+            {
+                var tableJson = response4.Content.ReadAsStringAsync().Result;
+                table = JsonConvert.DeserializeObject<List<TableDetailVm>>(tableJson);
+            }
+
+
             HttpResponseMessage response1 = _client.GetAsync(_client.BaseAddress + "/Service/GetProductsById/" + id).Result;
             if (response1.IsSuccessStatusCode)
             {
                 var prod = response1.Content.ReadAsStringAsync().Result;
                 model1 = JsonConvert.DeserializeObject<List<ProductDetail>>(prod);
             }
-            if (HttpContext.Session.GetInt32("ordersid") != null)
+
+
+            if(tableid!=0)
             {
-                orderid = (int)HttpContext.Session.GetInt32("ordersid");
+                HttpResponseMessage response5 = _client.GetAsync(_client.BaseAddress + "/Service/GetOrderId/" + tableid).Result;
+                if (response5.IsSuccessStatusCode)
+                {
+                    var content = response5.Content.ReadAsStringAsync().Result;
+                    orderid = Convert.ToInt32(content);
+
+                }
+
             }
             HttpResponseMessage response2 = _client.GetAsync(_client.BaseAddress + "/Service/GetItems/" + orderid).Result;
             if (response2.IsSuccessStatusCode)
@@ -61,7 +80,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 var prod1 = response3.Content.ReadAsStringAsync().Result;
                 products = JsonConvert.DeserializeObject<List<AllItemsInfo>>(prod1);
             }
-            var tuple = new Tuple<List<CategoryDetail>,List<ProductDetail>,List<ItemsInfo>,List<AllItemsInfo>,CustomerDetailVm>(model,model1,item,products,model2);
+            var tuple = new Tuple<List<CategoryDetail>,List<ProductDetail>,List<ItemsInfo>,List<AllItemsInfo>,CustomerDetailVm,List<TableDetailVm>>(model,model1,item,products,model2,table);
             return View(tuple);
 
         }
@@ -110,8 +129,7 @@ namespace RestaurantApp.Areas.services.Controllers
         public IActionResult AddItems([FromBody] ItemsDetailVm model)
         {
             PostItemsVm item = new PostItemsVm();
-            if (HttpContext.Session.GetInt32("ordersid") == null)
-            {
+            int orderId = 0;
                 try
                 {
                     string serializedData = JsonConvert.SerializeObject(model);
@@ -120,8 +138,7 @@ namespace RestaurantApp.Areas.services.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var content = response.Content.ReadAsStringAsync().Result;
-                        int orderId = Convert.ToInt32(content);
-                        HttpContext.Session.SetInt32("ordersid", orderId);
+                        orderId = Convert.ToInt32(content);
                     }
                 }
                 catch (Exception ex)
@@ -129,8 +146,8 @@ namespace RestaurantApp.Areas.services.Controllers
                     ViewData["ErrorMessage"] = "Error: " + ex.Message;
                     return View("Index");
                 }
-            }
-            item.ordersid = (int)HttpContext.Session.GetInt32("ordersid");
+
+            item.ordersid = orderId;
             try
             {
                 item.productid = model.productid;
@@ -139,8 +156,9 @@ namespace RestaurantApp.Areas.services.Controllers
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response1 = _client.PostAsync(_client.BaseAddress + "/Service/AddItems", stringContent).Result;
                 if (response1.IsSuccessStatusCode)
-                {  
-                    return RedirectToAction("ServicesPage");
+                {
+                    return RedirectToAction("ServicesPage", new { orderid = orderId, tableid = 0 });
+                  //  return RedirectToAction("ServicesPage");
                 }
             }
             catch (Exception ex)
@@ -160,7 +178,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/IncreItems", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ServicesPage");
+                    return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
                 }
             }
             catch (Exception ex)
@@ -168,7 +186,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-            return RedirectToAction("ServicesPage");
+            return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
         public IActionResult DecreItems([FromBody] Increunitvm model)
         {
@@ -179,7 +197,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/DecreItems", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ServicesPage");
+                    return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
                 }
             }
             catch (Exception ex)
@@ -187,7 +205,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-            return RedirectToAction("ServicesPage");
+            return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
         [HttpPost]
         public IActionResult DeleteItems([FromBody] DeleteItemVm model)
@@ -199,7 +217,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/DeleteItems", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ServicesPage");
+                    return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
                 }
             }
             catch (Exception ex)
@@ -207,23 +225,27 @@ namespace RestaurantApp.Areas.services.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-            return RedirectToAction("ServicesPage");
+            return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
-       
-        public IActionResult PayCash()
+        [HttpPost]
+        public IActionResult PayCash([FromBody] TablenoVm model)
         {
-            PayCashVm model = new PayCashVm();
             try
             {
-                int orderId = (int)HttpContext.Session.GetInt32("ordersid");
-                model.orderid = orderId;
+                HttpResponseMessage response1 = _client.GetAsync(_client.BaseAddress + "/Service/GetOrderId/" + model.tableid).Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    var content = response1.Content.ReadAsStringAsync().Result;
+                    model.orderid = Convert.ToInt32(content);
+
+                }
+
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/PayCash", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    HttpContext.Session.Remove("ordersid");
-                    return RedirectToAction("ServicesPage");
+                    return RedirectToAction("ServicesPage", new { orderid = 0, tableid = 0 });
                 }
             }
             catch (Exception ex)
@@ -231,7 +253,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-            return RedirectToAction("ServicesPage");
+            return RedirectToAction("ServicesPage", new { orderid = 0, tableid = 0 });
         }
 
         [HttpPost]
@@ -239,14 +261,20 @@ namespace RestaurantApp.Areas.services.Controllers
         {
             try
             {
-                int orderId = (int)HttpContext.Session.GetInt32("ordersid");
-                model.orderid = orderId;
+                HttpResponseMessage response1 = _client.GetAsync(_client.BaseAddress + "/Service/GetOrderId/" + model.tableid).Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    var content = response1.Content.ReadAsStringAsync().Result;
+                    model.orderid = Convert.ToInt32(content);
+
+                }
+
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/BillItems", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ServicesPage");
+                    return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
                 }
             }
             catch (Exception ex)
@@ -254,7 +282,7 @@ namespace RestaurantApp.Areas.services.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
-            return RedirectToAction("ServicesPage");
+            return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
     }
 }

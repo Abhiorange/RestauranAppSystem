@@ -8,7 +8,8 @@ namespace ViewModels.Models
 {
     public  class TablenoVm
     {
-        public int tableno { get; set; }    
+        public int tableid { get; set; }    
         public int orderid { get; set; }
+      
     }
 }

@@ -62,7 +62,8 @@
                 </div>
                 <div class="mb-3">
                     <label>Image</label>
-                    <div style="border:solid grey 1px;"> <input type="file" style="width:716px;opacity: 0" id="ImageBanner" class="file-input data" accept="image/jpeg, image/PNG, image/jpg" asp-for="image"></div>
+                    <div style="border:solid grey 1px;"> <input type="file" style="width:716px;opacity: 0" id="ImageBanner" class="file-input data" accept="image/jpeg, image/PNG, image/jpg" asp-for="image">
+                     <img src="@Model.imageSrc" />   </div>
                 </div>
                 <div class="d-flex mt-3 justify-content-end">
                     <button type="button" class="btn btn-secondary rounded-pill mx-3"> <a class="text-white text-decoration-none rounded-pill me-1">Cancel</a></button>

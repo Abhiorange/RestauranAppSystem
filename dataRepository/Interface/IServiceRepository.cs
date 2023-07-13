@@ -21,7 +21,8 @@ namespace dataRepository.Interface
         public List<AllItemsInfo> GetAllProductsNames(int orderid);
         public int DeleteItems(DeleteItemVm model);
         public int Payment(PaymentVm model);
-        public int PayCash(PayCashVm model);
-
+        public int PayCash(TablenoVm model);
+        public List<TableDetailVm> GetTableInfo();
+        public int GetOrderId(int id);
     }
 }

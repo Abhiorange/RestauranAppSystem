@@ -29,6 +29,14 @@
                 slidesToScroll: 5,
                 infnite:true,
             }
+        },
+        {
+            breakpoint: 628,
+            settings: {
+                slidesToShow: 8,
+                slidesToScroll: 4,
+                infnite: true,
+            }
         }
 
     ]
@@ -67,18 +75,14 @@ $('.responsive').slick({
                 infinite: true,
             }
         },
-        
-      
     ]
 });
 function showBill() {
-    var tableNo = $('#tableno').val().trim();
-    if (tableNo === '') {
-        $('.tablewarn').removeClass('d-none');
-    } else {
-        var tableNo = parseInt(tableNo);
-        var data = {
-            tableno: tableNo
+   
+    var tableId = parseInt($('.colortableactive').attr('id'));
+    console.log("tableid bill", tableId);
+    var data = {
+        tableid: tableId
         }
         $.ajax({
             type: 'POST',
@@ -94,26 +98,15 @@ function showBill() {
                 $('.bill_btn').removeClass('d-none');
                 $('.tableClass').removeClass('d-none');
                 $('.tablewarn').addClass('d-none');
-
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert('error', errorThrown);
             }
         })
-    }
-
-   
-
 }
-
 // Get references to the buttons and the span element
-
-/*
-const incrementButton = document.getElementById('incrementitems');
-const decrementButton = document.getElementById('Decressitems');
-const spanElement = document.querySelector('.textShow');*/
 function delteitem(orderId, productId) {
-    alert('enter into delete btn');
+  
     var data = {
         orderid: orderId,
         productid: productId
@@ -221,10 +214,10 @@ function productnames(categoryid, card) {
 
 
 $('#formm').submit(function (event) {
-    alert('for called');
+
     event.preventDefault();
   
-    alert("enter in cust");
+ 
     const custname = document.getElementById("custname").value;
     const custcode = parseInt(document.getElementById("custcode").value); // parseInt(document.getElementById("custaddre").value);
     const custemail = document.getElementById("custemail").value;
@@ -245,7 +238,7 @@ $('#formm').submit(function (event) {
         traditional: true,
         contentType: 'application/json',
         success: function (result) {
-            alert('success');
+         
             debugger;
             //var htmlContent = $(result);
             $('.customer').html($(result).find('.customer').html());
@@ -262,16 +255,79 @@ $('#formm').submit(function (event) {
     
 });
 
-function productitem(productId) {
-    var value = 1;
+function payment() {
+    var tableId = parseInt($('.colortableactive').attr('id'));
+    console.log("tableid bill", tableId);
     var data = {
-        productid: productId,
-        itemunit: value
+        tableid: tableId
     }
     $.ajax({
         type: 'POST',
-        url: '/services/Service/AddItems',
+        url: '/services/Service/PayCash',
         data: JSON.stringify(data),
+        traditional: true,
+        contentType: 'application/json',
+        success: function (result) {
+            window.location.href = '/services/Service/ServicesPage';
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('error', errorThrown);
+        }
+    })
+
+}
+
+
+function productitem(productId) {
+    debugger;
+    var tableId = parseInt($('.colortableactive').attr('id'));
+    if (isNaN(tableId)) {
+        $('.tablewarn').removeClass('d-none');
+    }
+    else {
+        var value = 1;
+        var tableId = parseInt($('.colortableactive').attr('id'));
+        console.log('tableid', tableId);
+        var data = {
+            productid: productId,
+            itemunit: value,
+            tableid: tableId
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/services/Service/AddItems',
+            data: JSON.stringify(data),
+            traditional: true,
+            contentType: 'application/json',
+            success: function (result) {
+                $('.overflow_class').html($(result).find('.overflow_class').html());
+                $('.tableClass').html($(result).find('.tableClass').html());
+                $('.overflow_class').removeClass('d-none');
+                $('.tablewarn').addClass('d-none');
+                $('.Bill').addClass('d-none');
+                $('.bill_btn').removeClass('d-none');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('error', errorThrown);
+            }
+        })
+    }
+}
+$(document).on('click', '.colorcard', function (e){
+    e.preventDefault();
+    $('.tablewarn').addClass('d-none');
+    $('.tableClass').addClass('d-none');
+    $('.colorcard').each(function () {
+        $(this).removeClass('colortableactive');
+    })
+    $(this).addClass('colortableactive');
+    var tableID = $(this).attr('id');
+    $.ajax({
+        type: 'GET',
+        url: '/services/Service/ServicesPage',
+        data: {
+            tableid: tableID
+        },
         traditional: true,
         contentType: 'application/json',
         success: function (result) {
@@ -284,5 +340,8 @@ function productitem(productId) {
             alert('error', errorThrown);
         }
     })
-   
-}
+
+
+
+  
+});

@@ -62,6 +62,12 @@ namespace RestaurantWebApi.Areas.service.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+        [HttpGet("{id}")]
+        public IActionResult GetOrderId(int id)
+        {
+            var i = _servicerepo.GetOrderId(id);
+            return Ok(i);
+        }
         [HttpPost]
         public IActionResult AddCustomer(CustomerDetailVm model) //Add Users in database
         {
@@ -96,7 +102,7 @@ namespace RestaurantWebApi.Areas.service.Controllers
             }
         }
         [HttpPost]
-        public IActionResult PayCash(PayCashVm model)
+        public IActionResult PayCash(TablenoVm model)
         {
             var i = _servicerepo.PayCash(model);
             if (i > 0)
@@ -173,6 +179,19 @@ namespace RestaurantWebApi.Areas.service.Controllers
             else
             {
                 return BadRequest("Wrong credential");
+            }
+        }
+        [HttpGet]
+        public IActionResult GetTableInfo()
+        {
+            try
+            {
+                var tableinfo = _servicerepo.GetTableInfo();
+                return Ok(tableinfo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
     }

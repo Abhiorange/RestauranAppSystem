@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModels.Models;
+using System.Reflection;
 
 namespace dataRepository.Repository
 {
@@ -38,7 +39,32 @@ namespace dataRepository.Repository
             }
             return model;
         }
+        public List<TableDetailVm> GetTableInfo()
+        {
+            List<TableDetailVm> model = new List<TableDetailVm>();
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("getTableDetails", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    TableDetailVm table = new TableDetailVm
+                    {
+                        tableid = Convert.ToInt32(rdr["ID"]),
+                        tableno = Convert.ToInt32(rdr["TableNumber"]),
+                         IsActive= Convert.ToInt32(rdr["IsActive"])
+                    };
 
+                    model.Add(table);
+                }
+                con.Close();
+            }
+            return model;
+        }
+
+        
         public List<ProductDetail> GetProductsById(int id)
         {
             List<ProductDetail> model = new List<ProductDetail>();
@@ -99,10 +125,25 @@ namespace dataRepository.Repository
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@productid", model.productid);
                 cmd.Parameters.AddWithValue("@units", model.itemunit);
+                cmd.Parameters.AddWithValue("@tableid", model.tableid);
                 cmd.Parameters.Add("@orderId", SqlDbType.Int).Direction = ParameterDirection.Output;
                 con.Open();
                 cmd.ExecuteNonQuery();
                 int orderId = Convert.ToInt32(cmd.Parameters["@orderId"].Value);
+                return orderId;
+            }
+        }
+        public int GetOrderId(int id)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("GetOrderIdFromTableEntry", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@tableid",id);
+                cmd.Parameters.Add("@orderid", SqlDbType.Int).Direction = ParameterDirection.Output;
+                con.Open();
+                cmd.ExecuteNonQuery();
+                int orderId = Convert.ToInt32(cmd.Parameters["@orderid"].Value);
                 return orderId;
             }
         }
@@ -152,7 +193,7 @@ namespace dataRepository.Repository
 
                 return i;
             }
-        }
+        }     
         public int DeleteItems(DeleteItemVm model)
         {
             using (SqlConnection con = new SqlConnection(connections))
@@ -181,13 +222,14 @@ namespace dataRepository.Repository
                 return i;
             }
         }
-        public int PayCash(PayCashVm model)
+        public int PayCash(TablenoVm model)
         {
             using (SqlConnection con = new SqlConnection(connections))
             {
                 SqlCommand cmd = new SqlCommand("spPaymentCash",con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                cmd.Parameters.AddWithValue("@tableid", model.tableid);
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
                 return i;
@@ -200,7 +242,7 @@ namespace dataRepository.Repository
                 SqlCommand cmd = new SqlCommand("PutTableno", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@orderid", model.orderid);
-                cmd.Parameters.AddWithValue("@tableno", model.tableno);
+                cmd.Parameters.AddWithValue("@tableno", model.tableid);
 
                 con.Open();
                 int i = cmd.ExecuteNonQuery();

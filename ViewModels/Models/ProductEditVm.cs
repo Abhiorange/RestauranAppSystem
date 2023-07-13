@@ -18,7 +18,7 @@ namespace ViewModels.Models
         public int categoryid { get; set; }
         public List<SelectListItem> Categories { get; set; }
         public string imageSrc { get; set; }
-        public IFormFile image { get; set; }
+        public IFormFile? image { get; set; }
 
 
     }

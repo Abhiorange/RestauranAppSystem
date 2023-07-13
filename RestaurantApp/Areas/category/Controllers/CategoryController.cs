@@ -73,8 +73,6 @@ namespace RestaurantApp.Areas.category.Controllers
             }
             var tuple = new Tuple<List<CategoryInfo>, CategoryVm>(model, addVm);
             return View(tuple);
-         
-
         }
         [HttpGet]
         public IActionResult GetCategoryById(int id)

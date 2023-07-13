@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ViewModels.Models
 {
-    public class ItemsDetailVm
+    public class TableDetailVm
     {
-        public int productid { get; set; }
-        public int itemunit { get; set; }
         public int tableid { get; set; }
+        public int tableno { get; set; }
+        public int? IsActive { get; set; }
     }
 }
