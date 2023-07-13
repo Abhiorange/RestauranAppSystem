@@ -13,6 +13,7 @@ namespace ViewModels.Models
 
         public string email { get; set; }
         public int companyId { get; set; }
+        public int roleId { get; set; }
         public long contact { get; set; }
         public string password { get; set; }
     }

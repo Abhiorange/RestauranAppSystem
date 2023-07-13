@@ -140,24 +140,24 @@ namespace dataRepository.Repository
             }
         }
 
-        public List<SelectListItem> GetCompanyList()
+        public List<SelectListItem> GetRoleList()
         {
-            List<SelectListItem> companies = new List<SelectListItem>();
+            List<SelectListItem> roles = new List<SelectListItem>();
             using (SqlConnection con = new SqlConnection(connections))
             {
-                SqlCommand cmd = new SqlCommand("CompanyData", con);
+                SqlCommand cmd = new SqlCommand("RoleData", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    int companyId = Convert.ToInt32(rdr["id"]);
-                    string companyName = rdr["name"].ToString();
-                    companies.Add(new SelectListItem { Value = companyId.ToString(), Text = companyName });
+                    int roleId = Convert.ToInt32(rdr["id"]);
+                    string role = rdr["name"].ToString();
+                    roles.Add(new SelectListItem { Value = roleId.ToString(), Text = role });
                 }
                 
             }
-            return companies;
+            return roles;
         }
         public List<Userinfo> GetUsersList()
         {
@@ -298,7 +298,8 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@userCode", model.userCode);
                 cmd.Parameters.AddWithValue("@contact", model.contact);
                 cmd.Parameters.AddWithValue("@email", model.email);
-                cmd.Parameters.AddWithValue("@companyId", model.companyId);
+                //cmd.Parameters.AddWithValue("@companyId", model.companyId);
+                cmd.Parameters.AddWithValue("@roleId", model.roleId);
                 cmd.Parameters.AddWithValue("@password", model.password);
                 con.Open();
 

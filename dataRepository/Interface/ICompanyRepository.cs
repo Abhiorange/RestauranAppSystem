@@ -22,7 +22,7 @@ namespace dataRepository.Interface
         public List<ProductDetail> GetProductsById(int id);
         public List<CompanyInfo> GetCompaniesList();
         public List<CategoryDetail> GetCategoryNames();
-        public List<SelectListItem> GetCompanyList();
+        public List<SelectListItem> GetRoleList();
         public UserEditVm GetUserById(int id);
         public int EditUser(PostUserEditVm model);
         public int deleteUserById(int id);
