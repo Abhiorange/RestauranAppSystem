@@ -102,7 +102,7 @@ namespace RestaurantApp.Areas.orders.Controllers
                 worksheet.Cells[i + 2, 1].Value = model[i].orderid;
                 worksheet.Cells[i + 2, 2].Value = model[i].Totalprice;
                 worksheet.Cells[i + 2, 3].Value = model[i].tableno;
-                worksheet.Cells[i + 2, 4].Value = model[i].ordertime;
+                worksheet.Cells[i + 2, 4].Value = model[i].ordertime.ToString("dd-MM-yyyy HH:mm:ss");
             }
 
             // Set the content type and file name
