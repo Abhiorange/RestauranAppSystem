@@ -42,6 +42,7 @@ namespace RestaurantWebApi.Areas.service.Controllers
             try
             {
                 var names = _servicerepo.GetItems(id);
+
                 return Ok(names);
             }
             catch (Exception ex)
@@ -55,6 +56,7 @@ namespace RestaurantWebApi.Areas.service.Controllers
             try
             {
                 var names = _servicerepo.GetAllProductsNames(id);
+        
                 return Ok(names);
             }
             catch (Exception ex)
@@ -62,6 +64,15 @@ namespace RestaurantWebApi.Areas.service.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+        [HttpGet("{id}")]
+        public IActionResult GetDiscountValue(int id)
+        {
+            var i = _servicerepo.GetDiscountValue(id);
+            return Ok(i);
+        }
+
+
+
         [HttpGet("{id}")]
         public IActionResult GetOrderId(int id)
         {
@@ -168,6 +179,21 @@ namespace RestaurantWebApi.Areas.service.Controllers
                 return BadRequest("Wrong credential");
             }
         }
+        [HttpPost]
+        public IActionResult Discount(TablenoVm model)
+        {
+            var i = _servicerepo.Discount(model);
+            if (i > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Wrong credential");
+            }
+        }
+
+
         [HttpPost]
         public IActionResult BillItems(TablenoVm model)
         {

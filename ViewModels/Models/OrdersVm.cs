@@ -11,6 +11,6 @@ namespace ViewModels.Models
         public int orderid { get; set; }
         public long Totalprice { get; set; }
         public int tableno { get; set; }
-        public string ordertime { get; set; }
+        public DateTime ordertime { get; set; }
     }
 }

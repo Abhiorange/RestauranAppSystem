@@ -147,6 +147,21 @@ namespace dataRepository.Repository
                 return orderId;
             }
         }
+        public int GetDiscountValue(int id)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("GetDiscountValue", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", id);
+                cmd.Parameters.Add("@discountvalue", SqlDbType.Int).Direction = ParameterDirection.Output;
+                con.Open();
+                cmd.ExecuteNonQuery();
+                int disval = Convert.ToInt32(cmd.Parameters["@discountvalue"].Value);
+              
+                return disval;
+            }
+        }
         public int AddItem(PostItemsVm model)
         {
             using (SqlConnection con = new SqlConnection(connections))
@@ -156,7 +171,7 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@orderid", model.ordersid);
                 cmd.Parameters.AddWithValue("@productid", model.productid);
                 cmd.Parameters.AddWithValue("@units", model.itemunit);
-              
+
                 con.Open();
                 int i = cmd.ExecuteNonQuery();
                 return i;
@@ -250,6 +265,20 @@ namespace dataRepository.Repository
                 return i;
             }
         }
+        public int Discount(TablenoVm model)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("spDiscount", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@orderid", model.orderid);
+                cmd.Parameters.AddWithValue("@tableno", model.tableid);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                return i;
+            }
+        }
         public List<AllItemsInfo> GetAllProductsNames(int orderid)
         {
             List<AllItemsInfo> model = new List<AllItemsInfo>();
@@ -268,7 +297,8 @@ namespace dataRepository.Repository
                         units= Convert.ToInt32(rdr["Qty"]),
                         totalprice= Convert.ToInt64(rdr["TotalPrice"]),
                         MainPrice= Convert.ToInt64(rdr["MainFinalPrice"]),
-                        tablenumber = Convert.ToInt32(rdr["Tablenumber"])
+                        tablenumber = Convert.ToInt32(rdr["Tablenumber"]),
+                        dicountflag = rdr["Discount"] != DBNull.Value ? Convert.ToInt32(rdr["Discount"]) : 0,
                     };
 
                     model.Add(name);

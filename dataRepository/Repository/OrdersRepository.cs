@@ -29,7 +29,8 @@ namespace dataRepository.Repository
                         orderid = Convert.ToInt32(rdr["OrderId"]),
                         Totalprice = Convert.ToInt64(rdr["TotalPrice"]),
                         tableno = Convert.ToInt32(rdr["TableNumber"]),
-                        ordertime = rdr["FormattedDate"].ToString(),
+                        ordertime = Convert.ToDateTime(rdr["FormattedDate"]),
+                        //ordertime = rdr["FormattedDate"].ToString(),
                     };
 
                     model.Add(order);

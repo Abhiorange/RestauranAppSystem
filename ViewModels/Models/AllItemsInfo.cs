@@ -13,5 +13,7 @@ namespace ViewModels.Models
         public long totalprice { get; set; }
         public long MainPrice { get; set; }
         public int tablenumber { get; set; }
+        public int dicountflag { get; set; }
+        public int discountvalue { get; set; }
     }
 }

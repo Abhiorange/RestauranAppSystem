@@ -30,7 +30,8 @@ namespace RestaurantApp.Areas.services.Controllers
             List<CategoryDetail> model = new List<CategoryDetail>();
             List<ProductDetail> model1 = new List<ProductDetail>();
             List<ItemsInfo> item = new List<ItemsInfo>();
-            List<AllItemsInfo> products = new List<AllItemsInfo>();
+            GetBillInfoVm billinfo = new GetBillInfoVm();
+           // List<AllItemsInfo> products = new List<AllItemsInfo>();
             CustomerDetailVm model2 = new CustomerDetailVm();
             List<TableDetailVm> table = new List<TableDetailVm>();
           
@@ -56,7 +57,6 @@ namespace RestaurantApp.Areas.services.Controllers
                 model1 = JsonConvert.DeserializeObject<List<ProductDetail>>(prod);
             }
 
-
             if(tableid!=0)
             {
                 HttpResponseMessage response5 = _client.GetAsync(_client.BaseAddress + "/Service/GetOrderId/" + tableid).Result;
@@ -66,21 +66,33 @@ namespace RestaurantApp.Areas.services.Controllers
                     orderid = Convert.ToInt32(content);
 
                 }
-
             }
             HttpResponseMessage response2 = _client.GetAsync(_client.BaseAddress + "/Service/GetItems/" + orderid).Result;
             if (response2.IsSuccessStatusCode)
             {
                 var prod = response2.Content.ReadAsStringAsync().Result;
+                Console.WriteLine("JSON Response prod2: " + prod);
                 item = JsonConvert.DeserializeObject<List<ItemsInfo>>(prod);
             }
             HttpResponseMessage response3 = _client.GetAsync(_client.BaseAddress + "/Service/GetAllProductsNames/" + orderid).Result;
             if (response3.IsSuccessStatusCode)
             {
                 var prod1 = response3.Content.ReadAsStringAsync().Result;
-                products = JsonConvert.DeserializeObject<List<AllItemsInfo>>(prod1);
+                billinfo.itemsinfo = JsonConvert.DeserializeObject<List<AllItemsInfo>>(prod1);
             }
-            var tuple = new Tuple<List<CategoryDetail>,List<ProductDetail>,List<ItemsInfo>,List<AllItemsInfo>,CustomerDetailVm,List<TableDetailVm>>(model,model1,item,products,model2,table);
+
+            if(orderid!=0)
+            {
+                HttpResponseMessage response6 = _client.GetAsync(_client.BaseAddress + "/Service/GetDiscountValue/" + orderid).Result;
+                if (response6.IsSuccessStatusCode)
+                {
+                    var value = response6.Content.ReadAsStringAsync().Result;
+                    billinfo.discountvalue = Convert.ToInt32(value);
+                }
+            }
+           
+
+            var tuple = new Tuple<List<CategoryDetail>,List<ProductDetail>,List<ItemsInfo>, GetBillInfoVm, CustomerDetailVm,List<TableDetailVm>>(model,model1,item, billinfo, model2,table);
             return View(tuple);
 
         }
@@ -255,6 +267,33 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             return RedirectToAction("ServicesPage", new { orderid = 0, tableid = 0 });
         }
+        [HttpPost]
+        public IActionResult Discount([FromBody] TablenoVm model)
+        {
+            try
+            {
+                HttpResponseMessage response1 = _client.GetAsync(_client.BaseAddress + "/Service/GetOrderId/" + model.tableid).Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    var content = response1.Content.ReadAsStringAsync().Result;
+                    model.orderid = Convert.ToInt32(content);
+                }
+                string serializedData = JsonConvert.SerializeObject(model);
+                StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/Discount", stringContent).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Index");
+            }
+            return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
+        }
+
 
         [HttpPost]
         public IActionResult BillItems([FromBody] TablenoVm model)

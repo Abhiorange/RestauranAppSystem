@@ -65,7 +65,7 @@ namespace RestaurantWebApi.Areas.product.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-        [HttpPost]
+        [HttpPut]
         public IActionResult EditProduct(PostProductEditVm model)
         {
             var i = _productrepo.EditProduct(model);
@@ -78,7 +78,7 @@ namespace RestaurantWebApi.Areas.product.Controllers
                 return BadRequest("Not Updated");
             }
         }
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteProductById(int id)
         {
             var i = _productrepo.deleteProductById(id);

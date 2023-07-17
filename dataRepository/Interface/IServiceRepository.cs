@@ -24,5 +24,7 @@ namespace dataRepository.Interface
         public int PayCash(TablenoVm model);
         public List<TableDetailVm> GetTableInfo();
         public int GetOrderId(int id);
+        public int Discount(TablenoVm model);
+        public int GetDiscountValue(int id);
     }
 }

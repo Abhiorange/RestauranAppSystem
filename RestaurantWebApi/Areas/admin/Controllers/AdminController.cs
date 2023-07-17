@@ -110,7 +110,7 @@ namespace RestaurantWebApi.Areas.admin.Controllers
                 return BadRequest("Not Updated");
             }
         }
-        [HttpPost]
+        [HttpPut]
         public IActionResult EditUser(PostUserEditVm model)
         {
             var i = _companyrepo.EditUser(model);
@@ -191,7 +191,7 @@ namespace RestaurantWebApi.Areas.admin.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteUserById(int id)
         {
             var i = _companyrepo.deleteUserById(id);

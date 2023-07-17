@@ -302,11 +302,6 @@ namespace RestaurantApp.Areas.admin.Controllers
         {
             return View();
         }
-       
-        
-       
-
-       
         [HttpGet]
         public IActionResult GetUserById(int id)
         {
@@ -336,7 +331,7 @@ namespace RestaurantApp.Areas.admin.Controllers
             {
                 string serializedData = JsonConvert.SerializeObject(user);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Admin/EditUser", stringContent).Result;
+                HttpResponseMessage response = _client.PutAsync(_client.BaseAddress + "/Admin/EditUser", stringContent).Result;
 
             }
             catch (HttpRequestException ex)
@@ -349,13 +344,14 @@ namespace RestaurantApp.Areas.admin.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
+            TempData["success"] = "User Updated succesfully";
             return RedirectToAction("AllUsers");
         }
         public IActionResult DeleteUserById(int id)
         {
             try
             {
-                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Admin/DeleteUserById/"+id).Result;
+                HttpResponseMessage response = _client.DeleteAsync(_client.BaseAddress + "/Admin/DeleteUserById/"+id).Result;
             }
             catch (HttpRequestException ex)
             {
@@ -367,6 +363,7 @@ namespace RestaurantApp.Areas.admin.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
+            TempData["success"] = "User Deleted succesfully";
             return RedirectToAction("AllUsers");
         }
         

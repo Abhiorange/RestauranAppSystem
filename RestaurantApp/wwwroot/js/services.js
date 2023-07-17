@@ -23,6 +23,14 @@
             }
         },
         {
+            breakpoint: 1001,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infnite: true,
+            }
+        },
+        {
             breakpoint: 768,
             settings: {
                 slidesToShow: 8,
@@ -77,10 +85,36 @@ $('.responsive').slick({
         },
     ]
 });
+function discount() {
+    alert('enter discount');
+    var tableId = parseInt($('.colortableactive').attr('id'));
+    var data = {
+        tableid: tableId
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/services/Service/Discount',
+        traditional: true,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function (result) {
+            $('.overflow_class').html($(result).find('.overflow_class').html());
+            $('.tableClass').html($(result).find('.tableClass').html());
+            $('.overflow_class').removeClass('d-none');
+            $('.Bill').addClass('d-none');
+            $('.bill_btn').removeClass('d-none');
+            $('.tableClass').removeClass('d-none');
+            $('.tablewarn').addClass('d-none');
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('error', errorThrown);
+        }
+    })
+}
 function showBill() {
-   
     var tableId = parseInt($('.colortableactive').attr('id'));
     console.log("tableid bill", tableId);
+  
     var data = {
         tableid: tableId
         }
@@ -98,6 +132,7 @@ function showBill() {
                 $('.bill_btn').removeClass('d-none');
                 $('.tableClass').removeClass('d-none');
                 $('.tablewarn').addClass('d-none');
+               $('.discountbtn').removeClass('d-none');
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert('error', errorThrown);
@@ -320,6 +355,9 @@ $(document).on('click', '.colorcard', function (e){
     $('.colorcard').each(function () {
         $(this).removeClass('colortableactive');
     })
+    $('.Bill').addClass('d-none');
+    $('.overflow_class').addClass('d-none');
+    $('.loader').removeClass('d-none');
     $(this).addClass('colortableactive');
     var tableID = $(this).attr('id');
     $.ajax({
@@ -331,10 +369,12 @@ $(document).on('click', '.colorcard', function (e){
         traditional: true,
         contentType: 'application/json',
         success: function (result) {
+            $('.loader').addClass('d-none');
             $('.overflow_class').html($(result).find('.overflow_class').html());
             $('.overflow_class').removeClass('d-none');
             $('.Bill').addClass('d-none');
             $('.bill_btn').removeClass('d-none');
+            $('#btndiscount').addClass('d-none');
         },
         error: function (xhr, textStatus, errorThrown) {
             alert('error', errorThrown);
@@ -345,3 +385,8 @@ $(document).on('click', '.colorcard', function (e){
 
   
 });
+/*if ($('#btnbill').hasClass('d-none') && $('#btndiscount').hasClass('d-none')) {
+    $('#btnconatiner').removeClass('justify-content-center');
+    $('#btnconatiner').addClass('justify-content-between');
+}
+*/

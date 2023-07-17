@@ -2,7 +2,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@model Tuple<List<ViewModels.Models.CategoryDetail>,List<ViewModels.Models.ProductDetail>,List<ViewModels.Models.ItemsInfo>,List<ViewModels.Models.AllItemsInfo>,ViewModels.Models.CustomerDetailVm,List<ViewModels.Models.TableDetailVm>>
+@model Tuple<List<ViewModels.Models.CategoryDetail>,List<ViewModels.Models.ProductDetail>,List<ViewModels.Models.ItemsInfo>,ViewModels.Models.GetBillInfoVm,ViewModels.Models.CustomerDetailVm,List<ViewModels.Models.TableDetailVm>>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -139,6 +139,19 @@
                 <div class="Bill" style="margin-top: 4%;">
                     <h2>No products Added For Bill Generation</h2>
                 </div>
+
+                <div class="hourglassBackground loader d-none">
+                    <div class="hourglassContainer">
+                        <div class="hourglassCurves"></div>
+                        <div class="hourglassCapTop"></div>
+                        <div class="hourglassGlassTop"></div>
+                        <div class="hourglassSand"></div>
+                        <div class="hourglassSandStream"></div>
+                        <div class="hourglassCapBottom"></div>
+                        <div class="hourglassGlass"></div>
+                    </div>
+                </div>
+
                 <div class="overflow_class mt-4 d-none">
                     
                     @if (Model.Item3.Count() == 0)
@@ -248,15 +261,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex mt-4 mb-3 justify-content-center">
-                    <button type="button" class="btn btn-warning me-3 customer open" data-bs-toggle="modal" data-bs-target="#exampleModal">Customer Registration</button>
+
+                <div class="justify-content-center d-flex" id="btnconatiner">
+                    <div class="d-flex mt-3 mb-3 justify-content-center">
+                        <button type="button" class="btn btn-warning me-3 customer open" data-bs-toggle="modal" data-bs-target="#exampleModal">Customer Registration</button>
+                    </div>
+                    <div class="d-flex mt-3 mb-3 justify-content-center bill_btn d-none" id="btnbill">
+                        <button type="button" class="btn btn-success" onclick="showBill()">Show Bill</button>
+                    </div>
+                    <div class="d-none discountbtn mt-3 mb-3 mx-2" id="btndiscount">
+                        <button type="button" class="btn btn-success" onclick="discount()">Discount</button>
+                    </div>
                 </div>
-                <div class="d-flex mt-3 mb-3 justify-content-center bill_btn d-none">
-                    <button type="button" class="btn btn-success" onclick="showBill()">Show Bill</button>
-                </div>
+               
 
                 <div class="tableClass mt-2 d-none" id="tableId">
-                    <table class="table table-dark table-borderless">
+                    <div style="height:200px;overflow-y:scroll">
+                    <table class="table table-borderless" style="background: whitesmoke;border-radius: 12px;">
                         <thead>
                             <tr>
                                 <th scope="col">Items Name</th>
@@ -265,29 +286,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Item4)
+                            @if (Model.Item4.itemsinfo != null)
                             {
-                                <tr class="item-row table-light">
-                                    <td class="fw-bold">@item.itemname</td>
-                                    <td class="fw-bold">@item.units</td>
-                                    <td class="fw-bold">@item.totalprice</td>
-                                </tr>
-                            }
-                            @if (Model.Item4.Any())
-                            {
-                                <tr class="total-row table-light">
-                                    <td colspan="2" class="fw-bold">Total</td>
-                                    <td class="fw-bold">@Model.Item4.Sum(i => i.totalprice)</td>
-                                </tr>
-                            }
-                            else
-                            {
-                                <tr class="no-data-row">
-                                    <td colspan="3">No data available</td>
-                                </tr>
+
+
+                                @foreach (var item in Model.Item4.itemsinfo)
+                                {
+                                    <tr class="item-row">
+                                        <td class="fw-bold">@item.itemname</td>
+                                        <td class="fw-bold">@item.units</td>
+                                        <td class="fw-bold">@item.totalprice</td>
+                                    </tr>
+                                }
+                                @if (Model.Item4.itemsinfo.Any())
+                                {
+                                    @if (Model.Item4.itemsinfo.First().dicountflag == 0)
+                                    {
+                                        <tr class="total-row ">
+                                            <td colspan="2" class="fw-bold">Total</td>
+                                            <td class="fw-bold">@Model.Item4.itemsinfo.Sum(i => i.totalprice)</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr class="total-row">
+                                            <td colspan="2" class="fw-bold">Discount</td>
+                                            <td class="fw-bold">@Model.Item4.discountvalue</td>
+                                        </tr>
+                                        <tr class="total-row">
+                                            <td colspan="2" class="fw-bold">SubTotal</td>
+                                            <td class="fw-bold">@Model.Item4.itemsinfo.First().MainPrice</td>
+                                        </tr>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <tr class="no-data-row">
+                                        <td colspan="3">No data available</td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>
+                    </div>
                     <div class="d-flex mt-2  justify-content-center">
                         <button type="button" class="btn btn-warning mx-2" onclick="payment()">
                             Payment with cash
@@ -376,7 +418,7 @@
                                                 <div class="col">
                                                     <div class="d-flex flex-column">
                                                         <div> <span>Price to Pay</span></div>
-                                                        <div><input type="text" placeholder="This is the price" class="inputfde" value="@Model.Item4.Sum(i => i.totalprice)"></div>
+                                                        <div><input type="text" placeholder="This is the price" class="inputfde" value=""></div>
                                                     </div>
                                                 </div>
                                                 <div class="col">

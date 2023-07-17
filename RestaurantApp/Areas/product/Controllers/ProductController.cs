@@ -38,7 +38,6 @@ namespace RestaurantApp.Areas.product.Controllers
         [HttpGet]
         public IActionResult AllProducts() //rendering the list of users in UI
         {
-            //  List<ProductInfo> model = new List<ProductInfo>();
             ProductInfoEditVm promodel = new ProductInfoEditVm();
             ProductAddVm addVm= new ProductAddVm();
             promodel.productadd = new ProductAddVm();
@@ -134,7 +133,7 @@ namespace RestaurantApp.Areas.product.Controllers
             {
                 string serializedData = JsonConvert.SerializeObject(product);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Product/EditProduct", stringContent).Result;
+                HttpResponseMessage response = _client.PutAsync(_client.BaseAddress + "/Product/EditProduct", stringContent).Result;
 
             }
             catch (HttpRequestException ex)
@@ -150,12 +149,12 @@ namespace RestaurantApp.Areas.product.Controllers
             TempData["success"] = "Product Edited Scuccesfully";
             return RedirectToAction("AllProducts");
         }
-
+      
         public IActionResult DeleteProductById(int id)
         {
             try
             {
-                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Product/DeleteProductById/" + id).Result;
+                HttpResponseMessage response = _client.DeleteAsync(_client.BaseAddress + "/Product/DeleteProductById/" + id).Result;
             }
             catch (HttpRequestException ex)
             {
@@ -167,6 +166,7 @@ namespace RestaurantApp.Areas.product.Controllers
                 ViewData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
+            TempData["success"] = "Product Deleted Scuccesfully";
             return RedirectToAction("AllProducts");
         }
 
