@@ -12,5 +12,6 @@ namespace ViewModels.Models
         public long Totalprice { get; set; }
         public int tableno { get; set; }
         public DateTime ordertime { get; set; }
+        public int discountValue { get; set; }
     }
 }

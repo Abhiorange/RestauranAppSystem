@@ -92,17 +92,20 @@ namespace RestaurantApp.Areas.orders.Controllers
 
             // Set headers
             worksheet.Cells[1, 1].Value = "Order ID";
-            worksheet.Cells[1, 2].Value = "Total Price";
-            worksheet.Cells[1, 3].Value = "Table No";
-            worksheet.Cells[1, 4].Value = "Order Time";
+            worksheet.Cells[1, 2].Value = "Table No";
+            worksheet.Cells[1, 3].Value = "Order Time";
+            worksheet.Cells[1, 4].Value = "Discount";
+            worksheet.Cells[1, 5].Value = "Total Price";
 
             // Populate data
             for (int i = 0; i < model.Count; i++)
             {
                 worksheet.Cells[i + 2, 1].Value = model[i].orderid;
-                worksheet.Cells[i + 2, 2].Value = model[i].Totalprice;
-                worksheet.Cells[i + 2, 3].Value = model[i].tableno;
-                worksheet.Cells[i + 2, 4].Value = model[i].ordertime.ToString("dd-MM-yyyy HH:mm:ss");
+                worksheet.Cells[i + 2, 2].Value = model[i].tableno;
+                worksheet.Cells[i + 2, 3].Value = model[i].ordertime.ToString("dd-MM-yyyy HH:mm:ss");
+                worksheet.Cells[i + 2, 4].Value = model[i].discountValue;
+                worksheet.Cells[i + 2, 5].Value = model[i].Totalprice;
+
             }
 
             // Set the content type and file name

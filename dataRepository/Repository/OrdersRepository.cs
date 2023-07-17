@@ -29,6 +29,7 @@ namespace dataRepository.Repository
                         orderid = Convert.ToInt32(rdr["OrderId"]),
                         Totalprice = Convert.ToInt64(rdr["TotalPrice"]),
                         tableno = Convert.ToInt32(rdr["TableNumber"]),
+                        discountValue = rdr["discountvalue"] != DBNull.Value ? Convert.ToInt32(rdr["discountvalue"]) : 0,
                         ordertime = Convert.ToDateTime(rdr["createdDate"]),
                         //ordertime = rdr["FormattedDate"].ToString(),
                     };
