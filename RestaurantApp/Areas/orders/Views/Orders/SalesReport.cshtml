@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+@model List<ViewModels.Models.OrdersVm>
+
+
+<body>
+    <div>
+        @if (TempData["success"] != null)
+        {
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.success('@TempData["success"]');
+            </script>
+        }
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+
+            <div class="d-flex mt-5 mb-3 justify-content-end">
+                <button type="button" class="btn btn-danger" style="height:50px;">
+                    @*<a class="text-decoration-none text-white" asp-action="ProductForm" asp-controller="Product"> Export In Sheet</a>*@
+                    <a class="text-decoration-none text-white" href="@Url.Action("ExportToExcel")">Export to Excel</a>
+                </button>
+            </div>
+
+
+            <table class=" table my-2 table-bordered" id="usertable">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Table Number </th>
+                        <th scope="col">Order Time</th>
+                       
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    @foreach (var u in Model)
+                    {
+                        <tr>
+                            <td>@u.orderid</td>
+                            <td>@u.Totalprice</td>
+                            <td>@u.tableno</td>
+                            <td>@u.ordertime</td>
+                         
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#usertable').DataTable({
+
+            });
+        });
+    </script>
+</body>  

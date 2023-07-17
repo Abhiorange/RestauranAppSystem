@@ -25,106 +25,112 @@
             font-weight: 500;
         }
 
-        .mcenter{
+        .mcenter {
             vertical-align: middle;
         }
 
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="container col-12 px-0" style="background-color: white;  height: fit-content;box-shadow: 4px 5px 5px #6c757d;position:relative;margin-top:50px">
-        <div class="page-top" style="position:relative">
+    <div class="container">
+        <div class="container col-12 px-0" style="background-color: white;  height: fit-content;box-shadow: 4px 5px 5px #6c757d;position:relative;margin-top:50px">
+            <div class="page-top" style="position:relative">
 
-            <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
-            <div class="lockIcon mt-4">
-                <img id="mainicon" src="~/images/for order.gif" style="height: 60px;z-index: 1;" alt="">
+                <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
+                <div class="lockIcon mt-4">
+                    <img id="mainicon" src="~/images/for order.gif" style="height: 60px;z-index: 1;" alt="">
+                </div>
+
+
+
+            </div>
+            <div class="container mb-4" style="display:flex;justify-content:center">
+            </div>
+            <div style="display:flex; justify-content:center ;z-index:2">
             </div>
 
-
-        </div>
-        <div class="container mb-4" style="display:flex;justify-content:center">
-        </div>
-        <div style="display:flex; justify-content:center ;z-index:2">
-        </div>
-
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item mb-2">
-                @foreach (var o in Model.Item1)
-                {
-                    <h2 type="button" class="accordion-header mb-2 " id="flush-headingOne" style="border:solid grey 1px;" onclick="productsbyid(@o.orderid)">
-                        <button class="accordion-button collapsed btn" type="button" style="background-color: #ff8585" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-@o.orderid" aria-expanded="false" aria-controls="flush-collapseOne">
-                            <div class="d-flex justify-content-around" style="width:100%">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item mb-2">
+                    <div style="text-align: end;">
+                        <button type="button" class="btn btn-danger" style="height: 40px;background-color: #ffe599;margin-right:10px;margin-bottom:5px;border-color: #212529">
+                            <a class="text-decoration-none" style="color:black;font-weight: 500;" asp-action="SalesReport" asp-controller="Orders">Sales Report</a>
+                        </button>
+                    </div>
+                    @foreach (var o in Model.Item1)
+                    {
+                        <h2 type="button" class="accordion-header mb-2 " id="flush-headingOne" style="border:solid grey 1px;" onclick="productsbyid(@o.orderid)">
+                            <button class="accordion-button collapsed btn" type="button" style="background-color: #ff8585" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-@o.orderid" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <div class="d-flex justify-content-around" style="width:100%">
 
                                     <div class="top-line">Order ID :<span>@o.orderid</span> </div>    <div class="top-line">Table No. :<span>@o.tableno</span> </div>     <div class="top-line">Ordered Time :<span>@o.ordertime</span> </div>  <div class="top-line">Total Price :<span>@o.Totalprice</span> </div>
-                            </div>
-
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne-@o.orderid" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="background-color:#ffe599">
-                        <div class="accordion-body p-0">
-                            <div class="d-flex justify-content-between">
-
-                                <div style="left:0px">
-                                    <img src="~/images/cut-the-rope-feedme.gif" style="mix-blend-mode: multiply;width:65px" />
                                 </div>
-                                <div style="right:0px">
-                                    <img src="~/images/running-om-nom.gif" style="mix-blend-mode: multiply;width: 55px;top: 10px;position: relative;" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center" style="width:100% ; max-height: 160px;overflow-y: auto;">
 
-                                <table class="table" style="border:0px ; ">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ProductImg</th>
-                                            <th scope="col">Product Name</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Unit Price</th>
-                                            <th scope="col">Total Price</th>
-                                        </tr>
-                                    </thead>
-                                        <tbody id="tableBody">
-                                        @foreach (var data in Model.Item2)
-                                        {
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne-@o.orderid" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="background-color:#ffe599">
+                            <div class="accordion-body p-0">
+                                <div class="d-flex justify-content-between">
+
+                                    <div style="left:0px">
+                                        <img src="~/images/cut-the-rope-feedme.gif" style="mix-blend-mode: multiply;width:65px" />
+                                    </div>
+                                    <div style="right:0px">
+                                        <img src="~/images/running-om-nom.gif" style="mix-blend-mode: multiply;width: 55px;top: 10px;position: relative;" />
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center" style="width:100% ; max-height: 160px;overflow-y: auto;">
+
+                                    <table class="table" style="border:0px ; ">
+                                        <thead>
                                             <tr>
+                                                <th scope="col">ProductImg</th>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Unit Price</th>
+                                                <th scope="col">Total Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableBody">
+                                            @foreach (var data in Model.Item2)
+                                            {
+                                                <tr>
                                                     @if (!string.IsNullOrEmpty(data.image))
-                                                {
-                                                <td>
-                                                    <img src="@data.image" alt="imageof product"style="width:80px;">
-                                                </td>
-                                                }
-                                                else
-                                                {   
-                                                <td>
+                                                    {
+                                                        <td>
+                                                            <img src="@data.image" alt="imageof product" style="width:80px;">
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
                                                             <img src="~/images/puff.jpg" style="width:80px;">
-                                                </td> 
-                                                }
-                                                <td class="mcenter">@data.productname</td>
+                                                        </td>
+                                                    }
+                                                    <td class="mcenter">@data.productname</td>
                                                     <td class="mcenter">@data.units</td>
                                                     <td class="mcenter">@data.unitprice</td>
                                                     <td class="mcenter">@data.totalprice</td>
-                                            </tr>
-                                        }
+                                                </tr>
+                                            }
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+
+                                </div>
 
                             </div>
-
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+            </div>
+            <div style="height:90px ; margin-top:70px; position:relative">
+                <div id="popcorn" style="position:absolute;bottom:0px">
+                    <img src="~/images/popcornGif.gif" style="width:100px" />
+                </div>
             </div>
         </div>
-        <div style="height:90px ; margin-top:70px; position:relative">
-            <div id="popcorn" style="position:absolute;bottom:0px">
-                <img src="~/images/popcornGif.gif" style="width:100px" />
-            </div>
-        </div>
-    </div>
 
-</div>
+    </div>
     <script src="~/js/orders.js"></script>
     <script src="~/js/animation_fororder.js"></script>
 </body>

@@ -14,5 +14,9 @@ namespace dataRepository.Interface
 
         public int adddiscount(DiscountVm model);
 
+        public List<AllDiscount> AllDiscountList();
+        public int DeleteDiscountById(int id);
+
+
     }
 }

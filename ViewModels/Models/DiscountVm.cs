@@ -12,6 +12,7 @@ namespace ViewModels.Models
         public List<SelectListItem>? discount { get; set; }
         public int value { get; set; }
         public int discounttypeid {get; set; }
+        public List<AllDiscount>? allDIscount;
 
     }
 }

@@ -53,6 +53,47 @@ namespace dataRepository.Repository
             }
         }
 
-       
+        public List<AllDiscount> AllDiscountList()
+        {
+            List<AllDiscount> model = new List<AllDiscount>();
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("AllDiscountList", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    AllDiscount allDiscount = new AllDiscount
+                    {
+                        discountType = rdr["discountType"].ToString(),
+                        value = Convert.ToInt32(rdr["value"]),
+                        discountid = Convert.ToInt32(rdr["discountid"]),
+                    };
+
+                    model.Add(allDiscount);
+                }
+                con.Close();
+            }
+            return model;
+        }
+
+        public int DeleteDiscountById(int id)
+        {
+            using (SqlConnection con = new SqlConnection(connections))
+            {
+                SqlCommand cmd = new SqlCommand("DeleteDiscountById", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", id);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+                return i;
+            }
+        }
+
+        public int deleteDiscountById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
     }

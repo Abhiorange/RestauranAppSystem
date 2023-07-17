@@ -32,11 +32,33 @@ namespace RestaurantWebApi.Areas.discount.Controllers
             if (i >= -1)
             {
                 return Ok();
-        }
+            }
             else
             {
                 return BadRequest("Not Updated");
-    }
-}
+            }
+        }
+
+        public IActionResult AllDiscountList()
+        {
+            var users = _discountrepo.AllDiscountList();
+            return Ok(users);
+        }
+
+
+        [HttpGet("{id}")]
+        public IActionResult DeleteDiscountById(int id)
+        {
+            var i = _discountrepo.DeleteDiscountById(id);
+            if (i > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Not Updated");
+            }
+        }
+
     }
 }

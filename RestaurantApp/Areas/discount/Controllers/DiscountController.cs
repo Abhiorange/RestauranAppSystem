@@ -67,7 +67,47 @@ namespace RestaurantApp.Areas.discount.Controllers
                 return View("Index");
             }
             TempData["success"] = "Logged in done succesfully";
-            return RedirectToAction("Discount");
+            return RedirectToAction("AllDiscount");
+        }
+
+
+        [HttpGet]
+        public IActionResult AllDiscount() //rendering the list of users in UI
+        {
+            //  List<ProductInfo> model = new List<ProductInfo>();
+            DiscountVm model = new DiscountVm();
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Discounts/AllDiscountList").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var userJson = response.Content.ReadAsStringAsync().Result;
+                model.allDIscount = JsonConvert.DeserializeObject<List<AllDiscount>>(userJson);
+            }
+
+            return View(model);
+            //return View(promodel);
+
+        }
+
+        public IActionResult DeleteDiscountById(int id)
+        {
+            try
+            {
+
+                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Discounts/DeleteDiscountById/" + id).Result;
+
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("AllRoles");
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("AllRoles");
+            }
+            TempData["success"] = "Logged in done succesfully";
+            return RedirectToAction("AllDiscount");
         }
     }
 }

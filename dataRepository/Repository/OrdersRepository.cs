@@ -29,7 +29,7 @@ namespace dataRepository.Repository
                         orderid = Convert.ToInt32(rdr["OrderId"]),
                         Totalprice = Convert.ToInt64(rdr["TotalPrice"]),
                         tableno = Convert.ToInt32(rdr["TableNumber"]),
-                        ordertime = Convert.ToDateTime(rdr["FormattedDate"]),
+                        ordertime = Convert.ToDateTime(rdr["createdDate"]),
                         //ordertime = rdr["FormattedDate"].ToString(),
                     };
 

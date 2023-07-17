@@ -1,0 +1,225 @@
+﻿@model ViewModels.Models.DiscountVm
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+
+<style>
+    #producttable_filter {
+        margin-bottom: 15px;
+    }
+</style>
+
+<body>
+    <div>
+        @if (TempData["success"] != null)
+        {
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.success('@TempData["success"]');
+            </script>
+        }
+    </div>
+    <!-- Button trigger modal -->
+    <!-- Modal for add-->
+   @* <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mb-4" style="display:flex;justify-content:center">
+
+                        <form method="post" class="mt-5" asp-action="RoleRegister" asp-controller="Role">
+                            <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">
+                                    <p class="formInput">Name <span style="color: red;">*</span></p>
+                                </label>
+                                <input type="text" class="form-control data" id="q"
+                                       aria-describedby="" placeholder="evan dono hue" asp-for="name" />
+
+                                <span class="text-danger" asp-validation-for="name"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">
+                                    <p class="formInput">Description <span style="color: red;">*</span></p>
+                                </label>
+                                <input type="text" class="form-control data" id="w"
+                                       aria-describedby="" placeholder="Enter Description" asp-for="description" />
+                                <span class="text-danger" asp-validation-for="description"></span>
+                            </div>
+
+
+                            <button type="submit" class="btn"
+                                    style="background-color: #dc291e;color: white;border-radius: 7px;">
+                                Register
+                            </button>
+
+
+                            <hr>
+
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    @*modal for edit*@
+
+   @* <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal Edit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mb-4" style="display:flex;justify-content:center">
+
+                        <form method="post" class="mt-5" asp-action="RoleEdit" asp-controller="Role">
+                            <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">
+                                    <p class="formInput">Name <span style="color: red;">*</span></p>
+                                </label>
+                                <input type="text" class="form-control data" id="role-name"
+                                       aria-describedby="" placeholder="evan dono hue" asp-for="rolebyid.name" />
+
+                                <span class="text-danger" asp-validation-for="name"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">
+                                    <p class="formInput">Description <span style="color: red;">*</span></p>
+                                </label>
+                                <input type="text" class="form-control data" id="role-description"
+                                       aria-describedby="" placeholder="Enter Description" asp-for="rolebyid.description" />
+                                <span class="text-danger" asp-validation-for="description"></span>
+                            </div>
+
+                            <input hidden id="role-id" asp-for="rolebyid.roleId"></input>
+                            <button type="submit" class="btn"
+                                    style="background-color: #dc291e;color: white;border-radius: 7px;">
+                                Register
+                            </button>
+
+
+                            <hr>
+
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+    @* <div class="d-flex mt-5 mb-3 justify-content-end">
+    <button type="button" class="btn btn-danger" style="height:50px;">
+    <a class="text-decoration-none text-white" asp-action="ProductForm" asp-controller="Product">Add Product</a>
+    </button>
+    </div>*@
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="d-flex mt-5 mb-3 justify-content-end">
+                <a asp-action="Discount" asp-controller="Discount" type="button" class="btn btn-primary" >
+                    Add Discount
+
+                </a>
+            </div>
+            <table class=" table my-2 table-bordered table-striped table-responsive" id="producttable" style="box-shadow: 4px 5px 5px #6c757d;">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Discount Type</th>
+                        <th scope="col">Value</th>
+                        <th>Delete Discount</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    @foreach (var u in Model.allDIscount)
+                    {
+                        <tr>
+                            <td>@u.discountType</td>
+                            <td>@u.value</td>
+                            <td class="d-flex">
+                               
+
+                                <button class="btn border-0">
+                                    <a asp-action="DeleteDiscountById" asp-controller="Discount" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.discountid"><i class="bi bi-trash3"></i></a>
+                                </button>
+                            </td>
+
+
+                            @*  <td class="d-flex">
+                        <button class="btn border-0">
+                        <a asp-action="GetProductById" asp-controller="Product" type="button" class="text-warning" onclick="Editform(@u.productID)" asp-route-id="@u.productID">
+                        <i class="bi bi-pencil-square icon"></i>
+                        </a>
+                        </button>
+                        <button class="btn border-0">
+                        <a asp-action="DeleteProductById" asp-controller="Product" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.productID"><i class="bi bi-trash3"></i></a>
+                        </button>
+                        </td>*@
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+  @*  <script>
+        $(document).ready(function () {
+            $('#producttable').DataTable({
+
+            });
+        });
+
+
+        function modal1(roleid) {
+            console.log(roleid)
+            $.ajax({
+                url: '/role/Role/GetRoleById', // Replace with the correct URL of your controller method
+                type: 'GET',
+                data: { 'id': roleid },
+                success: function (response) {
+                    console.log(response)
+                    // Populate the modal with the retrieved data
+                    //  $('#exampleModal1 .modal-body').html(response);
+
+                    // Open the modal
+                    $('#exampleModal1').modal('show');
+                    $('#role-name').val(response.name)
+                    $('#role-description').val(response.description)
+                    $('#role-id').val(response.roleId)
+                },
+                error: function (xhr, status, error) {
+                    // Handle any errors if necessary
+                    console.log(error);
+                }
+            });
+        }
+
+    </script>*@
+</body>  
