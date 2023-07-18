@@ -103,6 +103,7 @@ namespace dataRepository.Repository
                         categoryid= Convert.ToInt32(rdr["categoryId"]),
                         isactive = Convert.ToInt32(rdr["isActive"]),
                         productid = Convert.ToInt32(rdr["id"]),
+                        imageSrc = rdr["images"].ToString(),
                     };
 
                 }

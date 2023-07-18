@@ -58,6 +58,7 @@ namespace RestaurantWebApi.Areas.product.Controllers
                 product.categoryid=model.categoryid;
                 product.Categories = categories;
                 product.productid = id;
+                product.imageSrc = model.imageSrc;
                 return Ok(product);
             }
             catch (Exception ex)

@@ -162,13 +162,14 @@ namespace RestaurantWebApi.Areas.admin.Controllers
             {
                 UserEditVm user = new UserEditVm();
                 var model = _companyrepo.GetUserById(id);
-                var companies = _companyrepo.GetRoleList();
+                var roles = _companyrepo.GetRoleList();
                 user.name = model.name;
                 user.email = model.email;
-                user.companyId = model.companyId;
+                user.roleId = model.roleId;
+                //user.companyId = model.companyId;
                 user.contact = model.contact;
                 user.password = model.password;
-                user.Companies = companies;
+                user.Roles = roles;
                 user.UserId = id;
                 user.isactive = model.isactive;
                 return Ok(user);

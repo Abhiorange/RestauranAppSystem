@@ -74,6 +74,7 @@ namespace dataRepository.Repository
                         stocks = rdr["stocks"] != DBNull.Value ? Convert.ToInt64(rdr["stocks"]) : 0,
                          isActive = Convert.ToInt32(rdr["isActive"]),
                          Id= Convert.ToInt32(rdr["id"]),
+                         imagesrc = rdr["images"].ToString(),
 
                     };
 

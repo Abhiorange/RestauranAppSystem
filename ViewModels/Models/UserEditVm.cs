@@ -19,13 +19,17 @@ namespace ViewModels.Models
         [Required(ErrorMessage = "Contact is required")]
        
         public string contact { get; set; }
-        [Required(ErrorMessage = "CompanyId is required")]
+        //[Required(ErrorMessage = "CompanyId is required")]
         
-        public List<SelectListItem> Companies { get; set; }
+        //public List<SelectListItem> Companies { get; set; }
+        [Required(ErrorMessage = "Role is required")]
+
+        public List<SelectListItem> Roles { get; set; }
         [Required(ErrorMessage = "Password is required")]
         public int UserId { get; set; }
         public string password { get; set; }
-        public int companyId { get; set; }
+        //public int companyId { get; set; }
+        public int roleId { get; set; }
         public int isactive { get; set; }
     }
 }

@@ -277,7 +277,8 @@ namespace dataRepository.Repository
                         contact = rdr["contact"].ToString(),
                         password = rdr["password"].ToString(),
                         email = rdr["email"].ToString(),
-                        companyId = Convert.ToInt32(rdr["companyId"]),
+                        //companyId = Convert.ToInt32(rdr["companyId"]),
+                        roleId = Convert.ToInt32(rdr["roleId"]),
                         isactive = Convert.ToInt32(rdr["isActive"])
                         
                     };
@@ -319,7 +320,8 @@ namespace dataRepository.Repository
                 cmd.Parameters.AddWithValue("@name", model.name);
                 cmd.Parameters.AddWithValue("@contact", model.contact);
                 cmd.Parameters.AddWithValue("@email", model.email);
-                cmd.Parameters.AddWithValue("@companyId", model.companyId);
+                //cmd.Parameters.AddWithValue("@companyId", model.companyId);
+                cmd.Parameters.AddWithValue("@roleId", model.roleId);
                 cmd.Parameters.AddWithValue("@password", model.password);
                 cmd.Parameters.AddWithValue("@isactive", model.isactive);
                 con.Open();

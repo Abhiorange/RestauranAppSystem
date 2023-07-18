@@ -322,7 +322,8 @@ namespace RestaurantApp.Areas.admin.Controllers
                 UserId = model.UserId,
                 name = model.name,
                 password = model.password,
-                companyId = model.companyId,
+                roleId = model.roleId,
+                //companyId = model.companyId,
                 email = model.email,
                 contact = model.contact,
                 isactive=model.isactive
