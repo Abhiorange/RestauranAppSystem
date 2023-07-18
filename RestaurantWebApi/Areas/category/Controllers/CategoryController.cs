@@ -50,7 +50,7 @@ namespace RestaurantWebApi.Areas.category.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-        [HttpPost]
+        [HttpPut]
         public IActionResult EditCategory(CategoryEditVmApi model)
         {
             var i = _categoryrepo.EditCategory(model);
@@ -63,7 +63,7 @@ namespace RestaurantWebApi.Areas.category.Controllers
                 return BadRequest("Not Updated");
             }
         }
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCategoryById(int id)
         {
             var i = _categoryrepo.deleteCategoryById(id);

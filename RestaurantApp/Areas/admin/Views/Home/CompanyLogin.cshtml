@@ -14,34 +14,25 @@
         </script>
     }
 </div>
-<div>
-    @if (TempData["error"] != null)
-    {
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        <script type="text/javascript">
-            toastr.success('@TempData["error"]');
-        </script>
-    }
-</div>
-<div class="col-7 px-0" style="background-color: white;  height: fit-content;box-shadow: 4px 5px 5px #6c757d;position:relative;margin-top:50px">
+
+<div class="col-7 px-0 div_header">
     <div class="page-top" style="position:relative">
         
-        <img src="~/images/bgtheme.jpg" style="object-fit: cover;position: absolute;height: 100%;width: 100%;z-index: 0;filter: opacity(0.4);" />
+        <img src="~/images/bgtheme.jpg" class="img_back"/>
         <div class="lockIcon mt-4">
-            <img id="mainicon" src="~/images/fries.png" style="height: 60px;z-index: 1;" alt="">
+            <img id="mainicon" src="~/images/fries.png">
         </div>
 
         <p class="mt-2" style="z-index:1"> User Login Page</p>
     </div>
-    <div class="container mb-4" style="display:flex;justify-content:center">
+    <div class="container mb-4 d-flex justify-content-center">
         @if (TempData["error"] != null)
         {
             <span class="text-danger">@TempData["error"]</span>
         }
 
        <form class="mt-5 formm" id="formm" asp-action="Login" asp-controller="home">
-                 <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+            <div class="milkdiv"> <img id="milkimoji" src="~/images/milk-cookie.gif" /></div>
 
             @if (TempData["ErrorMessage"] != null)
                 {

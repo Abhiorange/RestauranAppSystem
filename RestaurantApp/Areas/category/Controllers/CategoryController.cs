@@ -107,7 +107,7 @@ namespace RestaurantApp.Areas.category.Controllers
 
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Category/EditCategory", stringContent).Result;
+                HttpResponseMessage response = _client.PutAsync(_client.BaseAddress + "/Category/EditCategory", stringContent).Result;
 
             }
             catch (HttpRequestException ex)
@@ -127,7 +127,7 @@ namespace RestaurantApp.Areas.category.Controllers
         {
             try
             {
-                HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/Category/DeleteCategoryById/" + id).Result;
+                HttpResponseMessage response = _client.DeleteAsync(_client.BaseAddress + "/Category/DeleteCategoryById/" + id).Result;
             }
             catch (HttpRequestException ex)
             {

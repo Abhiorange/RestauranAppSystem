@@ -38,33 +38,28 @@
 <body>
     <div class="container mt-4">
         <div class="row">
-
             <div class="col-md-8 mb-4">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active text-secondary" id="nav-home-tab" data-bs-toggle="tab"
+                        <button class="nav-link active text-secondary up_tabs" id="nav-home-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                                aria-selected="true" style="font-size: 14px;
-                height: 40px;">
+                                aria-selected="true">
                             <i class="bi bi-bookmark-x-fill"></i> Billing
                         </button>
 
-                        <button class="nav-link text-secondary" id="nav-profile-tab" data-bs-toggle="tab"
+                        <button class="nav-link text-secondary up_tabs" id="nav-profile-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                                aria-selected="false" style="font-size: 14px;
-                    height: 40px;">
+                                aria-selected="false" >
                             <i class="bi bi-aspect-ratio-fill me-2"></i>Rates
                         </button>
-                        <button class="nav-link text-secondary" id="nav-profile-tab" data-bs-toggle="tab"
+                        <button class="nav-link text-secondary up_tabs" id="nav-profile-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                                aria-selected="false" style="font-size: 14px;
-                    height: 40px;">
+                                aria-selected="false" >
                             <i class="bi bi-aspect-ratio-fill me-2"></i>Rates
                         </button>
-                        <button class="nav-link text-secondary" id="nav-profile-tab" data-bs-toggle="tab"
+                        <button class="nav-link text-secondary up_tabs" id="nav-profile-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                                aria-selected="false" style="font-size: 14px;
-                    height: 40px;">
+                                aria-selected="false" >
                             <i class="bi bi-aspect-ratio-fill me-2"></i>Rates
                         </button>
 
@@ -75,9 +70,9 @@
                                 <div class="row responsive">
                                     @foreach (var u in Model.Item1)
                                     {
-                                        <div class="col-lg-4 " style="width:30% !important;" onclick="productnames(@u.id,this)">
+                                        <div class="col-lg-4 cat_div"  onclick="productnames(@u.id,this)">
                                             <div class="card catcard">
-                                                <img class="card-img-top" src="~/images/fries.png" alt="Card image" style="width:100%">
+                                                <img class="card-img-top" src="~/images/fries.png" alt="Card image">
                                                 <span class="text-center fw-bold">@u.categoryname</span>
                                             </div>
                                         </div>
@@ -99,7 +94,7 @@
                             {
                                 <div class="col widcard" onclick="productitem(@m.id)">
                                     <div class="card">
-                                        <img src="@m.image" class="card-img-top mx-auto" alt="..." style="height:162.8px;">
+                                        <img src="@m.image" class="card-img-top mx-auto img_prod" alt="...">
                                         <div class="card-body border-top textdes d-flex justify-content-between">
                                             <h5 class="card-title">@m.productname</h5>
                                             <span class="card-title"><span>&#8377;</span>@m.unitprice</span>
@@ -120,11 +115,11 @@
                             <div class="col-lg-4">
                                 <div class="card colorcard" id="@t.tableid">
                                     @if(t.IsActive==1){
-                                        <span class="fw-bold card-img-top text-center" style="width:100%">@t.tableno</span>
+                                        <span class="fw-bold card-img-top text-center sp_tbl">@t.tableno</span>
                                     }
                                     else
                                     {
-                                        <span class="fw-bold card-img-top text-center rounded-circle designtab">@t.tableno</span>
+                                        <span class="fw-bold card-img-top text-center rounded-circle designtab sp_tbl">@t.tableno</span>
                                     }
                                 </div>
                             </div>
@@ -134,12 +129,11 @@
                 <span class="d-none tablewarn rounded-pill mt-2 px-2 w-100 text-center">Please Select Table No To Place order</span>
 
                 <div class="Bill d-flex justify-content-center">
-                    <img src="~/images/carfood.gif" style="mix-blend-mode: multiply;">
+                    <img src="~/images/carfood.gif">
                 </div>
-                <div class="Bill" style="margin-top: 4%;">
+                <div class="Bill">
                     <h2>No products Added For Bill Generation</h2>
                 </div>
-
                 <div class="hourglassBackground loader d-none">
                     <div class="hourglassContainer">
                         <div class="hourglassCurves"></div>
@@ -164,13 +158,13 @@
                     {
                         @foreach (var v in Model.Item3)
                         {
-                            <div class="card mb-3 border-0" style="max-width: 540px;">
+                            <div class="card mb-3 border-0 card_size">
                                 <span type="button" class="text-danger position-absolute" style="right: 1px;" onclick="delteitem(@v.orderid,@v.productid)">
-                                    <img src="~/images/cross1.png" style="width: 20px;height: 20px;">
+                                    <img src="~/images/cross1.png" class="dlt_img">
                                 </span>
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="@v.image" class="img-fluid rounded-start" alt="..." style="width:180px; height:119.98px;">
+                                        <img src="@v.image" class="img-fluid rounded-start itm_img" alt="..." >
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -207,7 +201,7 @@
                             </div>
                             <div class="modal-body">
                                 <form class="mt-5 formm" id="formm">
-                                    <div style="display:flex;justify-content:center;height: 65px;"> <img id="milk" style="width:65px;height:65px;display:none" src="~/images/milk-cookie.gif" /></div>
+                                    <div class="milkdiv"> <img id="milk" src="~/images/milk-cookie.gif" /></div>
 
                                     <div class="mb-3">
                                         <label for="categoryName" class="form-label">
@@ -248,7 +242,7 @@
                                     </div>
 
                                     <div class="mb-3" style="display:flex;justify-content:center">
-                                        <button data-bs-dismiss="mo" type="submit" class="btn submit" style="background-color: red;color: white;border-radius: 7px;">
+                                        <button data-bs-dismiss="mo" type="submit" class="btn submit btn_submt">
                                             Add
                                         </button>
                                     </div>
@@ -276,8 +270,8 @@
                
 
                 <div class="tableClass mt-2 d-none" id="tableId">
-                    <div style="height:200px;overflow-y:scroll">
-                    <table class="table table-borderless" style="background: whitesmoke;border-radius: 12px;">
+                    <div class="tbl_div">
+                    <table class="table table-borderless">
                         <thead>
                             <tr>
                                 <th scope="col">Items Name</th>
@@ -304,7 +298,7 @@
                                     {
                                         <tr class="total-row ">
                                             <td colspan="2" class="fw-bold">Total</td>
-                                            <td class="fw-bold">@Model.Item4.itemsinfo.Sum(i => i.totalprice)</td>
+                                                <td class="fw-bold totalsum">@Model.Item4.itemsinfo.Sum(i => i.totalprice)</td>
                                         </tr>
                                     }
                                     else

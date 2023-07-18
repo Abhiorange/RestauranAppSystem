@@ -11,4 +11,10 @@
         </script>
     }
 </div>
+<div>
+    @if (TempData["ErrorMessage"] != null)
+        {
+            <span class="text-danger">@TempData["ErrorMessage"]</span>
+        }
+</div>
 <h2 class="text-center mt-4">Welcome To Dashboard</h2>

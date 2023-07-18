@@ -31,7 +31,6 @@ namespace RestaurantApp.Areas.services.Controllers
             List<ProductDetail> model1 = new List<ProductDetail>();
             List<ItemsInfo> item = new List<ItemsInfo>();
             GetBillInfoVm billinfo = new GetBillInfoVm();
-           // List<AllItemsInfo> products = new List<AllItemsInfo>();
             CustomerDetailVm model2 = new CustomerDetailVm();
             List<TableDetailVm> table = new List<TableDetailVm>();
           
@@ -90,16 +89,12 @@ namespace RestaurantApp.Areas.services.Controllers
                     billinfo.discountvalue = Convert.ToInt32(value);
                 }
             }
-           
-
             var tuple = new Tuple<List<CategoryDetail>,List<ProductDetail>,List<ItemsInfo>, GetBillInfoVm, CustomerDetailVm,List<TableDetailVm>>(model,model1,item, billinfo, model2,table);
             return View(tuple);
 
         }
-        public IActionResult PaymentPage()
-        {
-            return View();
-        }
+
+        #region Customer Add
         [HttpPost]
         public IActionResult CustomerAdd([Bind(Prefix = "Item5")] CustomerDetailVm model)
         {
@@ -132,11 +127,12 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
                 return View("Index");
             }
             return RedirectToAction("ServicesPage");
         }
+        #endregion
         [HttpPost]
         public IActionResult AddItems([FromBody] ItemsDetailVm model)
         {
@@ -155,10 +151,9 @@ namespace RestaurantApp.Areas.services.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                    return View("Index");
-                }
-
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
+            }
             item.ordersid = orderId;
             try
             {
@@ -170,13 +165,12 @@ namespace RestaurantApp.Areas.services.Controllers
                 if (response1.IsSuccessStatusCode)
                 {
                     return RedirectToAction("ServicesPage", new { orderid = orderId, tableid = 0 });
-                  //  return RedirectToAction("ServicesPage");
                 }
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
             }
             return RedirectToAction("ServicesPage");
         }
@@ -187,7 +181,7 @@ namespace RestaurantApp.Areas.services.Controllers
             {
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/IncreItems", stringContent).Result;
+                HttpResponseMessage response = _client.PutAsync(_client.BaseAddress + "/Service/IncreItems", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
@@ -195,8 +189,8 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
             }
             return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
@@ -206,7 +200,7 @@ namespace RestaurantApp.Areas.services.Controllers
             {
                 string serializedData = JsonConvert.SerializeObject(model);
                 StringContent stringContent = new StringContent(serializedData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = _client.PostAsync(_client.BaseAddress + "/Service/DecreItems", stringContent).Result;
+                HttpResponseMessage response = _client.PutAsync(_client.BaseAddress + "/Service/DecreItems", stringContent).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
@@ -214,8 +208,8 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
             }
             return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
@@ -234,8 +228,8 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
             }
             return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
@@ -262,8 +256,8 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
             }
             return RedirectToAction("ServicesPage", new { orderid = 0, tableid = 0 });
         }
@@ -288,8 +282,8 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
             }
             return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }
@@ -318,8 +312,8 @@ namespace RestaurantApp.Areas.services.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = "Error: " + ex.Message;
-                return View("Index");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return View("Dashboard", "Home");
             }
             return RedirectToAction("ServicesPage", new { orderid = model.orderid, tableid = 0 });
         }

@@ -67,6 +67,15 @@ $('.responsive').slick({
             }
         },
         {
+            breakpoint: 1429,
+            settings: {
+                slidesToShow: 5,
+                slidesToScroll: 2,
+                infinite: true,
+
+            }
+        },
+        {
             breakpoint: 1340,
             settings: {
                 slidesToShow: 4,
@@ -86,7 +95,6 @@ $('.responsive').slick({
     ]
 });
 function discount() {
-    alert('enter discount');
     var tableId = parseInt($('.colortableactive').attr('id'));
     var data = {
         tableid: tableId
@@ -113,7 +121,8 @@ function discount() {
 }
 function showBill() {
     var tableId = parseInt($('.colortableactive').attr('id'));
-    console.log("tableid bill", tableId);
+   
+ //   $('.discountbtn').removeClass('d-none');
   
     var data = {
         tableid: tableId
@@ -132,7 +141,12 @@ function showBill() {
                 $('.bill_btn').removeClass('d-none');
                 $('.tableClass').removeClass('d-none');
                 $('.tablewarn').addClass('d-none');
-               $('.discountbtn').removeClass('d-none');
+                var totalsum = parseInt($('.totalsum').text());
+                console.log("disocunt", totalsum);
+
+                if (totalsum > 500) {
+                    $('.discountbtn').removeClass('d-none');
+                }
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert('error', errorThrown);

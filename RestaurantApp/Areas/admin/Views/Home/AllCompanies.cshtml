@@ -5,8 +5,7 @@
 
    
 <body>
-<table class=" table my-2 table-bordered" id="companytable">
-                  
+   <table class=" table my-2 table-bordered" id="companytable">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">CompanyName</th>
@@ -14,10 +13,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-
-
                     <tbody>
-
                         @foreach (var u in Model)
                         {
                             <tr>
@@ -32,28 +28,20 @@
                               <td>InActive</td>
                         }
                     }
-                              
-                                
-                               
-                                <td class="d-flex">
-                                    <button class="btn border-0">
-                                           <a asp-action="GetUserById" asp-controller="Home" type="button" class="text-warning"  asp-route-id="@u.companyid">
-                                        <i class="bi bi-pencil-square icon"></i>
-                                        </a> </button>
-                                        <button class="btn border-0">
-                                     <a asp-action="DeleteUserById" asp-controller="Home" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.companyid"><i class="bi bi-trash3"></i></a>
-                                        </button>
-                                </td>
-                            </tr>
+                    <td class="d-flex">
+                        <button class="btn border-0">
+                            <a asp-action="GetUserById" asp-controller="Home" type="button" class="text-warning"  asp-route-id="@u.companyid">
+                            <i class="bi bi-pencil-square icon"></i>
+                            </a> </button>
+                            <button class="btn border-0">
+                            <a asp-action="DeleteUserById" asp-controller="Home" class="nav-link text-black deleteMission p-2" type="button" asp-route-id="@u.companyid"><i class="bi bi-trash3"></i></a>
+                            </button>
+                        </td>
+                    </tr>
                         }
-
-
                     </tbody>
                 </table>
                 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-          
-
-   
        <script>
   $(document).ready(function()
   {

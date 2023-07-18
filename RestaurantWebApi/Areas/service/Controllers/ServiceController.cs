@@ -153,7 +153,7 @@ namespace RestaurantWebApi.Areas.service.Controllers
                 return BadRequest("Wrong credential");
             }
         }
-        [HttpPost]
+        [HttpPut]
         public IActionResult IncreItems(Increunitvm model)
         {
             var i = _servicerepo.IncreItems(model);
@@ -166,7 +166,7 @@ namespace RestaurantWebApi.Areas.service.Controllers
                 return BadRequest("Wrong credential");
             }
         }
-        [HttpPost]
+        [HttpPut]
         public IActionResult DecreItems(Increunitvm model)
         {
             var i = _servicerepo.DecreItems(model);

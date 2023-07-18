@@ -244,6 +244,35 @@ ul {
         color: rgb(0, 0, 0);
     }
 
+#milkimoji {
+    width: 65px;
+    height: 65px;
+    display: none;
+}
+.milkdiv {
+    display: flex;
+    justify-content: center;
+    height: 65px;
+}
+.div_header {
+    background-color: white;
+    height: fit-content;
+    box-shadow: 4px 5px 5px #6c757d;
+    position: relative;
+    margin-top: 50px;
+}
+.img_back {
+    object-fit: cover;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    filter: opacity(0.4);
+}
+#mainicon {
+    height: 60px;
+    z-index: 1;
+}
 
 .sidebar2 {
     height: 100%;

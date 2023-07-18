@@ -6,7 +6,65 @@
    background-color: rgb(71, 60, 60);
     margin: 30px auto;
 }
-
+.up_tabs {
+    font-size: 14px;
+    height: 40px;
+}
+#milk {
+    width: 65px;
+    height: 65px;
+    display: none;
+}
+.milkdiv {
+    display: flex;
+    justify-content: center;
+    height: 65px;
+}
+.btn_submt {
+    background-color: red;
+    color: white;
+    border-radius: 7px;
+}
+/*.cat_div {
+    width: 30% !important;
+}*/
+.card-img-top {
+    width: 100%
+}
+.img_prod {
+    height: 162.8px;
+}
+.dlt_img {
+    width: 20px;
+    height: 20px;
+}
+.itm_img {
+    width: 180px;
+    height: 119.98px;
+}
+.sp_tbl {
+    width: 100%;
+}
+.card_size {
+    max-width: 540px;
+}
+.tbl_div {
+    height: 200px;
+    overflow-y: scroll;
+}
+    .tbl_div table {
+        background: whitesmoke;
+        border-radius: 12px;
+    }
+/*.foodimoji {
+    mix-blend-mode: multiply;
+}*/
+.Bill h2 {
+    margin-top: 4%;
+}
+.Bill img {
+    mix-blend-mode: multiply;
+}
 .hourglassContainer {
     position: absolute;
     top: 30px;
@@ -669,12 +727,11 @@
 
 @media only screen and (max-width:1430px) {
     .table-row .slick-slider {
-        width: 482px !important;
+        width: 348px !important;
     }
-
     .table-row .slick-initialized .slick-slide {
         display: block;
-        width: 49px !important;
+        width: 50px !important;
     }
 }
 
@@ -729,13 +786,18 @@
         width: 205px !important;
     }
 }
+@media only screen and (max-width:770px) {
+    .table-row .slick-slider {
+        width: 186px !important;
+    }
+}
 @media only screen and (max-width:768px) {
     .table-row .slick-initialized .slick-slide {
         display: block;
         width: 50px !important;
     }
     .table-row .slick-slider {
-        width: 557px !important;
+        width: 186px !important;
     }
     .img-fluid{
         width:100%;
