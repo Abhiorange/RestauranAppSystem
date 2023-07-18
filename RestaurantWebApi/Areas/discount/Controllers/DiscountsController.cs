@@ -38,7 +38,7 @@ namespace RestaurantWebApi.Areas.discount.Controllers
                 return BadRequest("Not Updated");
             }
         }
-
+        [HttpGet]
         public IActionResult AllDiscountList()
         {
             var users = _discountrepo.AllDiscountList();
